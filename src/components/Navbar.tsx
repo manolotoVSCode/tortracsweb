@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
-import tortracsLogo from '@/assets/tortracs-logo-real.png';
+import tortracsLogo from '@/assets/tortracs-logo-text-only.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +30,7 @@ const Navbar = () => {
               <img 
                 src={tortracsLogo} 
                 alt="TORTRACS Logo" 
-                className="w-auto h-16 md:h-20"
+                className="w-auto h-12 md:h-16"
               />
             </div>
           </div>
