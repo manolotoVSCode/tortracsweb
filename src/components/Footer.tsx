@@ -1,6 +1,6 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { Linkedin } from 'lucide-react';
-import tortracsLogo from '@/assets/tortracs-logo-official.png';
+import tortracsLogo from '@/assets/tortracs-logo-real.png';
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -15,7 +15,7 @@ const Footer = () => {
               <img 
                 src={tortracsLogo} 
                 alt="TORTRACS Logo" 
-                className="w-auto h-10 brightness-0 invert"
+                className="w-auto h-12 brightness-0 invert"
               />
             </div>
             <p className="text-white/80 font-body">
