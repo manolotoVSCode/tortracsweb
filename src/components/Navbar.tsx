@@ -26,12 +26,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20 md:h-24 py-2">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="flex items-center space-x-2">
-              <img 
-                src={tortracsLogo} 
-                alt="TORTRACS Logo" 
-                className="w-auto h-16 md:h-20"
-              />
+            <div className="flex items-center">
+              <h1 className="text-3xl md:text-4xl font-heading font-bold">
+                <span className="text-primary">TORT</span>
+                <span className="text-secondary">RACS</span>
+              </h1>
             </div>
           </div>
 

@@ -71,6 +71,11 @@ const translations = {
     'value.testimonial2.author': '- Carlos Mendoza, Gerente de Operaciones, TechCorp México',
     'value.certifications': 'Certificaciones',
     
+    // Clients Section
+    'clients.title': 'Nuestros Principales Clientes',
+    'clients.subtitle': 'Empresas líderes confían en nuestros servicios de transporte',
+    'clients.trust': 'Más de 1000+ empresas confían en TORTRACS',
+    
     // Contact Section
     'contact.title': 'Contacto',
     'contact.subtitle': 'Cotiza tu envío hoy mismo',
@@ -169,6 +174,11 @@ const translations = {
     'value.testimonial2.content': '"Real-time tracking gives us the peace of mind we need. 100% reliable service."',
     'value.testimonial2.author': '- Carlos Mendoza, Operations Manager, TechCorp México',
     'value.certifications': 'Certifications',
+    
+    // Clients Section
+    'clients.title': 'Our Main Clients',
+    'clients.subtitle': 'Leading companies trust our transportation services',
+    'clients.trust': 'More than 1000+ companies trust TORTRACS',
     
     // Contact Section
     'contact.title': 'Contact',

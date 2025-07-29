@@ -11,12 +11,11 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Logo and Company Name */}
           <div>
-            <div className="flex items-center space-x-2 mb-2">
-              <img 
-                src={tortracsLogo} 
-                alt="TORTRACS Logo" 
-                className="w-auto h-48 brightness-0 invert"
-              />
+            <div className="flex items-center mb-2">
+              <h3 className="text-2xl font-heading font-bold">
+                <span className="text-white">TORT</span>
+                <span className="text-white/80">RACS</span>
+              </h3>
             </div>
             <p className="text-white/80 font-body">
               Soluciones de transporte confiables
