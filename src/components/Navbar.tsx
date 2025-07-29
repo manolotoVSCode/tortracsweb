@@ -17,6 +17,7 @@ const Navbar = () => {
     { key: 'nav.about', href: '#sobre-tortracs' },
     { key: 'nav.services', href: '#servicios' },
     { key: 'nav.value', href: '#oferta-valor' },
+    { key: 'nav.clients', href: '#clientes' },
     { key: 'nav.contact', href: '#contacto' },
   ];
 

@@ -15,11 +15,12 @@ const translations = {
     'nav.about': 'Sobre TORTRACS',
     'nav.services': 'Servicios',
     'nav.value': 'Oferta de Valor',
+    'nav.clients': 'Clientes',
     'nav.contact': 'Contacto',
     
     // Hero Section
-    'hero.title': 'Soluciones de transporte de carga confiables en México y Norteamérica',
-    'hero.subtitle': 'Más de 14 años conectando empresas con servicios de logística seguros, puntuales y especializados',
+    'hero.title': 'Soluciones de transporte de carga confiables en México',
+    'hero.subtitle': 'Más de 10 años conectando empresas con servicios de logística seguros, puntuales y especializados',
     'hero.cta': 'Cotiza ahora',
     
     // About Section
@@ -29,7 +30,7 @@ const translations = {
     'about.mission.title': 'Misión',
     'about.mission.content': 'Brindar soluciones integrales de transporte de carga que superen las expectativas de nuestros clientes, garantizando seguridad, puntualidad y calidad en cada servicio.',
     'about.vision.title': 'Visión',
-    'about.vision.content': 'Ser la empresa de transporte de carga más confiable y reconocida en México y Norteamérica, liderando con innovación y excelencia operativa.',
+    'about.vision.content': 'Ser la empresa de transporte de carga más confiable y reconocida en México, liderando con innovación y excelencia operativa.',
     'about.values.title': 'Valores',
     'about.values.safety': 'Seguridad: Prioritarias en cada operación',
     'about.values.punctuality': 'Puntualidad: Cumplimos nuestros compromisos',
@@ -119,21 +120,22 @@ const translations = {
     'nav.about': 'About TORTRACS',
     'nav.services': 'Services',
     'nav.value': 'Value Proposition',
+    'nav.clients': 'Clients',
     'nav.contact': 'Contact',
     
     // Hero Section
-    'hero.title': 'Reliable freight transportation solutions in Mexico and North America',
-    'hero.subtitle': 'Over 14 years connecting businesses with safe, punctual and specialized logistics services',
+    'hero.title': 'Reliable freight transportation solutions in Mexico',
+    'hero.subtitle': 'Over 10 years connecting businesses with safe, punctual and specialized logistics services',
     'hero.cta': 'Get Quote',
     
     // About Section
     'about.title': 'About TORTRACS',
     'about.history.title': 'Our History',
-    'about.history.content': 'Founded in 2010 and headquartered in Monterrey, Nuevo León, TORTRACS has grown to become a leading freight transportation company in Mexico and North America.',
+    'about.history.content': 'Founded in 2010, TORTRACS has grown to become a leading freight transportation company in Mexico.',
     'about.mission.title': 'Mission',
     'about.mission.content': 'To provide comprehensive freight transportation solutions that exceed our clients\' expectations, ensuring safety, punctuality, and quality in every service.',
     'about.vision.title': 'Vision',
-    'about.vision.content': 'To be the most reliable and recognized freight transportation company in Mexico and North America, leading with innovation and operational excellence.',
+    'about.vision.content': 'To be the most reliable and recognized freight transportation company in Mexico, leading with innovation and operational excellence.',
     'about.values.title': 'Values',
     'about.values.safety': 'Safety: Priority in every operation',
     'about.values.punctuality': 'Punctuality: We keep our commitments',

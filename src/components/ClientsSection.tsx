@@ -10,7 +10,7 @@ const ClientsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-muted">
+    <section id="clientes" className="py-20 bg-muted">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
