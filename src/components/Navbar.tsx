@@ -23,14 +23,14 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20 md:h-24">
+        <div className="flex items-center justify-between h-52 md:h-72">
           {/* Logo */}
           <div className="flex-shrink-0">
             <div className="flex items-center space-x-2">
               <img 
                 src={tortracsLogo} 
                 alt="TORTRACS Logo" 
-                className="w-auto h-12 md:h-16"
+                className="w-auto h-48 md:h-64"
               />
             </div>
           </div>

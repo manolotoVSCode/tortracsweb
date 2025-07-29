@@ -15,7 +15,7 @@ const Footer = () => {
               <img 
                 src={tortracsLogo} 
                 alt="TORTRACS Logo" 
-                className="w-auto h-12 brightness-0 invert"
+                className="w-auto h-48 brightness-0 invert"
               />
             </div>
             <p className="text-white/80 font-body">
