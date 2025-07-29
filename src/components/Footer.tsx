@@ -1,6 +1,6 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { Linkedin } from 'lucide-react';
-import tortracsLogo from '@/assets/tortracs-logo.png';
+import tortracsLogo from '@/assets/tortracs-logo-official.png';
 
 const Footer = () => {
   const { t } = useLanguage();

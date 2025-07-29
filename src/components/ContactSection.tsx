@@ -145,29 +145,40 @@ const ContactSection = () => {
 
           {/* Contact Information */}
           <div className="space-y-8">
+            {/* Corporate Office */}
             <Card className="border-none shadow-lg">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-heading font-bold text-primary mb-6">
-                  {t('contact.info.title')}
+                  {t('contact.info.corporate')}
                 </h3>
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <MapPin className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
                     <p className="text-secondary font-body">
-                      {t('contact.info.address')}
+                      {t('contact.info.corporate.address')}
                     </p>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Phone className="h-6 w-6 text-primary" />
-                    <p className="text-secondary font-body">
-                      {t('contact.info.phone')}
-                    </p>
+                    <div>
+                      <p className="text-secondary font-body">
+                        Comercial: {t('contact.info.commercial.phone')}
+                      </p>
+                      <p className="text-secondary font-body">
+                        RH: {t('contact.info.hr.phone')}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="h-6 w-6 text-primary" />
-                    <p className="text-secondary font-body">
-                      {t('contact.info.email')}
-                    </p>
+                    <div>
+                      <p className="text-secondary font-body">
+                        {t('contact.info.commercial.email')}
+                      </p>
+                      <p className="text-secondary font-body">
+                        {t('contact.info.hr.email')}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Clock className="h-6 w-6 text-primary" />
@@ -185,6 +196,23 @@ const ContactSection = () => {
                     >
                       LinkedIn - TORTRACS
                     </a>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Operations */}
+            <Card className="border-none shadow-lg">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-heading font-bold text-primary mb-6">
+                  {t('contact.info.operations')}
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <MapPin className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                    <p className="text-secondary font-body">
+                      {t('contact.info.operations.address')}
+                    </p>
                   </div>
                 </div>
               </CardContent>

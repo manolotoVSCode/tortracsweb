@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
-import tortracsLogo from '@/assets/tortracs-logo.png';
+import tortracsLogo from '@/assets/tortracs-logo-official.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
