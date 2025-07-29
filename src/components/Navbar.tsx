@@ -30,7 +30,7 @@ const Navbar = () => {
               <img 
                 src={tortracsLogo} 
                 alt="TORTRACS Logo" 
-                className="w-auto h-8"
+                className="w-auto h-12 md:h-14"
               />
             </div>
           </div>
