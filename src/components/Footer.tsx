@@ -1,5 +1,6 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { Linkedin } from 'lucide-react';
+import tortracsLogo from '@/assets/tortracs-logo.png';
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -10,7 +11,13 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Logo and Company Name */}
           <div>
-            <h3 className="text-2xl font-heading font-bold mb-2">TORTRACS</h3>
+            <div className="flex items-center space-x-2 mb-2">
+              <img 
+                src={tortracsLogo} 
+                alt="TORTRACS Logo" 
+                className="w-auto h-8 brightness-0 invert"
+              />
+            </div>
             <p className="text-white/80 font-body">
               Soluciones de transporte confiables
             </p>

@@ -195,14 +195,14 @@ const ContactSection = () => {
               <CardContent className="p-0">
                 <div className="w-full h-64 bg-muted rounded-lg flex items-center justify-center">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3595.1234567890!2d-100.31234567890!3d25.67890123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMonterrey%2C%20Nuevo%20Le%C3%B3n!5e0!3m2!1ses!2smx!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.4985986728623!2d-99.19397062471431!3d19.43226394189033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d201f5b4b0b5a7%3A0x8b0c8b5c6a5e4b5c!2sAlejandro%20Dumas%20145%2C%20Polanco%2C%20Polanco%20IV%20Secc%2C%20Miguel%20Hidalgo%2C%2011550%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1642857490000"
                     width="100%"
                     height="100%"
                     style={{ border: 0, borderRadius: '8px' }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="TORTRACS Monterrey Office"
+                    title="TORTRACS Ciudad de México Office"
                   />
                 </div>
               </CardContent>

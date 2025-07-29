@@ -81,9 +81,9 @@ const translations = {
     'contact.form.message': 'Mensaje',
     'contact.form.submit': 'Enviar cotización',
     'contact.info.title': 'Información de contacto',
-    'contact.info.address': 'Av. Constitución 1000, Col. Centro, Monterrey, N.L. 64000',
-    'contact.info.phone': '+52 (81) 8000-0000',
-    'contact.info.email': 'contacto@tortracs.com',
+    'contact.info.address': 'Alejandro Dumas 145, Polanco, Polanco IV Secc, Miguel Hidalgo, 11550 Ciudad de México, CDMX',
+    'contact.info.phone': '+52 55 6214 4126',
+    'contact.info.email': 'gvtalavera@tortracs.net',
     'contact.info.hours': 'Lunes a Viernes: 8:00 AM - 6:00 PM',
     
     // Footer
@@ -93,7 +93,7 @@ const translations = {
     // Privacy Policy
     'privacy.title': 'Aviso de Privacidad',
     'privacy.updated': 'Actualizado: julio 2025',
-    'privacy.intro': 'TORTRACS, S.A. de C.V., con domicilio en Av. Constitución 1000, Col. Centro, Monterrey, N.L. 64000, es responsable del tratamiento de sus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.',
+    'privacy.intro': 'TORTRACS, S.A. de C.V., con domicilio en Alejandro Dumas 145, Polanco, Polanco IV Secc, Miguel Hidalgo, 11550 Ciudad de México, CDMX, es responsable del tratamiento de sus datos personales conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.',
     'privacy.data.title': 'Datos Personales Recabados',
     'privacy.data.content': 'Nombre completo, correo electrónico, teléfono, empresa, información de contacto y datos necesarios para la prestación de servicios de transporte.',
     'privacy.purpose.title': 'Finalidades del Tratamiento',
@@ -101,7 +101,7 @@ const translations = {
     'privacy.rights.title': 'Derechos ARCO',
     'privacy.rights.content': 'Usted tiene derecho a Acceder, Rectificar, Cancelar u Oponerse al tratamiento de sus datos personales, así como a revocar su consentimiento.',
     'privacy.contact.title': 'Contacto para Privacidad',
-    'privacy.contact.content': 'Para ejercer sus derechos ARCO, contacte a: privacidad@tortracs.com o al teléfono +52 (81) 8000-0000.',
+    'privacy.contact.content': 'Para ejercer sus derechos ARCO, contacte a: administracionrh@tortracs.net o al teléfono +52 55 6802 4701.',
   },
   en: {
     // Navigation
@@ -175,9 +175,9 @@ const translations = {
     'contact.form.message': 'Message',
     'contact.form.submit': 'Send quote',
     'contact.info.title': 'Contact information',
-    'contact.info.address': 'Av. Constitución 1000, Col. Centro, Monterrey, N.L. 64000',
-    'contact.info.phone': '+52 (81) 8000-0000',
-    'contact.info.email': 'contact@tortracs.com',
+    'contact.info.address': 'Alejandro Dumas 145, Polanco, Polanco IV Secc, Miguel Hidalgo, 11550 Ciudad de México, CDMX',
+    'contact.info.phone': '+52 55 6214 4126',
+    'contact.info.email': 'gvtalavera@tortracs.net',
     'contact.info.hours': 'Monday to Friday: 8:00 AM - 6:00 PM',
     
     // Footer
@@ -187,7 +187,7 @@ const translations = {
     // Privacy Policy
     'privacy.title': 'Privacy Policy',
     'privacy.updated': 'Updated: July 2025',
-    'privacy.intro': 'TORTRACS, S.A. de C.V., located at Av. Constitución 1000, Col. Centro, Monterrey, N.L. 64000, is responsible for the processing of your personal data in accordance with the Federal Law on Protection of Personal Data Held by Private Parties.',
+    'privacy.intro': 'TORTRACS, S.A. de C.V., located at Alejandro Dumas 145, Polanco, Polanco IV Secc, Miguel Hidalgo, 11550 Ciudad de México, CDMX, is responsible for the processing of your personal data in accordance with the Federal Law on Protection of Personal Data Held by Private Parties.',
     'privacy.data.title': 'Personal Data Collected',
     'privacy.data.content': 'Full name, email address, phone number, company, contact information and data necessary for the provision of transportation services.',
     'privacy.purpose.title': 'Processing Purposes',
@@ -195,7 +195,7 @@ const translations = {
     'privacy.rights.title': 'ARCO Rights',
     'privacy.rights.content': 'You have the right to Access, Rectify, Cancel or Object to the processing of your personal data, as well as to revoke your consent.',
     'privacy.contact.title': 'Privacy Contact',
-    'privacy.contact.content': 'To exercise your ARCO rights, contact: privacy@tortracs.com or phone +52 (81) 8000-0000.',
+    'privacy.contact.content': 'To exercise your ARCO rights, contact: administracionrh@tortracs.net or phone +52 55 6802 4701.',
   }
 };
 
