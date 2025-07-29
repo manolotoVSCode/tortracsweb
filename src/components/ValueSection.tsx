@@ -1,0 +1,129 @@
+import { Card, CardContent } from '@/components/ui/card';
+import { useLanguage } from '@/hooks/useLanguage';
+import { Truck, MapPin, Award, Shield, Quote } from 'lucide-react';
+
+const ValueSection = () => {
+  const { t } = useLanguage();
+
+  const differentiators = [
+    {
+      icon: Truck,
+      title: t('value.fleet.title'),
+      description: t('value.fleet.description'),
+    },
+    {
+      icon: MapPin,
+      title: t('value.tracking.title'),
+      description: t('value.tracking.description'),
+    },
+    {
+      icon: Award,
+      title: t('value.operators.title'),
+      description: t('value.operators.description'),
+    },
+    {
+      icon: Shield,
+      title: t('value.insurance.title'),
+      description: t('value.insurance.description'),
+    },
+  ];
+
+  const testimonials = [
+    {
+      content: t('value.testimonial1.content'),
+      author: t('value.testimonial1.author'),
+    },
+    {
+      content: t('value.testimonial2.content'),
+      author: t('value.testimonial2.author'),
+    },
+  ];
+
+  return (
+    <section id="oferta-valor" className="py-20 bg-tortracs-light-blue">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
+            {t('value.title')}
+          </h2>
+          <p className="text-xl text-secondary font-body">
+            {t('value.subtitle')}
+          </p>
+        </div>
+
+        {/* Differentiators */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          {differentiators.map((item, index) => (
+            <Card 
+              key={index} 
+              className="border-none shadow-lg hover:shadow-xl transition-all duration-300 text-center group"
+            >
+              <CardContent className="p-6">
+                <div className="flex justify-center mb-4">
+                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <item.icon className="h-8 w-8 text-white" />
+                  </div>
+                </div>
+                <h3 className="text-lg font-heading font-bold text-primary mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-secondary font-body text-sm leading-relaxed">
+                  {item.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Testimonials */}
+        <div className="mb-16">
+          <h3 className="text-3xl font-heading font-bold text-primary text-center mb-12">
+            {t('value.testimonials.title')}
+          </h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="border-none shadow-lg">
+                <CardContent className="p-8">
+                  <Quote className="h-8 w-8 text-primary mb-4" />
+                  <p className="text-secondary font-body text-lg italic mb-6 leading-relaxed">
+                    {testimonial.content}
+                  </p>
+                  <p className="text-primary font-semibold">
+                    {testimonial.author}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Certifications */}
+        <div className="text-center">
+          <h3 className="text-3xl font-heading font-bold text-primary mb-8">
+            {t('value.certifications')}
+          </h3>
+          <div className="flex justify-center items-center space-x-12">
+            {/* ISO 9001 Badge */}
+            <div className="flex flex-col items-center">
+              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mb-2">
+                <span className="text-white font-bold text-sm text-center">ISO<br/>9001</span>
+              </div>
+              <span className="text-secondary font-body text-sm">ISO 9001</span>
+            </div>
+            
+            {/* C-TPAT Badge */}
+            <div className="flex flex-col items-center">
+              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mb-2">
+                <span className="text-white font-bold text-sm text-center">C-TPAT</span>
+              </div>
+              <span className="text-secondary font-body text-sm">C-TPAT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ValueSection;

@@ -1,0 +1,74 @@
+import { Card, CardContent } from '@/components/ui/card';
+import { useLanguage } from '@/hooks/useLanguage';
+import { Truck, Package, Snowflake, Scale, ClipboardList } from 'lucide-react';
+
+const ServicesSection = () => {
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      icon: Truck,
+      title: t('services.ftl.title'),
+      description: t('services.ftl.description'),
+    },
+    {
+      icon: Package,
+      title: t('services.ltl.title'),
+      description: t('services.ltl.description'),
+    },
+    {
+      icon: Snowflake,
+      title: t('services.refrigerated.title'),
+      description: t('services.refrigerated.description'),
+    },
+    {
+      icon: Scale,
+      title: t('services.oversized.title'),
+      description: t('services.oversized.description'),
+    },
+    {
+      icon: ClipboardList,
+      title: t('services.customs.title'),
+      description: t('services.customs.description'),
+    },
+  ];
+
+  return (
+    <section id="servicios" className="py-20 bg-background">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
+            {t('services.title')}
+          </h2>
+        </div>
+
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <Card 
+              key={index} 
+              className="border-none shadow-lg hover:shadow-xl transition-all duration-300 group"
+            >
+              <CardContent className="p-8 text-center">
+                <div className="flex justify-center mb-6">
+                  <div className="w-20 h-20 bg-gradient-tortracs rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <service.icon className="h-10 w-10 text-white" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-heading font-bold text-primary mb-4">
+                  {service.title}
+                </h3>
+                <p className="text-secondary font-body leading-relaxed">
+                  {service.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ServicesSection;

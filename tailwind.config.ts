@@ -18,6 +18,11 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'open-sans': ['Open Sans', 'sans-serif'],
+				'heading': ['Open Sans', 'sans-serif'],
+				'body': ['Open Sans', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,6 +66,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// TORTRACS Corporate Colors
+				tortracs: {
+					blue: 'hsl(var(--tortracs-blue))',
+					gray: 'hsl(var(--tortracs-gray))',
+					'light-blue': 'hsl(var(--tortracs-light-blue))',
+					'light-gray': 'hsl(var(--tortracs-light-gray))',
 				}
 			},
 			borderRadius: {
