@@ -44,7 +44,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send notification email to TORTRACS
     console.log("Sending notification email...");
     const notificationEmailResponse = await resend.emails.send({
-      from: "TORTRACS Web <send@tortracs.net>",
+      from: "TORTRACS Web <noreply@tortracs.net>",
       to: ["comercial@tortracs.net"],
       subject: `Nueva Solicitud de Cotización - ${company}`,
       html: `
@@ -64,7 +64,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send confirmation email to client
     console.log("Sending confirmation email...");
     const confirmationEmailResponse = await resend.emails.send({
-      from: "TORTRACS <send@tortracs.net>",
+      from: "TORTRACS <noreply@tortracs.net>",
       to: [email],
       subject: "Hemos recibido tu solicitud - TORTRACS",
       html: `
