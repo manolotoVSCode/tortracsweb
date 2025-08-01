@@ -85,7 +85,7 @@ const translations = {
     
     // Contact Section
     'contact.title': 'Contacto',
-    'contact.subtitle': 'Cotiza tu envío hoy mismo',
+    'contact.subtitle': '',
     'contact.form.name': 'Nombre completo',
     'contact.form.email': 'Correo electrónico',
     'contact.form.phone': 'Teléfono',

@@ -50,11 +50,14 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Addresses and Copyright */}
-          <div className="text-right">
-            <div className="grid grid-cols-2 gap-4 mb-4">
+          {/* Copyright */}
+          <div className="text-left">
+            <p className="text-white/80 font-body text-sm mb-4">
+              © TORTRACS 2025. Todos los derechos reservados.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
               <div className="text-white/80 font-body text-xs">
-                <div className="text-right">
+                <div className="text-left">
                   <p className="font-semibold text-white mb-1">Corporativo</p>
                   <p>Alejandro Dumas, 145</p>
                   <p>11550, Polanco, Miguel Hidalgo</p>
@@ -62,7 +65,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="text-white/80 font-body text-xs">
-                <div className="text-right">
+                <div className="text-left">
                   <p className="font-semibold text-white mb-1">Patio Cuatitlán</p>
                   <p>Calle 5, 14</p>
                   <p>54879, La Palma, Cuatlitlán</p>
@@ -70,9 +73,6 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <p className="text-white/80 font-body text-sm">
-              {t('footer.copyright')}
-            </p>
           </div>
         </div>
       </div>
