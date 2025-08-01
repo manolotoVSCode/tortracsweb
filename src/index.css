@@ -8,72 +8,58 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Corporate Professional Color System */
+    /* TORTRACS Corporate Colors */
     --background: 0 0% 100%;
-    --foreground: 216 50% 15%; /* Deep Navy Blue */
+    --foreground: 200 100% 20%; /* #003366 - Azul profundo */
 
     --card: 0 0% 100%;
-    --card-foreground: 216 50% 15%;
+    --card-foreground: 200 100% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 216 50% 15%;
+    --popover-foreground: 200 100% 20%;
 
-    /* Primary: Professional Navy Blue */
-    --primary: 216 50% 15%; /* #1E2A3A */
+    --primary: 200 100% 20%; /* #003366 - Azul profundo */
     --primary-foreground: 0 0% 98%;
-    --primary-light: 216 30% 25%;
-    --primary-dark: 216 60% 12%;
 
-    /* Secondary: Sophisticated Gray */
-    --secondary: 214 10% 45%; /* #6B7280 */
+    --secondary: 0 0% 30%; /* #4D4D4D - Gris acero */
     --secondary-foreground: 0 0% 98%;
-    --secondary-light: 214 10% 55%;
-    --secondary-dark: 214 15% 35%;
 
-    /* Accent: Corporate Blue */
-    --accent: 213 47% 25%; /* #2563EB */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 30%;
+
+    --accent: 200 100% 25%; /* Lighter shade of primary */
     --accent-foreground: 0 0% 98%;
-    
-    /* Muted tones */
-    --muted: 210 8% 97%;
-    --muted-foreground: 215 15% 45%;
 
-    /* Success and warning colors */
-    --success: 145 63% 42%;
-    --success-foreground: 0 0% 98%;
-    --warning: 43 96% 56%;
-    --warning-foreground: 0 0% 15%;
-    
-    --destructive: 0 84% 60%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 214 15% 91%;
-    --input: 214 15% 91%;
-    --ring: 216 50% 15%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 200 100% 20%;
     
     /* Corporate specific colors */
-    --corporate-navy: 216 50% 15%;
-    --corporate-blue: 213 47% 25%;
-    --corporate-gray: 214 10% 45%;
-    --corporate-light: 210 8% 97%;
-    --corporate-accent: 213 47% 35%;
+    --tortracs-blue: 200 100% 20%; /* #003366 */
+    --tortracs-gray: 0 0% 30%; /* #4D4D4D */
+    --tortracs-light-blue: 200 100% 95%;
+    --tortracs-light-gray: 0 0% 96%;
 
-    /* Shadows and effects */
-    --shadow-subtle: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-    --shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-large: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-corporate: 0 8px 25px -8px rgb(30 42 58 / 0.25);
-
-    --radius: 8px;
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 216 50% 15%;
-    --sidebar-primary: 216 50% 15%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 210 8% 97%;
-    --sidebar-accent-foreground: 216 50% 15%;
-    --sidebar-border: 214 15% 91%;
-    --sidebar-ring: 213 47% 25%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -122,43 +108,23 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    line-height: 1.6;
+    font-family: 'Open Sans', sans-serif;
   }
   
-  /* Professional Typography System */
+  /* Corporate typography styles */
   .font-heading {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 1.2;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
   }
   
   .font-body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
-    letter-spacing: -0.01em;
   }
   
   .font-semibold {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-
-  .font-medium {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-  }
-  
-  /* Enhanced heading styles */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    letter-spacing: -0.025em;
-    line-height: 1.2;
   }
   
   /* Smooth scrolling for anchor links */
@@ -166,49 +132,12 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
   }
   
-  /* Professional gradient backgrounds */
-  .gradient-corporate {
-    background: linear-gradient(135deg, hsl(var(--corporate-navy)), hsl(var(--corporate-blue)));
+  /* Custom gradient backgrounds */
+  .gradient-tortracs {
+    background: linear-gradient(135deg, hsl(var(--tortracs-blue)), hsl(var(--accent)));
   }
   
-  .gradient-corporate-light {
-    background: linear-gradient(135deg, hsl(var(--corporate-light)), hsl(var(--background)));
-  }
-
-  .gradient-professional {
-    background: linear-gradient(145deg, hsl(var(--corporate-navy)) 0%, hsl(var(--corporate-blue)) 50%, hsl(var(--corporate-accent)) 100%);
-  }
-
-  /* Professional shadows */
-  .shadow-corporate {
-    box-shadow: var(--shadow-corporate);
-  }
-
-  .shadow-professional {
-    box-shadow: 0 20px 25px -5px rgb(30 42 58 / 0.1), 0 8px 10px -6px rgb(30 42 58 / 0.1);
-  }
-
-  /* Enhanced card styles */
-  .card-professional {
-    @apply bg-white border border-border/20 shadow-corporate rounded-xl;
-    backdrop-filter: blur(8px);
-  }
-
-  /* Professional button styles */
-  .btn-corporate {
-    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold 
-           transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 
-           focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
-           disabled:opacity-50;
-  }
-
-  .btn-primary {
-    @apply btn-corporate bg-primary text-primary-foreground hover:bg-primary/90 
-           shadow-medium hover:shadow-large;
-  }
-
-  .btn-secondary {
-    @apply btn-corporate bg-secondary/10 text-secondary hover:bg-secondary/20 
-           border border-secondary/20;
+  .gradient-light {
+    background: linear-gradient(135deg, hsl(var(--tortracs-light-blue)), hsl(var(--background)));
   }
 }

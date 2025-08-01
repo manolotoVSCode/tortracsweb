@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { ArrowLeft, Upload, Users, Briefcase } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { LanguageProvider } from '@/hooks/useLanguage';
-import { supabase } from '@/lib/supabase';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
@@ -95,18 +94,20 @@ const Jobs = () => {
     }
 
     try {
-      // Send job application using Supabase edge function
-      const { data, error } = await supabase.functions.invoke('send-job-application', {
-        body: {
-          department: formData.department,
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          cvFileName: formData.cv.name,
-        }
-      })
+      const emailBody = `
+Nueva aplicación de Bolsa de Trabajo - TORTRACS
 
-      if (error) throw error
+Departamento: ${formData.department}
+Nombre completo: ${formData.fullName}
+Email: ${formData.email}
+Teléfono: ${formData.phone}
+
+CV adjunto: ${formData.cv.name}
+      `;
+
+      const mailtoLink = `mailto:administracionrh@tortracs.net?subject=Aplicación Bolsa de Trabajo - ${formData.department}&body=${encodeURIComponent(emailBody)}`;
+      
+      window.location.href = mailtoLink;
 
       toast({
         title: "Aplicación enviada correctamente",
@@ -125,7 +126,6 @@ const Jobs = () => {
       if (fileInput) fileInput.value = '';
       
     } catch (error) {
-      console.error('Error sending application:', error)
       toast({
         title: "Error",
         description: "Hubo un error al enviar la aplicación. Inténtalo de nuevo.",
