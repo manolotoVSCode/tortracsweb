@@ -33,24 +33,25 @@ const AboutSection = () => {
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left Column - History */}
-          <div className="space-y-8">
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-4">
-                  <History className="h-8 w-8 text-primary mr-3" />
-                  <h3 className="text-2xl font-heading font-bold text-primary">
-                    {t('about.history.title')}
-                  </h3>
-                </div>
-                <p className="text-secondary text-lg leading-relaxed font-body">
-                  {t('about.history.content')}
-                </p>
-              </CardContent>
-            </Card>
+        <div className="space-y-12">
+          {/* Nuestra Historia - Full Width */}
+          <Card className="border-none shadow-lg">
+            <CardContent className="p-8">
+              <div className="flex items-center mb-6">
+                <History className="h-8 w-8 text-primary mr-3" />
+                <h3 className="text-3xl font-heading font-bold text-primary">
+                  {t('about.history.title')}
+                </h3>
+              </div>
+              <div className="text-secondary text-lg leading-relaxed font-body whitespace-pre-line">
+                {t('about.history.content')}
+              </div>
+            </CardContent>
+          </Card>
 
-            {/* Mission */}
+          {/* Misión y Visión - Two Columns */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Misión */}
             <Card className="border-none shadow-lg">
               <CardContent className="p-8">
                 <div className="flex items-center mb-4">
@@ -65,7 +66,7 @@ const AboutSection = () => {
               </CardContent>
             </Card>
 
-            {/* Vision */}
+            {/* Visión */}
             <Card className="border-none shadow-lg">
               <CardContent className="p-8">
                 <div className="flex items-center mb-4">
@@ -81,48 +82,60 @@ const AboutSection = () => {
             </Card>
           </div>
 
-          {/* Right Column - Values & Metrics */}
-          <div className="space-y-8">
-            {/* Values */}
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-heading font-bold text-primary mb-6">
-                  {t('about.values.title')}
-                </h3>
-                <div className="space-y-4">
-                  {values.map((value, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                      <value.icon className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                      <p className="text-secondary font-body text-lg">{value.text}</p>
+          {/* Nuestros Valores - Full Width */}
+          <Card className="border-none shadow-lg">
+            <CardContent className="p-8">
+              <h3 className="text-3xl font-heading font-bold text-primary mb-8 text-center">
+                {t('about.values.title')}
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {values.map((value, index) => (
+                  <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-background/50">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <value.icon className="h-6 w-6 text-primary" />
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <p className="text-secondary font-body text-base leading-relaxed">{value.text}</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
-            {/* Key Metrics */}
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-heading font-bold text-primary mb-6">
-                  {t('about.metrics.title')}
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {metrics.map((metric, index) => (
-                    <div key={index} className="text-center">
-                      <div className="flex justify-center mb-2">
-                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                          <metric.icon className="h-6 w-6 text-primary" />
-                        </div>
+          {/* Métricas - Full Width with Dynamic Graphics */}
+          <Card className="border-none shadow-lg">
+            <CardContent className="p-8">
+              <h3 className="text-3xl font-heading font-bold text-primary mb-8 text-center">
+                {t('about.metrics.title')}
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+                {metrics.map((metric, index) => (
+                  <div key={index} className="text-center group">
+                    <div className="relative mb-4">
+                      <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:from-primary/30 group-hover:to-primary/20">
+                        <metric.icon className="h-10 w-10 text-primary transition-all duration-300 group-hover:scale-110" />
                       </div>
-                      <p className="text-primary font-heading font-bold text-sm">
+                      {/* Animated ring */}
+                      <div className="absolute inset-0 w-20 h-20 mx-auto rounded-full border-2 border-primary/20 animate-pulse"></div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="h-2 bg-gradient-to-r from-primary/20 to-primary rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-1000 ease-out animate-pulse"
+                          style={{
+                            width: '100%',
+                            animationDelay: `${index * 0.2}s`
+                          }}
+                        ></div>
+                      </div>
+                      <p className="text-primary font-heading font-bold text-lg transition-all duration-300 group-hover:text-primary/80">
                         {metric.label}
                       </p>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>
