@@ -10,12 +10,12 @@ const AboutSection = () => {
   const metricsRef = useRef<HTMLDivElement>(null);
 
   const metrics = [
-    { icon: TrendingUp, label: '10+', subtext: 'años de experiencia', percentage: 85, color: '#3B82F6' },
-    { icon: MapPin, label: '500+', subtext: 'rutas', percentage: 90, color: '#10B981' },
-    { icon: Users, label: '70+', subtext: 'clientes satisfechos', percentage: 75, color: '#F59E0B' },
-    { icon: Truck, label: '80+', subtext: 'unidades', percentage: 80, color: '#EF4444' },
-    { icon: Shield, label: 'Neutral', subtext: 'huella de carbono', percentage: 70, color: '#8B5CF6' },
-    { icon: Route, label: '6M+', subtext: 'km/año recorridos', percentage: 95, color: '#06B6D4' },
+    { icon: TrendingUp, label: '10+', subtext: 'Años de experiencia', percentage: 85, color: '#3B82F6' },
+    { icon: MapPin, label: '500+', subtext: 'Rutas', percentage: 90, color: '#10B981' },
+    { icon: Users, label: '70+', subtext: 'Clientes satisfechos', percentage: 75, color: '#F59E0B' },
+    { icon: Truck, label: '80+', subtext: 'Unidades', percentage: 80, color: '#EF4444' },
+    { icon: Shield, label: 'Neutral', subtext: 'Huella de carbono', percentage: 70, color: '#8B5CF6' },
+    { icon: Route, label: '6M+', subtext: 'Km/año recorridos', percentage: 95, color: '#06B6D4' },
   ];
 
   useEffect(() => {
