@@ -1,6 +1,9 @@
+import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Award, Satellite, MonitorSpeaker, GraduationCap, Wrench, Quote } from 'lucide-react';
+import canacarLogo from '@/assets/canacar-logo.png';
+import anerpvLogo from '@/assets/anerpv-logo.png';
 
 const ValueSection = () => {
   const { t } = useLanguage();
@@ -107,26 +110,34 @@ const ValueSection = () => {
           </div>
         </div>
 
-        {/* Certifications */}
+        {/* Associations */}
         <div className="text-center">
           <h3 className="text-3xl font-heading font-bold text-primary mb-8">
-            {t('value.certifications')}
+            {t('value.associations')}
           </h3>
           <div className="flex justify-center items-center space-x-12">
-            {/* ISO 9001 Badge */}
+            {/* CANACAR Logo */}
             <div className="flex flex-col items-center">
-              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mb-2">
-                <span className="text-white font-bold text-sm text-center">ISO<br/>9001</span>
+              <div className="w-32 h-32 bg-white rounded-lg shadow-lg flex items-center justify-center mb-4 p-4">
+                <img 
+                  src={canacarLogo} 
+                  alt="CANACAR" 
+                  className="max-w-full max-h-full object-contain filter grayscale"
+                />
               </div>
-              <span className="text-secondary font-body text-sm">ISO 9001</span>
+              <span className="text-secondary font-body text-sm">CANACAR</span>
             </div>
             
-            {/* C-TPAT Badge */}
+            {/* ANERPV Logo */}
             <div className="flex flex-col items-center">
-              <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center mb-2">
-                <span className="text-white font-bold text-sm text-center">C-TPAT</span>
+              <div className="w-32 h-32 bg-white rounded-lg shadow-lg flex items-center justify-center mb-4 p-4">
+                <img 
+                  src={anerpvLogo} 
+                  alt="ANERPV" 
+                  className="max-w-full max-h-full object-contain filter grayscale"
+                />
               </div>
-              <span className="text-secondary font-body text-sm">C-TPAT</span>
+              <span className="text-secondary font-body text-sm">ANERPV</span>
             </div>
           </div>
         </div>
