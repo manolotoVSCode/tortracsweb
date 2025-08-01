@@ -158,7 +158,12 @@ const AboutSection = () => {
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                       <value.icon className="h-6 w-6 text-primary" />
                     </div>
-                    <p className="text-secondary font-body text-base leading-relaxed">{value.text}</p>
+                    <p className="text-secondary font-body text-base leading-relaxed">
+                      <span className="text-tortracs-navy font-bold">
+                        {value.text.split(':')[0]}:
+                      </span>
+                      {value.text.split(':').slice(1).join(':')}
+                    </p>
                   </div>
                 ))}
               </div>
