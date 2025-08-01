@@ -47,15 +47,16 @@ const translations = {
     'about.metrics.kilometers': '6+ millones de km/año',
     
     // Services Section
-    'services.title': 'Nuestros Servicios',
-    'services.dedicated.title': 'Esquema Dedicado',
-    'services.dedicated.description': 'Transporte exclusivo con unidades asignadas específicamente para sus operaciones.',
-    'services.spot.title': 'Servicios Spot',
-    'services.spot.description': 'Soluciones de transporte flexibles para necesidades inmediatas y urgentes.',
-    'services.containers.title': 'Transporte de Contenedores',
-    'services.containers.description': 'Manejo especializado de contenedores marítimos desde puertos a destino final.',
-    'services.ltl.title': 'Servicio LTL',
-    'services.ltl.description': 'Carga parcial optimizada para envíos de menor volumen con máxima eficiencia.',
+    'services.title': 'Servicios',
+    'services.subtitle': 'En TORTRACS ofrecemos soluciones de transporte flexibles, seguras y con control total sobre la operación. Nos adaptamos a las necesidades específicas de cada cliente, sin comprometer la calidad ni la puntualidad.',
+    'services.dedicated.title': 'Servicio dedicado',
+    'services.dedicated.description': 'Operaciones asignadas por completo a un solo cliente, con unidades, rutas y seguimiento exclusivo. Ideal para quienes necesitan constancia, control y alta disponibilidad.',
+    'services.spot.title': 'Viajes spot',
+    'services.spot.description': 'Cobertura puntual para necesidades urgentes o no recurrentes. Agilidad en la respuesta, trazabilidad en ruta y ejecución sin sorpresas.',
+    'services.containers.title': 'Transporte de contenedores',
+    'services.containers.description': 'Movemos carga contenerizada con conocimiento operativo y procesos claros en cada tramo. Coordinamos eficientemente puerto, patio y destino final.',
+    'services.ltl.title': 'Servicio LTL (carga consolidada)',
+    'services.ltl.description': 'Para quienes no requieren una unidad completa. Agrupamos cargas de distintos clientes optimizando espacio, tiempos y costos, sin perder trazabilidad.',
     
     // Value Proposition
     'value.title': 'Oferta de Valor',

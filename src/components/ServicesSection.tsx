@@ -36,6 +36,9 @@ const ServicesSection = () => {
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
             {t('services.title')}
           </h2>
+          <p className="text-lg text-secondary font-body max-w-4xl mx-auto leading-relaxed">
+            {t('services.subtitle')}
+          </p>
         </div>
 
         {/* Services Grid */}
