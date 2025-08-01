@@ -1,5 +1,5 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { Linkedin, Facebook, MapPin } from 'lucide-react';
+import { Linkedin, Facebook } from 'lucide-react';
 import tortracsLogo from '@/assets/tortracs-logo-text-only.png';
 
 const Footer = () => {
@@ -52,27 +52,21 @@ const Footer = () => {
 
           {/* Addresses and Copyright */}
           <div className="text-right">
-            <div className="space-y-3 mb-4">
-              <div className="text-white/80 font-body text-sm">
-                <div className="flex items-start justify-end space-x-2 mb-2">
-                  <div className="text-right">
-                    <p className="font-semibold text-white">Corporativo</p>
-                    <p>Alejandro Dumas, 145</p>
-                    <p>11550, Polanco, Miguel Hidalgo</p>
-                    <p>CDMX</p>
-                  </div>
-                  <MapPin className="h-4 w-4 text-white/60 mt-1 flex-shrink-0" />
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <div className="text-white/80 font-body text-xs">
+                <div className="text-right">
+                  <p className="font-semibold text-white mb-1">Corporativo</p>
+                  <p>Alejandro Dumas, 145</p>
+                  <p>11550, Polanco, Miguel Hidalgo</p>
+                  <p>CDMX</p>
                 </div>
               </div>
-              <div className="text-white/80 font-body text-sm">
-                <div className="flex items-start justify-end space-x-2">
-                  <div className="text-right">
-                    <p className="font-semibold text-white">Patio Cuatitlán</p>
-                    <p>Calle 5, 14</p>
-                    <p>54879, La Palma, Cuatlitlán</p>
-                    <p>Estado de México</p>
-                  </div>
-                  <MapPin className="h-4 w-4 text-white/60 mt-1 flex-shrink-0" />
+              <div className="text-white/80 font-body text-xs">
+                <div className="text-right">
+                  <p className="font-semibold text-white mb-1">Patio Cuatitlán</p>
+                  <p>Calle 5, 14</p>
+                  <p>54879, La Palma, Cuatlitlán</p>
+                  <p>Estado de México</p>
                 </div>
               </div>
             </div>

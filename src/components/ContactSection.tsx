@@ -119,9 +119,6 @@ ${formData.message}
             {/* Contact Form */}
             <Card className="border-none shadow-lg">
               <CardContent className="p-8">
-                <h3 className="text-2xl font-heading font-bold text-primary mb-6">
-                  Formulario de Contacto/Cotizaciones
-                </h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
