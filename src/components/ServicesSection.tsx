@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Truck, Package, Container, Zap, Users, Route } from 'lucide-react';
@@ -51,7 +52,7 @@ const ServicesSection = () => {
               <CardContent className="p-8 text-center">
                 <div className="flex justify-center mb-6">
                   <div className="w-20 h-20 bg-gradient-tortracs rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <service.icon className="h-10 w-10 text-white" />
+                    {React.createElement(service.icon, { className: "h-10 w-10 text-white" })}
                   </div>
                 </div>
                 <h3 className="text-xl font-heading font-bold text-primary mb-4">
