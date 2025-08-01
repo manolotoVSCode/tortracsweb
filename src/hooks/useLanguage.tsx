@@ -43,16 +43,14 @@ const translations = {
     
     // Services Section
     'services.title': 'Nuestros Servicios',
-    'services.ftl.title': 'Servicio Dedicado',
-    'services.ftl.description': 'Transporte especializado con unidades dedicadas para su carga.',
-    'services.ltl.title': 'Carga Completa',
-    'services.ltl.description': 'Consolidación eficiente de cargas optimizando costos y tiempos.',
-    'services.refrigerated.title': 'Refrigerados',
-    'services.refrigerated.description': 'Cadena de frío controlada para productos que requieren temperatura específica.',
-    'services.oversized.title': 'Importación y Exportación',
-    'services.oversized.description': 'Servicios especializados en comercio exterior con nuestra filial MS Logistics.',
-    'services.customs.title': 'Patios y Resguardos',
-    'services.customs.description': 'Patios estratégicamente ubicados en CDMX, Monterrey y Tultitlán para resguardo seguro.',
+    'services.dedicated.title': 'Esquema Dedicado',
+    'services.dedicated.description': 'Transporte exclusivo con unidades asignadas específicamente para sus operaciones.',
+    'services.spot.title': 'Servicios Spot',
+    'services.spot.description': 'Soluciones de transporte flexibles para necesidades inmediatas y urgentes.',
+    'services.containers.title': 'Transporte de Contenedores',
+    'services.containers.description': 'Manejo especializado de contenedores marítimos desde puertos a destino final.',
+    'services.ltl.title': 'Servicio LTL',
+    'services.ltl.description': 'Carga parcial optimizada para envíos de menor volumen con máxima eficiencia.',
     
     // Value Proposition
     'value.title': 'Oferta de Valor',
@@ -148,16 +146,14 @@ const translations = {
     
     // Services Section
     'services.title': 'Our Services',
-    'services.ftl.title': 'Dedicated Service',
-    'services.ftl.description': 'Specialized transportation with dedicated units for your cargo.',
-    'services.ltl.title': 'Full Load',
-    'services.ltl.description': 'Efficient cargo consolidation optimizing costs and delivery times.',
-    'services.refrigerated.title': 'Refrigerated',
-    'services.refrigerated.description': 'Controlled cold chain for products requiring specific temperature.',
-    'services.oversized.title': 'Import and Export',
-    'services.oversized.description': 'Specialized foreign trade services through our MS Logistics subsidiary.',
-    'services.customs.title': 'Yards and Storage',
-    'services.customs.description': 'Strategically located yards in CDMX, Monterrey and Tultitlán for secure storage.',
+    'services.dedicated.title': 'Dedicated Scheme',
+    'services.dedicated.description': 'Exclusive transport with units specifically assigned for your operations.',
+    'services.spot.title': 'Spot Services',
+    'services.spot.description': 'Flexible transport solutions for immediate and urgent needs.',
+    'services.containers.title': 'Container Transport',
+    'services.containers.description': 'Specialized handling of maritime containers from ports to final destination.',
+    'services.ltl.title': 'LTL Service',
+    'services.ltl.description': 'Optimized partial load for smaller volume shipments with maximum efficiency.',
     
     // Value Proposition
     'value.title': 'Value Proposition',

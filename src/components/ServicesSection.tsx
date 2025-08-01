@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
-import { Truck, Package, Snowflake, Scale, ClipboardList } from 'lucide-react';
+import { Truck, Package, Container, Zap } from 'lucide-react';
 
 const ServicesSection = () => {
   const { t } = useLanguage();
@@ -8,28 +8,23 @@ const ServicesSection = () => {
   const services = [
     {
       icon: Truck,
-      title: t('services.ftl.title'),
-      description: t('services.ftl.description'),
+      title: t('services.dedicated.title'),
+      description: t('services.dedicated.description'),
+    },
+    {
+      icon: Zap,
+      title: t('services.spot.title'),
+      description: t('services.spot.description'),
+    },
+    {
+      icon: Container,
+      title: t('services.containers.title'),
+      description: t('services.containers.description'),
     },
     {
       icon: Package,
       title: t('services.ltl.title'),
       description: t('services.ltl.description'),
-    },
-    {
-      icon: Snowflake,
-      title: t('services.refrigerated.title'),
-      description: t('services.refrigerated.description'),
-    },
-    {
-      icon: Scale,
-      title: t('services.oversized.title'),
-      description: t('services.oversized.description'),
-    },
-    {
-      icon: ClipboardList,
-      title: t('services.customs.title'),
-      description: t('services.customs.description'),
     },
   ];
 
