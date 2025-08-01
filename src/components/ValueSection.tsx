@@ -1,30 +1,35 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
-import { Truck, MapPin, Award, Shield, Quote } from 'lucide-react';
+import { Award, Satellite, MonitorSpeaker, GraduationCap, Wrench, Quote } from 'lucide-react';
 
 const ValueSection = () => {
   const { t } = useLanguage();
 
   const differentiators = [
     {
-      icon: Truck,
-      title: t('value.fleet.title'),
-      description: t('value.fleet.description'),
-    },
-    {
-      icon: MapPin,
-      title: t('value.tracking.title'),
-      description: t('value.tracking.description'),
-    },
-    {
       icon: Award,
       title: t('value.operators.title'),
       description: t('value.operators.description'),
     },
     {
-      icon: Shield,
-      title: t('value.insurance.title'),
-      description: t('value.insurance.description'),
+      icon: Satellite,
+      title: t('value.tracking.title'),
+      description: t('value.tracking.description'),
+    },
+    {
+      icon: MonitorSpeaker,
+      title: t('value.monitoring.title'),
+      description: t('value.monitoring.description'),
+    },
+    {
+      icon: GraduationCap,
+      title: t('value.training.title'),
+      description: t('value.training.description'),
+    },
+    {
+      icon: Wrench,
+      title: t('value.infrastructure.title'),
+      description: t('value.infrastructure.description'),
     },
   ];
 
@@ -53,7 +58,7 @@ const ValueSection = () => {
         </div>
 
         {/* Differentiators */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {differentiators.map((item, index) => (
             <Card 
               key={index} 
@@ -62,7 +67,11 @@ const ValueSection = () => {
               <CardContent className="p-6">
                 <div className="flex justify-center mb-4">
                   <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <item.icon className="h-8 w-8 text-white" />
+                    {item.icon === Award && <Award className="h-8 w-8 text-white" />}
+                    {item.icon === Satellite && <Satellite className="h-8 w-8 text-white" />}
+                    {item.icon === MonitorSpeaker && <MonitorSpeaker className="h-8 w-8 text-white" />}
+                    {item.icon === GraduationCap && <GraduationCap className="h-8 w-8 text-white" />}
+                    {item.icon === Wrench && <Wrench className="h-8 w-8 text-white" />}
                   </div>
                 </div>
                 <h3 className="text-lg font-heading font-bold text-primary mb-3">
