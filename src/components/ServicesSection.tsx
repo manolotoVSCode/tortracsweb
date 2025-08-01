@@ -1,13 +1,13 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
-import { Truck, Package, Container, Zap } from 'lucide-react';
+import { Truck, Package, Container, Zap, Users, Route } from 'lucide-react';
 
 const ServicesSection = () => {
   const { t } = useLanguage();
 
   const services = [
     {
-      icon: Truck,
+      icon: Users,
       title: t('services.dedicated.title'),
       description: t('services.dedicated.description'),
     },
