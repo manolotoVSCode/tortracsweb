@@ -8,8 +8,8 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8 items-start">
-          {/* Logo and Company Name */}
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+          {/* Logo, Company Name and Addresses */}
           <div>
             <div className="flex items-center">
               <h3 className="text-xl font-heading font-bold leading-tight">
@@ -17,20 +17,36 @@ const Footer = () => {
                 <span className="text-white/80">RACS</span>
               </h3>
             </div>
-            <p className="text-white/80 font-body text-sm leading-tight -mt-1 mb-2">
+            <p className="text-white/80 font-body text-sm leading-tight -mt-1 mb-3">
               Soluciones de transporte confiables
             </p>
+            
+            {/* Addresses */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="text-white/80 font-body text-xs">
+                <p className="font-semibold text-white mb-1">Corporativo</p>
+                <p>Alejandro Dumas, 145</p>
+                <p>11550, Polanco, Miguel Hidalgo</p>
+                <p>CDMX</p>
+              </div>
+              <div className="text-white/80 font-body text-xs">
+                <p className="font-semibold text-white mb-1">Patio Cuatitlán</p>
+                <p>Calle 5, 14</p>
+                <p>54879, La Palma, Cuatlitlán</p>
+                <p>Estado de México</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright, Privacy and Social Links */}
+          <div className="flex flex-col items-end text-right space-y-2">
             <p className="text-white/80 font-body text-sm">
               © TORTRACS 2025. Todos los derechos reservados.
             </p>
-          </div>
-
-          {/* Links */}
-          <div className="flex flex-col items-center space-y-4">
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-4">
               <a 
                 href="/privacy-policy"
-                className="text-white/80 hover:text-white font-body transition-colors duration-200"
+                className="text-white/80 hover:text-white font-body text-sm transition-colors duration-200"
               >
                 {t('footer.privacy')}
               </a>
@@ -50,28 +66,6 @@ const Footer = () => {
               >
                 <Facebook className="h-5 w-5" />
               </a>
-            </div>
-          </div>
-
-          {/* Addresses */}
-          <div className="text-left">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-white/80 font-body text-xs">
-                <div className="text-left">
-                  <p className="font-semibold text-white mb-1">Corporativo</p>
-                  <p>Alejandro Dumas, 145</p>
-                  <p>11550, Polanco, Miguel Hidalgo</p>
-                  <p>CDMX</p>
-                </div>
-              </div>
-              <div className="text-white/80 font-body text-xs">
-                <div className="text-left">
-                  <p className="font-semibold text-white mb-1">Patio Cuatitlán</p>
-                  <p>Calle 5, 14</p>
-                  <p>54879, La Palma, Cuatlitlán</p>
-                  <p>Estado de México</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
