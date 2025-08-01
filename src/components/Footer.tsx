@@ -22,7 +22,7 @@ const Footer = () => {
             </p>
             
             {/* Addresses */}
-            <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="flex flex-col md:flex-row md:space-x-1">
               <div className="text-white/80 font-body" style={{ fontSize: '0.625rem' }}>
                 <p className="font-semibold text-white mb-1">Corporativo</p>
                 <p>Alejandro Dumas, 145</p>
