@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
-import { History, Target, Eye, Heart, TrendingUp, Users, MapPin, Truck } from 'lucide-react';
+import { History, Target, Eye, Heart, TrendingUp, Users, MapPin, Truck, Shield, Handshake, Zap, Compass, Route } from 'lucide-react';
 
 const AboutSection = () => {
   const { t } = useLanguage();
@@ -10,12 +10,17 @@ const AboutSection = () => {
     { icon: MapPin, label: t('about.metrics.routes'), key: 'routes' },
     { icon: Users, label: t('about.metrics.clients'), key: 'clients' },
     { icon: Truck, label: t('about.metrics.fleet'), key: 'fleet' },
+    { icon: Shield, label: t('about.metrics.carbonFootprint'), key: 'carbonFootprint' },
+    { icon: Route, label: t('about.metrics.kilometers'), key: 'kilometers' },
   ];
 
   const values = [
-    { icon: Heart, text: t('about.values.safety') },
-    { icon: TrendingUp, text: t('about.values.punctuality') },
-    { icon: Users, text: t('about.values.service') },
+    { icon: Shield, text: t('about.values.safety') },
+    { icon: Handshake, text: t('about.values.responsibility') },
+    { icon: Heart, text: t('about.values.closeness') },
+    { icon: Eye, text: t('about.values.transparency') },
+    { icon: Zap, text: t('about.values.resilience') },
+    { icon: Compass, text: t('about.values.commitment') },
   ];
 
   return (
@@ -101,15 +106,15 @@ const AboutSection = () => {
                 <h3 className="text-2xl font-heading font-bold text-primary mb-6">
                   {t('about.metrics.title')}
                 </h3>
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-4">
                   {metrics.map((metric, index) => (
                     <div key={index} className="text-center">
-                      <div className="flex justify-center mb-3">
-                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                          <metric.icon className="h-8 w-8 text-primary" />
+                      <div className="flex justify-center mb-2">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                          <metric.icon className="h-6 w-6 text-primary" />
                         </div>
                       </div>
-                      <p className="text-primary font-heading font-bold text-lg">
+                      <p className="text-primary font-heading font-bold text-sm">
                         {metric.label}
                       </p>
                     </div>
