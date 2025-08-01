@@ -53,7 +53,8 @@ const ValueSection = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
-            {t('value.title')}
+            <span className="text-tortracs-navy">{t('value.title').split(' ')[0]}</span>{' '}
+            <span>{t('value.title').split(' ').slice(1).join(' ')}</span>
           </h2>
           <p className="text-xl text-secondary font-body">
             {t('value.subtitle')}
