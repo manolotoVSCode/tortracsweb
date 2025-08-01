@@ -20,7 +20,7 @@ const translations = {
     
     // Hero Section
     'hero.title': 'Soluciones de transporte terrestre en México',
-    'hero.subtitle': '10+ años ofreciendo servicios de logística flexibles y confiables',
+    'hero.subtitle': 'Más de 10 años ofreciendo servicios de logística flexibles y confiables',
     'hero.cta': 'Cotiza ahora',
     
     // About Section
@@ -123,7 +123,7 @@ const translations = {
     
     // Hero Section
     'hero.title': 'Ground transportation solutions in Mexico',
-    'hero.subtitle': '10+ years offering flexible and reliable logistics services',
+    'hero.subtitle': 'Over 10 years offering flexible and reliable logistics services',
     'hero.cta': 'Get Quote',
     
     // About Section
