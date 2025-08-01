@@ -77,6 +77,22 @@ const ContactSection = () => {
         throw error;
       }
 
+      // Send notification emails
+      const { error: emailError } = await supabase.functions.invoke('send-contact-notification', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          message: formData.message,
+        }
+      });
+
+      if (emailError) {
+        console.error('Error sending emails:', emailError);
+        // Don't throw error here - form submission was successful, just email failed
+      }
+
       toast({
         title: "Cotización enviada correctamente",
         description: "Nos pondremos en contacto contigo pronto.",
