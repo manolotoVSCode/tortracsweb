@@ -11,11 +11,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const translations = {
   es: {
     // Navigation
-    'nav.home': 'Inicio',
-    'nav.about': 'Sobre TORTRACS',
+    'nav.about': 'Nosotros',
     'nav.services': 'Servicios',
     'nav.value': 'Oferta de Valor',
     'nav.clients': 'Clientes',
+    'nav.jobs': 'Bolsa de Trabajo',
     'nav.contact': 'Contacto',
     
     // Hero Section
@@ -114,11 +114,11 @@ const translations = {
   },
   en: {
     // Navigation
-    'nav.home': 'Home',
-    'nav.about': 'About TORTRACS',
+    'nav.about': 'About',
     'nav.services': 'Services',
     'nav.value': 'Value Proposition',
     'nav.clients': 'Clients',
+    'nav.jobs': 'Job Board',
     'nav.contact': 'Contact',
     
     // Hero Section

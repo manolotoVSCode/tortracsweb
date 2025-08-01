@@ -13,11 +13,11 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { key: 'nav.home', href: '#inicio' },
     { key: 'nav.about', href: '#sobre-tortracs' },
     { key: 'nav.services', href: '#servicios' },
     { key: 'nav.value', href: '#oferta-valor' },
     { key: 'nav.clients', href: '#clientes' },
+    { key: 'nav.jobs', href: '#bolsa-trabajo' },
     { key: 'nav.contact', href: '#contacto' },
   ];
 
@@ -27,12 +27,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20 md:h-24 py-2">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="flex items-center">
+            <a href="#inicio" className="flex items-center">
               <h1 className="text-3xl md:text-4xl font-heading font-bold">
                 <span className="text-primary">TORT</span>
                 <span className="text-secondary">RACS</span>
               </h1>
-            </div>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
