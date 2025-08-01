@@ -179,13 +179,13 @@ const AboutSection = () => {
                         color={metric.color}
                         delay={index * 200}
                       />
-                      {/* Content inside circle */}
-                      <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <metric.icon className="h-6 w-6 mb-1" style={{ color: metric.color }} />
-                        <p className="text-2xl font-heading font-bold" style={{ color: metric.color }}>
-                          {metric.label}
-                        </p>
-                      </div>
+                       {/* Content inside circle */}
+                       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                         <metric.icon className="h-7 w-7 mb-1" style={{ color: metric.color }} />
+                         <p className="text-xl font-heading font-bold leading-tight" style={{ color: metric.color }}>
+                           {metric.label}
+                         </p>
+                       </div>
                     </div>
                     {/* Comment below circle */}
                     <p className="text-secondary font-body text-sm">
