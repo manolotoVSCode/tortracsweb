@@ -75,6 +75,10 @@ export default {
 					'light-gray': 'hsl(var(--tortracs-light-gray))',
 				}
 			},
+			backgroundImage: {
+				'gradient-tortracs': 'linear-gradient(135deg, hsl(var(--tortracs-blue)), hsl(var(--accent)))',
+				'gradient-light': 'linear-gradient(135deg, hsl(var(--tortracs-light-blue)), hsl(var(--background)))',
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
