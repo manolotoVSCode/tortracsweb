@@ -110,9 +110,6 @@ ${formData.message}
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
             {t('contact.title')}
           </h2>
-          <p className="text-xl text-secondary font-body">
-            {t('contact.subtitle')}
-          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16">

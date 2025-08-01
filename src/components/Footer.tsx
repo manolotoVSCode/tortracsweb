@@ -17,8 +17,11 @@ const Footer = () => {
                 <span className="text-white/80">RACS</span>
               </h3>
             </div>
-            <p className="text-white/80 font-body">
+            <p className="text-white/80 font-body mb-3">
               Soluciones de transporte confiables
+            </p>
+            <p className="text-white/80 font-body text-sm">
+              © TORTRACS 2025. Todos los derechos reservados.
             </p>
           </div>
 
@@ -50,11 +53,8 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Copyright */}
+          {/* Addresses */}
           <div className="text-left">
-            <p className="text-white/80 font-body text-sm mb-4">
-              © TORTRACS 2025. Todos los derechos reservados.
-            </p>
             <div className="grid grid-cols-2 gap-4">
               <div className="text-white/80 font-body text-xs">
                 <div className="text-left">
