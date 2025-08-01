@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
 import { History, Target, Eye, Heart, TrendingUp, Users, MapPin, Truck, Shield, Handshake, Zap, Compass, Route } from 'lucide-react';
@@ -173,19 +174,19 @@ const AboutSection = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
                 {metrics.map((metric, index) => (
                   <div key={index} className="text-center group">
-                    <div className="relative mb-4">
+                    <div className="relative mb-4 inline-block">
                       <CircularProgress 
                         percentage={metric.percentage} 
                         color={metric.color}
                         delay={index * 200}
                       />
-                       {/* Content inside circle */}
-                       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                         <metric.icon className="h-7 w-7 mb-1" style={{ color: metric.color }} />
-                         <p className="text-xl font-heading font-bold leading-tight" style={{ color: metric.color }}>
-                           {metric.label}
-                         </p>
-                       </div>
+                      {/* Content inside circle */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                        <metric.icon className="h-8 w-8 mb-2" style={{ color: metric.color }} />
+                        <p className="text-lg font-heading font-bold leading-tight" style={{ color: metric.color }}>
+                          {metric.label}
+                        </p>
+                      </div>
                     </div>
                     {/* Comment below circle */}
                     <p className="text-secondary font-body text-sm">
