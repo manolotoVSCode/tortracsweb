@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/hooks/useLanguage';
-import heroTrucksRow from '@/assets/hero-trucks-row.jpg';
+import heroTrucksHighway from '@/assets/hero-trucks-highway.jpg';
 
 const HeroSection = () => {
   const { t } = useLanguage();
@@ -11,7 +11,7 @@ const HeroSection = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${heroTrucksRow})`,
+          backgroundImage: `url(${heroTrucksHighway})`,
         }}
       >
         <div className="absolute inset-0 bg-primary/80"></div>
