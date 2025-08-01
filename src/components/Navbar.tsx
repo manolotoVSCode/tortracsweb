@@ -17,7 +17,7 @@ const Navbar = () => {
     { key: 'nav.services', href: '#servicios' },
     { key: 'nav.value', href: '#oferta-valor' },
     { key: 'nav.clients', href: '#clientes' },
-    { key: 'nav.jobs', href: '#bolsa-trabajo' },
+    { key: 'nav.jobs', href: '/bolsa-de-trabajo' },
     { key: 'nav.contact', href: '#contacto' },
   ];
 
