@@ -1,11 +1,8 @@
-import { useLanguage } from '@/hooks/useLanguage';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
 const PrivacyPolicy = () => {
-  const { t } = useLanguage();
-
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-4 max-w-4xl">
@@ -20,10 +17,10 @@ const PrivacyPolicy = () => {
             Volver
           </Button>
           <h1 className="text-4xl font-heading font-bold text-primary mb-2">
-            {t('privacy.title')}
+            Aviso de Privacidad
           </h1>
           <p className="text-secondary font-body">
-            {t('privacy.updated')}
+            Fecha de última actualización: 01 agosto 2025
           </p>
         </div>
 
@@ -32,31 +29,31 @@ const PrivacyPolicy = () => {
           <Card className="border-none shadow-lg">
             <CardContent className="p-8">
               <p className="text-secondary font-body leading-relaxed text-lg">
-                {t('privacy.intro')}
+                TORTRACS, S.A. de C.V., con domicilio en Alejandro Dumas, 145, 11550, Polanco, Miguel Hidalgo, CDMX, es responsable del tratamiento de sus datos personales conforme a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
               </p>
             </CardContent>
           </Card>
 
-          {/* Personal Data Collected */}
+          {/* Data Usage */}
           <Card className="border-none shadow-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-heading font-bold text-primary mb-4">
-                {t('privacy.data.title')}
+                Uso de Datos Personales
               </h2>
               <p className="text-secondary font-body leading-relaxed">
-                {t('privacy.data.content')}
+                Los datos personales que recabamos (como nombre, correo electrónico, teléfono, empresa o ubicación) serán utilizados con la finalidad de ofrecerle información sobre nuestros servicios de transporte, generar cotizaciones, establecer comunicación comercial, y dar seguimiento a solicitudes realizadas a través de nuestro sitio web.
               </p>
             </CardContent>
           </Card>
 
-          {/* Processing Purposes */}
+          {/* Data Sharing and Security */}
           <Card className="border-none shadow-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-heading font-bold text-primary mb-4">
-                {t('privacy.purpose.title')}
+                Compartimiento y Seguridad de Datos
               </h2>
               <p className="text-secondary font-body leading-relaxed">
-                {t('privacy.purpose.content')}
+                No compartimos su información con terceros, salvo que sea necesario para cumplir con obligaciones legales o contractuales. Implementamos medidas de seguridad físicas, administrativas y tecnológicas para proteger sus datos contra daño, pérdida, alteración, destrucción o uso indebido.
               </p>
             </CardContent>
           </Card>
@@ -65,22 +62,22 @@ const PrivacyPolicy = () => {
           <Card className="border-none shadow-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-heading font-bold text-primary mb-4">
-                {t('privacy.rights.title')}
+                Derechos ARCO
               </h2>
               <p className="text-secondary font-body leading-relaxed">
-                {t('privacy.rights.content')}
+                Usted tiene derecho a acceder, rectificar, cancelar u oponerse (ARCO) al tratamiento de sus datos personales mediante una solicitud escrita al correo: comercial@tortracs.net
               </p>
             </CardContent>
           </Card>
 
-          {/* Privacy Contact */}
+          {/* Updates */}
           <Card className="border-none shadow-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-heading font-bold text-primary mb-4">
-                {t('privacy.contact.title')}
+                Actualizaciones
               </h2>
               <p className="text-secondary font-body leading-relaxed">
-                {t('privacy.contact.content')}
+                Nos reservamos el derecho de actualizar este aviso en cualquier momento. Cualquier cambio será publicado en este mismo sitio web.
               </p>
             </CardContent>
           </Card>
