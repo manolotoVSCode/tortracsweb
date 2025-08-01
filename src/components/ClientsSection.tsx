@@ -10,7 +10,7 @@ import nestleLogo from '/lovable-uploads/e7abedb3-166d-493a-95f0-76e67c80a936.pn
 import whirlpoolLogo from '/lovable-uploads/47c5580b-9cbb-4f66-a988-6ef271c02eb9.png';
 import heinzLogo from '/lovable-uploads/d7506ec2-2f27-430a-8578-25afe0c45e65.png';
 import oxxoLogo from '/lovable-uploads/ca140bfc-afdd-4be5-b784-ff798cecdc12.png';
-import walmartLogo from '/lovable-uploads/walmart-logo.png';
+import walmartLogo from '/lovable-uploads/6280365e-4158-42bd-a433-080acd9db5a6.png';
 
 const ClientsSection = () => {
   const { t } = useLanguage();
