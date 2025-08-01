@@ -25,11 +25,20 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { name, email, phone, company, message }: ContactNotificationRequest = await req.json();
     
+    console.log("=== DEBUGGING EMAIL SEND ===");
     console.log("Received request:", { name, email, phone, company, message });
     console.log("Resend API Key exists:", !!Deno.env.get("RESEND_API_KEY"));
-    console.log("API Key first 10 chars:", Deno.env.get("RESEND_API_KEY")?.substring(0, 10));
+    
+    const apiKey = Deno.env.get("RESEND_API_KEY");
+    if (!apiKey) {
+      console.error("ERROR: No RESEND_API_KEY found!");
+      throw new Error("RESEND_API_KEY not configured");
+    }
+    
+    console.log("API Key starts with:", apiKey.substring(0, 10));
 
     // Send notification email to TORTRACS
+    console.log("Attempting to send notification email...");
     const notificationEmailResponse = await resend.emails.send({
       from: "TORTRACS Web <onboarding@resend.dev>",
       to: ["comercial@tortracs.net"],
@@ -63,6 +72,8 @@ const handler = async (req: Request): Promise<Response> => {
         </div>
       `,
     });
+
+    console.log("Notification email response:", JSON.stringify(notificationEmailResponse, null, 2));
 
     // Send confirmation email to client
     const confirmationEmailResponse = await resend.emails.send({
