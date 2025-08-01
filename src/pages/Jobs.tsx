@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { LanguageProvider } from '@/hooks/useLanguage';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { supabase } from '@/integrations/supabase/client';
 
 const Jobs = () => {
   const { toast } = useToast();
@@ -94,20 +95,34 @@ const Jobs = () => {
     }
 
     try {
-      const emailBody = `
-Nueva aplicación de Bolsa de Trabajo - TORTRACS
+      // Upload CV file to Supabase Storage
+      const fileExt = formData.cv.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `${fileName}`;
 
-Departamento: ${formData.department}
-Nombre completo: ${formData.fullName}
-Email: ${formData.email}
-Teléfono: ${formData.phone}
+      const { error: uploadError } = await supabase.storage
+        .from('cv-uploads')
+        .upload(filePath, formData.cv);
 
-CV adjunto: ${formData.cv.name}
-      `;
+      if (uploadError) {
+        throw uploadError;
+      }
 
-      const mailtoLink = `mailto:administracionrh@tortracs.net?subject=Aplicación Bolsa de Trabajo - ${formData.department}&body=${encodeURIComponent(emailBody)}`;
-      
-      window.location.href = mailtoLink;
+      // Save job application to database
+      const { error: dbError } = await supabase
+        .from('job_applications')
+        .insert({
+          department: formData.department,
+          full_name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          cv_filename: formData.cv.name,
+          cv_file_path: filePath,
+        });
+
+      if (dbError) {
+        throw dbError;
+      }
 
       toast({
         title: "Aplicación enviada correctamente",
@@ -126,6 +141,7 @@ CV adjunto: ${formData.cv.name}
       if (fileInput) fileInput.value = '';
       
     } catch (error) {
+      console.error('Error submitting job application:', error);
       toast({
         title: "Error",
         description: "Hubo un error al enviar la aplicación. Inténtalo de nuevo.",

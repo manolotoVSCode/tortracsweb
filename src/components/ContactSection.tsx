@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useLanguage } from '@/hooks/useLanguage';
 import { MapPin, Phone, Mail, Clock, Linkedin, Facebook } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const ContactSection = () => {
   const { t } = useLanguage();
@@ -61,24 +62,20 @@ const ContactSection = () => {
     }
 
     try {
-      // Create email body
-      const emailBody = `
-Solicitud de Cotización - TORTRACS
+      // Save to database
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          message: formData.message,
+        });
 
-Nombre: ${formData.name}
-Empresa: ${formData.company}
-Email: ${formData.email}
-Teléfono: ${formData.phone}
-
-Mensaje:
-${formData.message}
-      `;
-
-      // Create mailto link
-      const mailtoLink = `mailto:comercial@tortracs.net?subject=Solicitud de Cotización&body=${encodeURIComponent(emailBody)}`;
-      
-      // Open email client
-      window.location.href = mailtoLink;
+      if (error) {
+        throw error;
+      }
 
       toast({
         title: "Cotización enviada correctamente",
@@ -94,6 +91,7 @@ ${formData.message}
         message: '',
       });
     } catch (error) {
+      console.error('Error submitting contact form:', error);
       toast({
         title: "Error",
         description: "Hubo un error al enviar la cotización. Inténtalo de nuevo.",
