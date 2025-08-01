@@ -7,8 +7,10 @@ import netoLogo from '/lovable-uploads/1715beb4-224e-4da9-ad38-df744dfde59e.png'
 import purinaLogo from '/lovable-uploads/1c996aad-4723-4bfd-b242-49779f6e4727.png';
 import kimberlyClarkLogo from '/lovable-uploads/a3df1d4b-926d-405b-97d2-074cccd50059.png';
 import nestleLogo from '/lovable-uploads/e7abedb3-166d-493a-95f0-76e67c80a936.png';
-import whirlpoolLogo from '/lovable-uploads/8b86123b-67c7-480b-ae7e-bf0a3ce594ed.png';
-import heinzLogo from '/lovable-uploads/b5ae9603-7647-474a-ad09-3f2212df0c52.png';
+import whirlpoolLogo from '/lovable-uploads/47c5580b-9cbb-4f66-a988-6ef271c02eb9.png';
+import heinzLogo from '/lovable-uploads/d7506ec2-2f27-430a-8578-25afe0c45e65.png';
+import oxxoLogo from '/lovable-uploads/ca140bfc-afdd-4be5-b784-ff798cecdc12.png';
+import walmartLogo from '/lovable-uploads/walmart-logo.png';
 
 const ClientsSection = () => {
   const { t } = useLanguage();
@@ -23,7 +25,9 @@ const ClientsSection = () => {
     { name: 'Mabe', logo: mabeLogo },
     { name: 'AKSI', logo: aksiLogo },
     { name: 'Whirlpool', logo: whirlpoolLogo },
-    { name: 'Heinz', logo: heinzLogo }
+    { name: 'Heinz', logo: heinzLogo },
+    { name: 'OXXO', logo: oxxoLogo },
+    { name: 'Walmart', logo: walmartLogo }
   ];
 
   return (
