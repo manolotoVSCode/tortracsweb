@@ -1,18 +1,81 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
 import { History, Target, Eye, Heart, TrendingUp, Users, MapPin, Truck, Shield, Handshake, Zap, Compass, Route } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 const AboutSection = () => {
   const { t } = useLanguage();
+  const [isVisible, setIsVisible] = useState(false);
+  const metricsRef = useRef<HTMLDivElement>(null);
 
   const metrics = [
-    { icon: TrendingUp, label: t('about.metrics.experience'), key: 'experience' },
-    { icon: MapPin, label: t('about.metrics.routes'), key: 'routes' },
-    { icon: Users, label: t('about.metrics.clients'), key: 'clients' },
-    { icon: Truck, label: t('about.metrics.fleet'), key: 'fleet' },
-    { icon: Shield, label: t('about.metrics.carbonFootprint'), key: 'carbonFootprint' },
-    { icon: Route, label: t('about.metrics.kilometers'), key: 'kilometers' },
+    { icon: TrendingUp, label: '10+', subtext: 'años de experiencia', percentage: 85, color: '#3B82F6' },
+    { icon: MapPin, label: '500+', subtext: 'rutas', percentage: 90, color: '#10B981' },
+    { icon: Users, label: '70+', subtext: 'clientes satisfechos', percentage: 75, color: '#F59E0B' },
+    { icon: Truck, label: '80+', subtext: 'unidades', percentage: 80, color: '#EF4444' },
+    { icon: Shield, label: 'Neutral', subtext: 'huella de carbono', percentage: 70, color: '#8B5CF6' },
+    { icon: Route, label: '6M+', subtext: 'km/año recorridos', percentage: 95, color: '#06B6D4' },
   ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (metricsRef.current) {
+      observer.observe(metricsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const CircularProgress = ({ percentage, color, size = 120, strokeWidth = 8, delay = 0 }: {
+    percentage: number;
+    color: string;
+    size?: number;
+    strokeWidth?: number;
+    delay?: number;
+  }) => {
+    const radius = (size - strokeWidth) / 2;
+    const circumference = radius * 2 * Math.PI;
+    const offset = circumference - (percentage / 100) * circumference;
+
+    return (
+      <div className="relative">
+        <svg width={size} height={size} className="transform -rotate-90">
+          {/* Background circle */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            stroke="currentColor"
+            strokeWidth={strokeWidth}
+            fill="transparent"
+            className="text-gray-200"
+          />
+          {/* Progress circle */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            stroke={color}
+            strokeWidth={strokeWidth}
+            fill="transparent"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={isVisible ? offset : circumference}
+            className="transition-all duration-2000 ease-out"
+            style={{ transitionDelay: `${delay}ms` }}
+          />
+        </svg>
+      </div>
+    );
+  };
 
   const values = [
     { icon: Shield, text: t('about.values.safety') },
@@ -101,34 +164,34 @@ const AboutSection = () => {
             </CardContent>
           </Card>
 
-          {/* Métricas - Full Width with Dynamic Graphics */}
-          <Card className="border-none shadow-lg">
+          {/* Métricas - Full Width with Circular Graphics */}
+          <Card className="border-none shadow-lg" ref={metricsRef}>
             <CardContent className="p-8">
-              <h3 className="text-3xl font-heading font-bold text-primary mb-8 text-center">
+              <h3 className="text-3xl font-heading font-bold text-primary mb-12 text-center">
                 {t('about.metrics.title')}
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
                 {metrics.map((metric, index) => (
                   <div key={index} className="text-center group">
-                    <div className="relative mb-4">
-                      <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:from-primary/30 group-hover:to-primary/20">
-                        <metric.icon className="h-10 w-10 text-primary transition-all duration-300 group-hover:scale-110" />
+                    <div className="relative mb-6">
+                      <CircularProgress 
+                        percentage={metric.percentage} 
+                        color={metric.color}
+                        delay={index * 200}
+                      />
+                      {/* Icon in center */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+                          <metric.icon className="h-6 w-6" style={{ color: metric.color }} />
+                        </div>
                       </div>
-                      {/* Animated ring */}
-                      <div className="absolute inset-0 w-20 h-20 mx-auto rounded-full border-2 border-primary/20 animate-pulse"></div>
                     </div>
-                    <div className="space-y-2">
-                      <div className="h-2 bg-gradient-to-r from-primary/20 to-primary rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-1000 ease-out animate-pulse"
-                          style={{
-                            width: '100%',
-                            animationDelay: `${index * 0.2}s`
-                          }}
-                        ></div>
-                      </div>
-                      <p className="text-primary font-heading font-bold text-lg transition-all duration-300 group-hover:text-primary/80">
+                    <div className="space-y-1">
+                      <p className="text-3xl font-heading font-bold" style={{ color: metric.color }}>
                         {metric.label}
+                      </p>
+                      <p className="text-secondary font-body text-sm">
+                        {metric.subtext}
                       </p>
                     </div>
                   </div>
