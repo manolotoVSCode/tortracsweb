@@ -12,12 +12,12 @@ const Footer = () => {
           {/* Logo and Company Name */}
           <div>
             <div className="flex items-center mb-2">
-              <h3 className="text-2xl font-heading font-bold">
+              <h3 className="text-xl font-heading font-bold">
                 <span className="text-white">TORT</span>
                 <span className="text-white/80">RACS</span>
               </h3>
             </div>
-            <p className="text-white/80 font-body mb-3">
+            <p className="text-white/80 font-body text-sm mb-2">
               Soluciones de transporte confiables
             </p>
             <p className="text-white/80 font-body text-sm">
