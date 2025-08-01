@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+// Resend will be initialized inside the handler
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -36,6 +36,9 @@ const handler = async (req: Request): Promise<Response> => {
     }
     
     console.log("API Key starts with:", apiKey.substring(0, 10));
+    
+    // Initialize Resend with the API key
+    const resend = new Resend(apiKey);
 
     // Send notification email to TORTRACS
     console.log("Attempting to send notification email...");
