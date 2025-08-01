@@ -19,8 +19,8 @@ const translations = {
     'nav.contact': 'Contacto',
     
     // Hero Section
-    'hero.title': 'Soluciones de transporte de carga confiables en México',
-    'hero.subtitle': 'Más de 10 años conectando empresas con servicios de logística seguros, puntuales y especializados',
+    'hero.title': 'Soluciones de transporte terrestre en México',
+    'hero.subtitle': '10+ años ofreciendo servicios de logística flexibles y confiables',
     'hero.cta': 'Cotiza ahora',
     
     // About Section
@@ -122,8 +122,8 @@ const translations = {
     'nav.contact': 'Contact',
     
     // Hero Section
-    'hero.title': 'Reliable freight transportation solutions in Mexico',
-    'hero.subtitle': 'Over 10 years connecting businesses with safe, punctual and specialized logistics services',
+    'hero.title': 'Ground transportation solutions in Mexico',
+    'hero.subtitle': '10+ years offering flexible and reliable logistics services',
     'hero.cta': 'Get Quote',
     
     // About Section
