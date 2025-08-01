@@ -85,8 +85,8 @@ const ValueSection = () => {
           ))}
         </div>
 
-        {/* Testimonials */}
-        <div className="mb-16">
+        {/* Testimonials - Hidden temporarily */}
+        <div className="mb-16 hidden">
           <h3 className="text-3xl font-heading font-bold text-primary text-center mb-12">
             {t('value.testimonials.title')}
           </h3>
