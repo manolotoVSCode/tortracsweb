@@ -24,10 +24,14 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const { name, email, phone, company, message }: ContactNotificationRequest = await req.json();
+    
+    console.log("Received request:", { name, email, phone, company, message });
+    console.log("Resend API Key exists:", !!Deno.env.get("RESEND_API_KEY"));
+    console.log("API Key first 10 chars:", Deno.env.get("RESEND_API_KEY")?.substring(0, 10));
 
     // Send notification email to TORTRACS
     const notificationEmailResponse = await resend.emails.send({
-      from: "TORTRACS Web <onboarding@resend.dev>",
+      from: "TORTRACS Web <noreply@tortracs.net>",
       to: ["comercial@tortracs.net"],
       subject: `Nueva Solicitud de Cotización - ${company}`,
       html: `
