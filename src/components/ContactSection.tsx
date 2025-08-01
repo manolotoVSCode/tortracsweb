@@ -20,27 +20,86 @@ const ContactSection = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    // Handle phone input to allow only numbers
+    if (name === 'phone') {
+      const numericValue = value.replace(/\D/g, '');
+      setFormData(prev => ({
+        ...prev,
+        [name]: numericValue
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    toast({
-      title: "Cotización enviada",
-      description: "Nos pondremos en contacto contigo pronto.",
-    });
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      message: '',
-    });
+    
+    // Basic validation
+    if (!formData.name || !formData.company || !formData.email) {
+      toast({
+        title: "Error",
+        description: "Por favor complete todos los campos obligatorios.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Error",
+        description: "Por favor ingrese un email válido.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      // Create email body
+      const emailBody = `
+Solicitud de Cotización - TORTRACS
+
+Nombre: ${formData.name}
+Empresa: ${formData.company}
+Email: ${formData.email}
+Teléfono: ${formData.phone}
+
+Mensaje:
+${formData.message}
+      `;
+
+      // Create mailto link
+      const mailtoLink = `mailto:comercial@tortracs.net?subject=Solicitud de Cotización&body=${encodeURIComponent(emailBody)}`;
+      
+      // Open email client
+      window.location.href = mailtoLink;
+
+      toast({
+        title: "Cotización enviada correctamente",
+        description: "Nos pondremos en contacto contigo pronto.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: '',
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Hubo un error al enviar la cotización. Inténtalo de nuevo.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -100,7 +159,7 @@ const ContactSection = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      required
+                      placeholder="Ejemplo: 5512345678"
                       className="w-full"
                     />
                   </div>
@@ -128,7 +187,6 @@ const ContactSection = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={5}
-                    required
                     className="w-full"
                   />
                 </div>
