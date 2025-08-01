@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Award, Satellite, MonitorSpeaker, GraduationCap, Wrench, Quote } from 'lucide-react';
 import canacarLogo from '/lovable-uploads/db1e1dcd-725e-4168-a8f7-aac25fa99daf.png';
-import anerpvLogo from '/lovable-uploads/9c72013a-e408-41e3-8e6e-ca90ff1b00b9.png';
+import anerpvLogo from '/lovable-uploads/0beca359-2968-4f97-8e63-6add53ecd970.png';
 
 const ValueSection = () => {
   const { t } = useLanguage();
@@ -115,29 +115,23 @@ const ValueSection = () => {
           <h3 className="text-3xl font-heading font-bold text-primary mb-8">
             {t('value.associations')}
           </h3>
-          <div className="flex justify-center items-center space-x-16">
+          <div className="flex justify-center items-center space-x-20">
             {/* CANACAR Logo */}
-            <div className="flex flex-col items-center">
-              <div className="w-40 h-24 flex items-center justify-center mb-4">
-                <img 
-                  src={canacarLogo} 
-                  alt="CANACAR" 
-                  className="max-w-full max-h-full object-contain filter grayscale"
-                />
-              </div>
-              <span className="text-secondary font-body text-sm font-semibold">CANACAR</span>
+            <div className="flex items-center justify-center">
+              <img 
+                src={canacarLogo} 
+                alt="CANACAR" 
+                className="w-60 h-auto object-contain filter grayscale"
+              />
             </div>
             
             {/* ANERPV Logo */}
-            <div className="flex flex-col items-center">
-              <div className="w-40 h-24 flex items-center justify-center mb-4">
-                <img 
-                  src={anerpvLogo} 
-                  alt="ANERPV" 
-                  className="max-w-full max-h-full object-contain filter grayscale"
-                />
-              </div>
-              <span className="text-secondary font-body text-sm font-semibold">ANERPV</span>
+            <div className="flex items-center justify-center">
+              <img 
+                src={anerpvLogo} 
+                alt="ANERPV" 
+                className="w-60 h-auto object-contain filter grayscale"
+              />
             </div>
           </div>
         </div>
