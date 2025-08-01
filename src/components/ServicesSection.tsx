@@ -8,22 +8,22 @@ const ServicesSection = () => {
 
   const services = [
     {
-      icon: Users,
+      icon: 'Users',
       title: t('services.dedicated.title'),
       description: t('services.dedicated.description'),
     },
     {
-      icon: Zap,
+      icon: 'Zap',
       title: t('services.spot.title'),
       description: t('services.spot.description'),
     },
     {
-      icon: Container,
+      icon: 'Container',
       title: t('services.containers.title'),
       description: t('services.containers.description'),
     },
     {
-      icon: Package,
+      icon: 'Package',
       title: t('services.ltl.title'),
       description: t('services.ltl.description'),
     },
@@ -52,7 +52,10 @@ const ServicesSection = () => {
               <CardContent className="p-8 text-center">
                 <div className="flex justify-center mb-6">
                   <div className="w-20 h-20 bg-gradient-tortracs rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    {React.createElement(service.icon, { className: "h-10 w-10 text-white" })}
+                    {service.icon === 'Users' && <Users className="h-10 w-10 text-white" />}
+                    {service.icon === 'Zap' && <Zap className="h-10 w-10 text-white" />}
+                    {service.icon === 'Container' && <Container className="h-10 w-10 text-white" />}
+                    {service.icon === 'Package' && <Package className="h-10 w-10 text-white" />}
                   </div>
                 </div>
                 <h3 className="text-xl font-heading font-bold text-primary mb-4">
