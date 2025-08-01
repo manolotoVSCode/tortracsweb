@@ -1,5 +1,5 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { Linkedin } from 'lucide-react';
+import { Linkedin, Facebook, MapPin } from 'lucide-react';
 import tortracsLogo from '@/assets/tortracs-logo-text-only.png';
 
 const Footer = () => {
@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8 items-center">
+        <div className="grid md:grid-cols-3 gap-8 items-start">
           {/* Logo and Company Name */}
           <div>
             <div className="flex items-center mb-2">
@@ -39,11 +39,43 @@ const Footer = () => {
               >
                 <Linkedin className="h-5 w-5" />
               </a>
+              <a 
+                href="https://www.facebook.com/share/16wkxqY6nD/?mibextid=wwXIfr" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-white/80 hover:text-white transition-colors duration-200"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
             </div>
           </div>
 
-          {/* Copyright */}
-          <div className="text-center md:text-right">
+          {/* Addresses and Copyright */}
+          <div className="text-right">
+            <div className="space-y-3 mb-4">
+              <div className="text-white/80 font-body text-sm">
+                <div className="flex items-start justify-end space-x-2 mb-2">
+                  <div className="text-right">
+                    <p className="font-semibold text-white">Corporativo</p>
+                    <p>Alejandro Dumas, 145</p>
+                    <p>11550, Polanco, Miguel Hidalgo</p>
+                    <p>CDMX</p>
+                  </div>
+                  <MapPin className="h-4 w-4 text-white/60 mt-1 flex-shrink-0" />
+                </div>
+              </div>
+              <div className="text-white/80 font-body text-sm">
+                <div className="flex items-start justify-end space-x-2">
+                  <div className="text-right">
+                    <p className="font-semibold text-white">Patio Cuatitlán</p>
+                    <p>Calle 5, 14</p>
+                    <p>54879, La Palma, Cuatlitlán</p>
+                    <p>Estado de México</p>
+                  </div>
+                  <MapPin className="h-4 w-4 text-white/60 mt-1 flex-shrink-0" />
+                </div>
+              </div>
+            </div>
             <p className="text-white/80 font-body text-sm">
               {t('footer.copyright')}
             </p>
