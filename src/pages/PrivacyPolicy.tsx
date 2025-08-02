@@ -2,6 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '@/components/Footer';
 
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
@@ -86,6 +87,8 @@ const PrivacyPolicy = () => {
           </Card>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 };
