@@ -160,6 +160,43 @@ const AdminDashboard = () => {
 
   const updateJobApplication = async (id: string, updates: Partial<JobApplication>) => {
     try {
+      // If changing status to "rechazado", send rejection email first
+      if (updates.status === 'rechazado') {
+        const application = jobApplications.find(app => app.id === id);
+        if (application) {
+          try {
+            const { error: emailError } = await supabase.functions.invoke('send-rejection-notification', {
+              body: {
+                full_name: application.full_name,
+                email: application.email,
+                department: application.department
+              }
+            });
+
+            if (emailError) {
+              console.error('Error sending rejection email:', emailError);
+              toast({
+                variant: "destructive",
+                title: "Error al enviar email",
+                description: "No se pudo enviar el email de rechazo, pero el estado se actualizará",
+              });
+            } else {
+              toast({
+                title: "Email enviado",
+                description: "Se ha enviado un email de rechazo al candidato",
+              });
+            }
+          } catch (emailError) {
+            console.error('Error sending rejection email:', emailError);
+            toast({
+              variant: "destructive",
+              title: "Error al enviar email",
+              description: "No se pudo enviar el email de rechazo, pero el estado se actualizará",
+            });
+          }
+        }
+      }
+
       const { error } = await supabase
         .from('job_applications')
         .update(updates)
@@ -216,11 +253,27 @@ const AdminDashboard = () => {
 
   const downloadCV = async (filePath: string, fileName: string) => {
     try {
+      console.log('Attempting to download CV:', { filePath, fileName });
+      
+      // First, try to get a public URL to see if file exists
+      const { data: urlData } = supabase.storage
+        .from('cv-uploads')
+        .getPublicUrl(filePath);
+      
+      console.log('Public URL generated:', urlData);
+
       const { data, error } = await supabase.storage
         .from('cv-uploads')
         .download(filePath);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Storage download error:', error);
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error('No se pudo obtener el archivo');
+      }
 
       // Create download link
       const url = URL.createObjectURL(data);
@@ -237,10 +290,11 @@ const AdminDashboard = () => {
         description: "El archivo se ha descargado correctamente",
       });
     } catch (error: any) {
+      console.error('Download error:', error);
       toast({
         variant: "destructive",
-        title: "Error al descargar",
-        description: error.message,
+        title: "Error al descargar CV",
+        description: `No se pudo descargar el archivo: ${error.message}. Verifica que el archivo exista en storage.`,
       });
     }
   };
@@ -248,8 +302,13 @@ const AdminDashboard = () => {
   const getStatusLabel = (status: string) => {
     const labels = {
       pending: 'Pendiente',
+      contacted: 'Contactado',
       reviewed: 'Revisado',
+      resolved: 'Resuelto',
       completed: 'Completado',
+      hired: 'Contratado',
+      rejected: 'Rechazado (Inglés)',
+      rechazado: 'Rechazado',
     };
     return labels[status as keyof typeof labels] || status;
   };
@@ -373,8 +432,9 @@ const AdminDashboard = () => {
                         </SelectTrigger>
                         <SelectContent className="bg-white z-50">
                           <SelectItem value="pending">Pendiente</SelectItem>
+                          <SelectItem value="contacted">Contactado</SelectItem>
                           <SelectItem value="reviewed">Revisado</SelectItem>
-                          <SelectItem value="completed">Completado</SelectItem>
+                          <SelectItem value="resolved">Resuelto</SelectItem>
                         </SelectContent>
                       </Select>
                     </TableCell>
@@ -463,7 +523,10 @@ const AdminDashboard = () => {
                         <SelectContent className="bg-white z-50">
                           <SelectItem value="pending">Pendiente</SelectItem>
                           <SelectItem value="reviewed">Revisado</SelectItem>
-                          <SelectItem value="completed">Completado</SelectItem>
+                          <SelectItem value="contacted">Contactado</SelectItem>
+                          <SelectItem value="hired">Contratado</SelectItem>
+                          <SelectItem value="rejected">Rechazado (Inglés)</SelectItem>
+                          <SelectItem value="rechazado">Rechazado</SelectItem>
                         </SelectContent>
                       </Select>
                     </TableCell>
