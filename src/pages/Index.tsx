@@ -1,4 +1,3 @@
-import { LanguageProvider } from '@/hooks/useLanguage';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
@@ -10,8 +9,7 @@ import Footer from '@/components/Footer';
 
 const Index = () => {
   return (
-    <LanguageProvider>
-      <div className="min-h-screen">
+    <div className="min-h-screen">
         <Navbar />
         <HeroSection />
       <AboutSection />
@@ -21,7 +19,6 @@ const Index = () => {
       <ContactSection />
         <Footer />
       </div>
-    </LanguageProvider>
   );
 };
 

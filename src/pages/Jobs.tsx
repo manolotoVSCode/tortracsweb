@@ -6,7 +6,6 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ArrowLeft, Upload, Users, Briefcase } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { LanguageProvider } from '@/hooks/useLanguage';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { supabase } from '@/integrations/supabase/client';
@@ -207,8 +206,7 @@ const Jobs = () => {
   };
 
   return (
-    <LanguageProvider>
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
         <Navbar />
         
         <div className="py-20">
@@ -369,7 +367,6 @@ const Jobs = () => {
         
         <Footer />
       </div>
-    </LanguageProvider>
   );
 };
 
