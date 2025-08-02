@@ -30,13 +30,21 @@ const Navbar = () => {
     }
   };
 
+  const handleLogoClick = () => {
+    if (location.pathname === '/') {
+      // If we're already on home page, scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // If we're on another page, the Link component will handle navigation to home
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20 md:h-24 py-2">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200">
+            <Link to="/" onClick={handleLogoClick} className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200">
               <h1 className="text-3xl md:text-4xl font-heading font-bold">
                 <span className="text-primary">TORT</span>
                 <span className="text-secondary">RACS</span>
