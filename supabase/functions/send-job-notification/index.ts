@@ -68,11 +68,12 @@ const handler = async (req: Request): Promise<Response> => {
       try {
         const arrayBuffer = await cvFile.arrayBuffer();
         const uint8Array = new Uint8Array(arrayBuffer);
-        console.log("CV converted to buffer, size:", uint8Array.length);
+        const base64String = btoa(String.fromCharCode(...uint8Array));
+        console.log("CV converted to base64, length:", base64String.length);
         
         attachments = [{
           filename: cv_filename,
-          content: uint8Array,
+          content: base64String,
         }];
         console.log("Attachment prepared successfully:", cv_filename);
       } catch (bufferError) {
