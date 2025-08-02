@@ -151,7 +151,7 @@ const AboutSection = () => {
               <h3 className="text-3xl font-heading font-bold text-primary mb-8 text-center">
                 {t('about.values.title')}
               </h3>
-              <div className="grid md:grid-cols-1 lg:grid-cols-1 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {values.map((value, index) => (
                   <div key={index} className="text-center p-6 rounded-lg bg-background/50">
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
