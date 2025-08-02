@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { User, Users, Edit, Save, X } from 'lucide-react';
+import { User, Users, Edit, Save, X, Plus } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
@@ -35,6 +35,7 @@ interface UserWithRole extends UserProfile {
 const UserManagement = () => {
   const [users, setUsers] = useState<UserWithRole[]>([]);
   const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
   const [editingUser, setEditingUser] = useState<UserWithRole | null>(null);
   const [editForm, setEditForm] = useState<{
     first_name: string;
@@ -46,6 +47,14 @@ const UserManagement = () => {
     last_name: '',
     company_function: '',
     role: 'user'
+  });
+  const [newUserForm, setNewUserForm] = useState({
+    email: '',
+    password: '',
+    first_name: '',
+    last_name: '',
+    company_function: '',
+    role: 'user' as 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO'
   });
   const { toast } = useToast();
 
@@ -164,6 +173,60 @@ const UserManagement = () => {
     }
   };
 
+  const handleCreateUser = async () => {
+    if (!newUserForm.email || !newUserForm.password) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Email y contraseña son requeridos",
+      });
+      return;
+    }
+
+    try {
+      setCreating(true);
+
+      const { data, error } = await supabase.functions.invoke('create-user', {
+        body: {
+          email: newUserForm.email,
+          password: newUserForm.password,
+          first_name: newUserForm.first_name || null,
+          last_name: newUserForm.last_name || null,
+          company_function: newUserForm.company_function || null,
+          role: newUserForm.role,
+        }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Usuario creado",
+        description: `Usuario ${newUserForm.email} creado exitosamente`,
+      });
+
+      // Reset form
+      setNewUserForm({
+        email: '',
+        password: '',
+        first_name: '',
+        last_name: '',
+        company_function: '',
+        role: 'user'
+      });
+
+      // Refresh the users list
+      fetchUsers();
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al crear usuario",
+        description: error.message,
+      });
+    } finally {
+      setCreating(false);
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('es-MX', {
       year: 'numeric',
@@ -210,13 +273,132 @@ const UserManagement = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center">
-          <Users className="h-5 w-5 mr-2" />
-          Gestión de Usuarios
-        </CardTitle>
-        <CardDescription>
-          Administrar usuarios registrados y sus roles (Solo Super Admin)
-        </CardDescription>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="flex items-center">
+              <Users className="h-5 w-5 mr-2" />
+              Gestión de Usuarios
+            </CardTitle>
+            <CardDescription>
+              Administrar usuarios registrados y sus roles (Solo Super Admin)
+            </CardDescription>
+          </div>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="h-4 w-4 mr-2" />
+                Crear Usuario
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Crear Nuevo Usuario</DialogTitle>
+                <DialogDescription>
+                  Crea un nuevo usuario en el sistema con email y contraseña
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="new_email" className="text-right">
+                    Email *
+                  </Label>
+                  <Input
+                    id="new_email"
+                    type="email"
+                    value={newUserForm.email}
+                    onChange={(e) => setNewUserForm(prev => ({ ...prev, email: e.target.value }))}
+                    className="col-span-3"
+                    placeholder="usuario@tortracs.net"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="new_password" className="text-right">
+                    Contraseña *
+                  </Label>
+                  <Input
+                    id="new_password"
+                    type="password"
+                    value={newUserForm.password}
+                    onChange={(e) => setNewUserForm(prev => ({ ...prev, password: e.target.value }))}
+                    className="col-span-3"
+                    placeholder="Contraseña temporal"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="new_first_name" className="text-right">
+                    Nombre
+                  </Label>
+                  <Input
+                    id="new_first_name"
+                    value={newUserForm.first_name}
+                    onChange={(e) => setNewUserForm(prev => ({ ...prev, first_name: e.target.value }))}
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="new_last_name" className="text-right">
+                    Apellidos
+                  </Label>
+                  <Input
+                    id="new_last_name"
+                    value={newUserForm.last_name}
+                    onChange={(e) => setNewUserForm(prev => ({ ...prev, last_name: e.target.value }))}
+                    className="col-span-3"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="new_company_function" className="text-right">
+                    Función
+                  </Label>
+                  <Input
+                    id="new_company_function"
+                    value={newUserForm.company_function}
+                    onChange={(e) => setNewUserForm(prev => ({ ...prev, company_function: e.target.value }))}
+                    className="col-span-3"
+                    placeholder="Función en la empresa"
+                  />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="new_role" className="text-right">
+                    Rol
+                  </Label>
+                  <Select 
+                    value={newUserForm.role} 
+                    onValueChange={(value: 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO') => 
+                      setNewUserForm(prev => ({ ...prev, role: value }))
+                    }
+                  >
+                    <SelectTrigger className="col-span-3">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="user">Usuario</SelectItem>
+                      <SelectItem value="gestorRH">Gestor RH</SelectItem>
+                      <SelectItem value="gestorCO">Gestor CO</SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="super_admin">Super Admin</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button type="submit" onClick={handleCreateUser} disabled={creating}>
+                  {creating ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Creando...
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Crear Usuario
+                    </>
+                  )}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
       </CardHeader>
       <CardContent>
         <Table>
