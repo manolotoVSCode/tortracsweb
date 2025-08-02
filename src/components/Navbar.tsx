@@ -84,6 +84,7 @@ const Navbar = () => {
 
           {/* Language Toggle & Mobile Menu Button */}
           <div className="flex items-center space-x-4">
+            {/* Temporarily disabled language toggle 
             <Button
               variant="ghost"
               size="sm"
@@ -93,6 +94,7 @@ const Navbar = () => {
               <Globe className="h-4 w-4" />
               <span className="font-semibold">{language.toUpperCase()}</span>
             </Button>
+            */}
 
             {/* Mobile menu button */}
             <div className="md:hidden">
