@@ -1,1 +1,10 @@
 project_id = "fliwlurkacqukyjyvsdz"
+
+[functions.send-job-notification]
+verify_jwt = false
+
+[functions.send-rejection-notification]
+verify_jwt = false
+
+[functions.send-contact-notification]
+verify_jwt = false
