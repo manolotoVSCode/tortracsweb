@@ -3,11 +3,13 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '@/components/Footer';
+import { LanguageProvider } from '@/hooks/useLanguage';
 
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
 
   return (
+    <LanguageProvider>
     <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
@@ -90,6 +92,7 @@ const PrivacyPolicy = () => {
       
       <Footer />
     </div>
+    </LanguageProvider>
   );
 };
 
