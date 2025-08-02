@@ -214,7 +214,7 @@ const Jobs = () => {
         <div className="py-20">
           <div className="container mx-auto px-4 max-w-4xl">
             {/* Header */}
-            <div className="text-center mb-12">
+            <div className="mb-12">
               <Button 
                 variant="ghost" 
                 onClick={() => navigate('/')}
@@ -223,6 +223,8 @@ const Jobs = () => {
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Volver
               </Button>
+              
+              <div className="text-center">
               
               <div className="flex justify-center mb-6">
                 <div className="bg-primary/10 p-4 rounded-full">
@@ -239,6 +241,7 @@ const Jobs = () => {
                 En TORTRACS valoramos el talento, la dedicación y la pasión por brindar soluciones logísticas 
                 de calidad. Descubre las oportunidades que tenemos para ti y forma parte de nuestra familia.
               </p>
+              </div>
             </div>
 
             {/* Application Form */}
