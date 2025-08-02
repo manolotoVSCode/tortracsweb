@@ -294,7 +294,7 @@ const AdminDashboard = () => {
       toast({
         variant: "destructive",
         title: "Error al descargar CV",
-        description: `No se pudo descargar el archivo: ${error.message}. Verifica que el archivo exista en storage.`,
+        description: `No se pudo descargar el archivo: ${error?.message || 'Error desconocido'}. El archivo posiblemente no exista en storage.`,
       });
     }
   };
