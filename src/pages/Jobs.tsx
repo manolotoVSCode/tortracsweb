@@ -125,8 +125,9 @@ const Jobs = () => {
       }
 
       // Send notification emails
+      console.log('Sending job notification email...');
       try {
-        const { error: emailError } = await supabase.functions.invoke('send-job-notification', {
+        const { data, error: emailError } = await supabase.functions.invoke('send-job-notification', {
           body: {
             full_name: formData.fullName,
             email: formData.email,
@@ -137,10 +138,22 @@ const Jobs = () => {
         });
 
         if (emailError) {
-          console.warn('Email notification failed:', emailError);
+          console.error('Email notification failed:', emailError);
+          toast({
+            title: "Error al enviar notificación",
+            description: `Error: ${emailError.message || 'Error desconocido'}`,
+            variant: "destructive",
+          });
+        } else {
+          console.log('Email notification sent successfully:', data);
         }
       } catch (emailError) {
-        console.warn('Email notification failed:', emailError);
+        console.error('Email notification failed:', emailError);
+        toast({
+          title: "Error al enviar notificación",
+          description: `Error: ${emailError.message || 'Error desconocido'}`,
+          variant: "destructive",
+        });
       }
 
       toast({
