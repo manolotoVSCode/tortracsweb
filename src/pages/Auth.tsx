@@ -12,7 +12,6 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const navigate = useNavigate();
@@ -70,35 +69,6 @@ const Auth = () => {
     setLoading(false);
   };
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    const redirectUrl = `${window.location.origin}/admin/dashboard`;
-    
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl
-      }
-    });
-
-    if (error) {
-      toast({
-        variant: "destructive",
-        title: "Error de registro",
-        description: error.message,
-      });
-    } else {
-      toast({
-        title: "Registro exitoso",
-        description: "Revisa tu email para confirmar tu cuenta",
-      });
-    }
-
-    setLoading(false);
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
@@ -110,7 +80,7 @@ const Auth = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={isSignUp ? handleSignUp : handleSignIn} className="space-y-4">
+          <form onSubmit={handleSignIn} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -132,25 +102,9 @@ const Auth = () => {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading 
-                ? (isSignUp ? 'Registrando...' : 'Accediendo...') 
-                : (isSignUp ? 'Registrarse' : 'Iniciar Sesión')
-              }
+              {loading ? 'Accediendo...' : 'Iniciar Sesión'}
             </Button>
           </form>
-          
-          <div className="mt-4 text-center">
-            <Button 
-              variant="ghost" 
-              onClick={() => setIsSignUp(!isSignUp)}
-              disabled={loading}
-            >
-              {isSignUp 
-                ? '¿Ya tienes cuenta? Inicia sesión' 
-                : '¿No tienes cuenta? Regístrate'
-              }
-            </Button>
-          </div>
         </CardContent>
       </Card>
     </div>
