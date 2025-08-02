@@ -50,11 +50,17 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Get the CV file from storage to attach it
     console.log("Getting CV file from storage...");
+    console.log("Supabase URL:", supabaseUrl);
+    console.log("Service role key exists:", !!supabaseServiceKey);
     const filePath = cv_file_path || cv_filename;
     console.log("Using file path:", filePath);
+    
     const { data: cvFile, error: downloadError } = await supabase.storage
       .from('cv-uploads')
       .download(filePath);
+    
+    console.log("Download result - data exists:", !!cvFile);
+    console.log("Download error:", downloadError);
     
     let attachments = [];
     if (cvFile && !downloadError) {
@@ -68,14 +74,17 @@ const handler = async (req: Request): Promise<Response> => {
           filename: cv_filename,
           content: uint8Array,
         }];
-        console.log("Attachment prepared:", cv_filename);
+        console.log("Attachment prepared successfully:", cv_filename);
       } catch (bufferError) {
         console.error("Error converting CV to buffer:", bufferError);
       }
     } else {
-      console.error("Error downloading CV file:", downloadError);
+      console.error("Failed to download CV file");
+      console.log("Download error details:", downloadError);
       console.log("CV file data:", cvFile);
     }
+    
+    console.log("Total attachments to send:", attachments.length);
 
     // Send notification email to TORTRACS HR
     console.log("Sending job application notification email...");
