@@ -170,6 +170,7 @@ const Jobs = () => {
       toast({
         title: "Aplicación enviada correctamente",
         description: "Nos pondremos en contacto contigo pronto.",
+        duration: 5000, // 5 segundos
       });
       
       // Reset form completely
