@@ -79,11 +79,10 @@ const AboutSection = () => {
   };
 
   const values = [
+    { icon: Zap, text: t('about.values.resilience') },
     { icon: Shield, text: t('about.values.safety') },
     { icon: Handshake, text: t('about.values.responsibility') },
-    { icon: Heart, text: t('about.values.closeness') },
     { icon: Eye, text: t('about.values.transparency') },
-    { icon: Zap, text: t('about.values.resilience') },
     { icon: Compass, text: t('about.values.commitment') },
   ];
 
@@ -152,17 +151,17 @@ const AboutSection = () => {
               <h3 className="text-3xl font-heading font-bold text-primary mb-8 text-center">
                 {t('about.values.title')}
               </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-1 lg:grid-cols-1 gap-8">
                 {values.map((value, index) => (
-                  <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-background/50">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <value.icon className="h-6 w-6 text-primary" />
+                  <div key={index} className="text-center p-6 rounded-lg bg-background/50">
+                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <value.icon className="h-8 w-8 text-primary" />
                     </div>
-                    <p className="text-secondary font-body text-base leading-relaxed">
-                      <span className="text-tortracs-navy font-bold">
-                        {value.text.split(':')[0]}:
-                      </span>
-                      {value.text.split(':').slice(1).join(':')}
+                    <h4 className="text-xl font-heading font-bold text-primary mb-3 text-center">
+                      {value.text.split(':')[0]}
+                    </h4>
+                    <p className="text-secondary font-body text-base leading-relaxed text-justify">
+                      {value.text.split(':').slice(1).join(':').trim()}
                     </p>
                   </div>
                 ))}
