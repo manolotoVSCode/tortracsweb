@@ -157,7 +157,7 @@ const AboutSection = () => {
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <value.icon className="h-8 w-8 text-primary" />
                     </div>
-                    <h4 className="text-xl font-heading font-bold text-primary mb-3 text-center">
+                    <h4 className="text-lg font-heading font-bold text-primary mb-3 text-center">
                       {value.text.split(':')[0]}
                     </h4>
                     <p className="text-secondary font-body text-base leading-relaxed text-justify">
