@@ -53,6 +53,42 @@ export type Database = {
         }
         Relationships: []
       }
+      form_configurations: {
+        Row: {
+          created_at: string
+          form_type: string
+          from_email: string
+          id: string
+          is_active: boolean
+          subject: string
+          template_content: string | null
+          to_email: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          form_type: string
+          from_email: string
+          id?: string
+          is_active?: boolean
+          subject: string
+          template_content?: string | null
+          to_email: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          form_type?: string
+          from_email?: string
+          id?: string
+          is_active?: boolean
+          subject?: string
+          template_content?: string | null
+          to_email?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       job_applications: {
         Row: {
           archived: boolean

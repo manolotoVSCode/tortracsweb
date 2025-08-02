@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { LogOut, Mail, Users, FileText, Archive, Home } from 'lucide-react';
 import UserManagement from '@/components/UserManagement';
+import FormConfiguration from '@/components/FormConfiguration';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
@@ -336,10 +337,11 @@ const AdminDashboard = () => {
       </header>
 
       <div className="container mx-auto px-4 py-8">
-        {/* User Management - Only for Super Admin */}
+        {/* Super Admin Modules */}
         {userRole === 'super_admin' && (
-          <div className="mb-8">
+          <div className="space-y-8 mb-8">
             <UserManagement />
+            <FormConfiguration />
           </div>
         )}
 
