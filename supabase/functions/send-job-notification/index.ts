@@ -58,16 +58,23 @@ const handler = async (req: Request): Promise<Response> => {
     
     let attachments = [];
     if (cvFile && !downloadError) {
-      console.log("CV file retrieved successfully");
-      const arrayBuffer = await cvFile.arrayBuffer();
-      const uint8Array = new Uint8Array(arrayBuffer);
-      
-      attachments = [{
-        filename: cv_filename,
-        content: uint8Array,
-      }];
+      console.log("CV file retrieved successfully, size:", cvFile.size);
+      try {
+        const arrayBuffer = await cvFile.arrayBuffer();
+        const uint8Array = new Uint8Array(arrayBuffer);
+        console.log("CV converted to buffer, size:", uint8Array.length);
+        
+        attachments = [{
+          filename: cv_filename,
+          content: uint8Array,
+        }];
+        console.log("Attachment prepared:", cv_filename);
+      } catch (bufferError) {
+        console.error("Error converting CV to buffer:", bufferError);
+      }
     } else {
       console.error("Error downloading CV file:", downloadError);
+      console.log("CV file data:", cvFile);
     }
 
     // Send notification email to TORTRACS HR
