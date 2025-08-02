@@ -102,15 +102,19 @@ const Jobs = () => {
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       const filePath = `${fileName}`;
 
+      console.log('=== UPLOADING CV TO STORAGE ===');
       const { error: uploadError } = await supabase.storage
         .from('cv-uploads')
         .upload(filePath, formData.cv);
 
       if (uploadError) {
+        console.error('Upload error:', uploadError);
         throw uploadError;
       }
+      console.log('✅ CV uploaded successfully to:', filePath);
 
       // Save job application to database
+      console.log('=== SAVING TO DATABASE ===');
       const { error: dbError } = await supabase
         .from('job_applications')
         .insert({
@@ -123,8 +127,10 @@ const Jobs = () => {
         });
 
       if (dbError) {
+        console.error('Database error:', dbError);
         throw dbError;
       }
+      console.log('✅ Saved to database successfully');
 
       // Send notification emails
       console.log('Sending job notification email...');
