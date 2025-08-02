@@ -237,20 +237,16 @@ const AdminDashboard = () => {
     });
   };
 
-  const getStatusBadge = (status: string) => {
-    const statusColors = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      reviewed: 'bg-green-100 text-green-800',
-      rechazado: 'bg-red-100 text-red-800',
-      contacted: 'bg-blue-100 text-blue-800',
-      resolved: 'bg-green-100 text-green-800',
+  const getStatusButtonColor = (status: string) => {
+    const statusClasses = {
+      pending: 'bg-yellow-100 text-yellow-800 border-yellow-300',
+      reviewed: 'bg-green-100 text-green-800 border-green-300',
+      rechazado: 'bg-red-100 text-red-800 border-red-300',
+      contacted: 'bg-blue-100 text-blue-800 border-blue-300',
+      resolved: 'bg-green-100 text-green-800 border-green-300',
     };
     
-    return (
-      <Badge className={statusColors[status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'}>
-        {getStatusLabel(status)}
-      </Badge>
-    );
+    return statusClasses[status as keyof typeof statusClasses] || 'bg-gray-100 text-gray-800 border-gray-300';
   };
 
   const getStatusLabel = (status: string) => {
@@ -379,7 +375,7 @@ const AdminDashboard = () => {
                           updateContactSubmission(submission.id, { status: value })
                         }
                       >
-                        <SelectTrigger className="w-32">
+                        <SelectTrigger className={`w-32 ${getStatusButtonColor(submission.status)}`}>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="bg-white z-50">
@@ -459,7 +455,7 @@ const AdminDashboard = () => {
                           updateJobApplication(application.id, { status: value })
                         }
                       >
-                        <SelectTrigger className="w-32">
+                        <SelectTrigger className={`w-32 ${getStatusButtonColor(application.status)}`}>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="bg-white z-50">
@@ -468,9 +464,6 @@ const AdminDashboard = () => {
                           <SelectItem value="rechazado">Rechazado</SelectItem>
                         </SelectContent>
                       </Select>
-                    </TableCell>
-                    <TableCell>
-                      {getStatusBadge(application.status)}
                     </TableCell>
                     <TableCell>
                       <AlertDialog>
