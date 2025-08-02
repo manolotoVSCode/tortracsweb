@@ -10,9 +10,11 @@ import { LanguageProvider } from '@/hooks/useLanguage';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
 
 const Jobs = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     department: '',
     fullName: '',
@@ -170,6 +172,7 @@ const Jobs = () => {
         description: "Nos pondremos en contacto contigo pronto.",
       });
       
+      // Reset form completely
       setFormData({
         department: '',
         fullName: '',
@@ -178,8 +181,19 @@ const Jobs = () => {
         cv: null,
       });
       
+      // Reset file input
       const fileInput = document.getElementById('cv-upload') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
+      
+      // Reset select component by triggering a re-render
+      const selectTrigger = document.querySelector('[data-state]') as HTMLElement;
+      if (selectTrigger) {
+        selectTrigger.click();
+        setTimeout(() => {
+          const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+          document.dispatchEvent(escEvent);
+        }, 10);
+      }
       
     } catch (error) {
       console.error('Error submitting job application:', error);
@@ -202,7 +216,7 @@ const Jobs = () => {
             <div className="text-center mb-12">
               <Button 
                 variant="ghost" 
-                onClick={() => window.history.back()}
+                onClick={() => navigate('/')}
                 className="mb-8 text-primary hover:text-primary/80"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
@@ -242,7 +256,7 @@ const Jobs = () => {
                     <Label htmlFor="department" className="text-primary font-semibold mb-2 block">
                       Departamento *
                     </Label>
-                    <Select onValueChange={(value) => setFormData(prev => ({ ...prev, department: value }))}>
+                    <Select value={formData.department} onValueChange={(value) => setFormData(prev => ({ ...prev, department: value }))}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Selecciona el departamento" />
                       </SelectTrigger>
