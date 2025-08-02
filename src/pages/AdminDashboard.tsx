@@ -32,6 +32,7 @@ interface JobApplication {
   phone?: string;
   department: string;
   cv_filename: string;
+  cv_file_path: string;
   status: string;
   archived: boolean;
 }
@@ -211,6 +212,37 @@ const AdminDashboard = () => {
         {status}
       </Badge>
     );
+  };
+
+  const downloadCV = async (filePath: string, fileName: string) => {
+    try {
+      const { data, error } = await supabase.storage
+        .from('cv-uploads')
+        .download(filePath);
+
+      if (error) throw error;
+
+      // Create download link
+      const url = URL.createObjectURL(data);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      toast({
+        title: "CV descargado",
+        description: "El archivo se ha descargado correctamente",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al descargar",
+        description: error.message,
+      });
+    }
   };
 
   const getStatusLabel = (status: string) => {
@@ -409,8 +441,14 @@ const AdminDashboard = () => {
                     <TableCell className="font-medium">{application.full_name}</TableCell>
                     <TableCell>{application.department}</TableCell>
                     <TableCell>{application.email}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground">
-                      {application.cv_filename}
+                    <TableCell>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => downloadCV(application.cv_file_path, application.cv_filename)}
+                      >
+                        Descargar CV
+                      </Button>
                     </TableCell>
                     <TableCell>
                       <Select

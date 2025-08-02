@@ -124,6 +124,25 @@ const Jobs = () => {
         throw dbError;
       }
 
+      // Send notification emails
+      try {
+        const { error: emailError } = await supabase.functions.invoke('send-job-notification', {
+          body: {
+            full_name: formData.fullName,
+            email: formData.email,
+            phone: formData.phone,
+            department: formData.department,
+            cv_filename: formData.cv.name,
+          },
+        });
+
+        if (emailError) {
+          console.warn('Email notification failed:', emailError);
+        }
+      } catch (emailError) {
+        console.warn('Email notification failed:', emailError);
+      }
+
       toast({
         title: "Aplicación enviada correctamente",
         description: "Nos pondremos en contacto contigo pronto.",
