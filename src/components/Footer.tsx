@@ -39,7 +39,7 @@ const Footer = () => {
           </div>
 
           {/* Copyright, Privacy and Social Links */}
-          <div className="flex flex-col items-end text-right space-y-2">
+          <div className="flex flex-col items-end text-right space-y-1">
             <div className="flex items-center space-x-4">
               <a 
                 href="/admin"
@@ -54,11 +54,6 @@ const Footer = () => {
               >
                 {t('footer.privacy')}
               </a>
-            </div>
-            <p className="text-white/80 font-body text-xs">
-              © TORTRACS 2025. <span style={{ fontSize: '0.625rem' }}>Todos los derechos reservados.</span>
-            </p>
-            <div className="flex items-center space-x-4">
               <a 
                 href="https://www.linkedin.com/company/tortracs" 
                 target="_blank" 
@@ -76,6 +71,9 @@ const Footer = () => {
                 <Facebook className="h-4 w-4" />
               </a>
             </div>
+            <p className="text-white/80 font-body text-xs">
+              © TORTRACS 2025. <span style={{ fontSize: '0.625rem' }}>Todos los derechos reservados.</span>
+            </p>
           </div>
         </div>
       </div>
