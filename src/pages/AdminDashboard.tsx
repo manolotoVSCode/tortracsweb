@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
-import { LogOut, Mail, Users, FileText, Archive } from 'lucide-react';
+import { LogOut, Mail, Users, FileText, Archive, Home } from 'lucide-react';
 import UserManagement from '@/components/UserManagement';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
@@ -44,6 +44,7 @@ const AdminDashboard = () => {
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
   const [jobApplications, setJobApplications] = useState<JobApplication[]>([]);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [userProfile, setUserProfile] = useState<{first_name?: string; last_name?: string} | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -84,7 +85,7 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       
-      // Fetch user role
+      // Fetch user role and profile
       if (session?.user) {
         const { data: roleData, error: roleError } = await supabase
           .from('user_roles')
@@ -96,6 +97,19 @@ const AdminDashboard = () => {
           console.error('Error fetching user role:', roleError);
         } else {
           setUserRole(roleData?.role || null);
+        }
+
+        // Fetch user profile
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('first_name, last_name')
+          .eq('user_id', session.user.id)
+          .single();
+
+        if (profileError && profileError.code !== 'PGRST116') {
+          console.error('Error fetching user profile:', profileError);
+        } else {
+          setUserProfile(profileData || null);
         }
       }
       
@@ -299,8 +313,19 @@ const AdminDashboard = () => {
             <p className="text-sm text-muted-foreground">TORTRACS</p>
           </div>
           <div className="flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/')}
+              className="text-muted-foreground hover:text-primary"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              Ir al Inicio
+            </Button>
             <span className="text-sm text-muted-foreground">
-              {user?.email}
+              {userProfile?.first_name && userProfile?.last_name 
+                ? `${userProfile.first_name} ${userProfile.last_name}`
+                : user?.email}
             </span>
             <Button onClick={handleSignOut} variant="outline" size="sm">
               <LogOut className="h-4 w-4 mr-2" />
