@@ -45,7 +45,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Sending job application notification email...");
     const notificationEmailResponse = await resend.emails.send({
       from: "TORTRACS Web <noreply@tortracs.net>",
-      to: ["rh@tortracs.net", "comercial@tortracs.net"],
+      to: ["administracionrh@tortracs.net"],
       subject: `Nueva Aplicación de Trabajo - ${department}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

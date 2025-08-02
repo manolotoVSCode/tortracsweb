@@ -46,7 +46,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send rejection notification email
     const rejectionEmailResult = await resend.emails.send({
-      from: 'TORTRACS Recursos Humanos <rh@tortracs.net>',
+      from: 'TORTRACS Recursos Humanos <administracionrh@tortracs.net>',
       to: email,
       subject: 'Actualización sobre tu solicitud de empleo - TORTRACS',
       html: `
