@@ -40,7 +40,7 @@ const Footer = () => {
 
           {/* Copyright, Privacy and Social Links */}
           <div className="flex flex-col items-end text-right space-y-2">
-            <p className="text-white/80 font-body text-xs">
+            <p className="text-white/80 font-body" style={{ fontSize: '0.625rem' }}>
               © TORTRACS 2025. Todos los derechos reservados.
             </p>
             <div className="flex items-center space-x-4">
