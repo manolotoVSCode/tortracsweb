@@ -79,12 +79,12 @@ const AboutSection = () => {
   };
 
   const values = [
+    { icon: Zap, text: t('about.values.resilience') },
+    { icon: Compass, text: t('about.values.commitment') },
+    { icon: Eye, text: t('about.values.transparency') },
     { icon: Shield, text: t('about.values.safety') },
     { icon: Handshake, text: t('about.values.responsibility') },
     { icon: Heart, text: t('about.values.closeness') },
-    { icon: Eye, text: t('about.values.transparency') },
-    { icon: Zap, text: t('about.values.resilience') },
-    { icon: Compass, text: t('about.values.commitment') },
   ];
 
   return (
