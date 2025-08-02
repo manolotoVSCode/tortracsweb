@@ -45,6 +45,13 @@ const Footer = () => {
             </p>
             <div className="flex items-center space-x-4">
               <a 
+                href="/admin"
+                className="text-white/80 hover:text-white font-body text-xs transition-colors duration-200"
+              >
+                Admin
+              </a>
+              <span className="text-white/60">·</span>
+              <a 
                 href="/privacy-policy"
                 className="text-white/80 hover:text-white font-body text-xs transition-colors duration-200"
               >
