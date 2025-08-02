@@ -7,7 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
-import { LogOut, Mail, Users, FileText } from 'lucide-react';
+import { LogOut, Mail, Users, FileText, Archive, Check } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface ContactSubmission {
   id: string;
@@ -18,6 +19,8 @@ interface ContactSubmission {
   phone?: string;
   message?: string;
   status: string;
+  archived: boolean;
+  completed: boolean;
 }
 
 interface JobApplication {
@@ -29,6 +32,7 @@ interface JobApplication {
   department: string;
   cv_filename: string;
   status: string;
+  archived: boolean;
 }
 
 const AdminDashboard = () => {
@@ -76,18 +80,20 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       
-      // Fetch contact submissions
+      // Fetch contact submissions (excluding archived)
       const { data: contactData, error: contactError } = await supabase
         .from('contact_submissions')
         .select('*')
+        .eq('archived', false)
         .order('created_at', { ascending: false });
 
       if (contactError) throw contactError;
 
-      // Fetch job applications
+      // Fetch job applications (excluding archived)
       const { data: jobData, error: jobError } = await supabase
         .from('job_applications')
         .select('*')
+        .eq('archived', false)
         .order('created_at', { ascending: false });
 
       if (jobError) throw jobError;
@@ -115,6 +121,70 @@ const AdminDashboard = () => {
       });
     } else {
       navigate('/admin');
+    }
+  };
+
+  const updateContactSubmission = async (id: string, updates: Partial<ContactSubmission>) => {
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .update(updates)
+        .eq('id', id);
+
+      if (error) throw error;
+
+      // Update local state
+      setContactSubmissions(prev => prev.map(item => 
+        item.id === id ? { ...item, ...updates } : item
+      ));
+
+      // If archived, remove from view
+      if (updates.archived) {
+        setContactSubmissions(prev => prev.filter(item => item.id !== id));
+      }
+
+      toast({
+        title: "Actualizado",
+        description: "Estado actualizado correctamente",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    }
+  };
+
+  const updateJobApplication = async (id: string, updates: Partial<JobApplication>) => {
+    try {
+      const { error } = await supabase
+        .from('job_applications')
+        .update(updates)
+        .eq('id', id);
+
+      if (error) throw error;
+
+      // Update local state
+      setJobApplications(prev => prev.map(item => 
+        item.id === id ? { ...item, ...updates } : item
+      ));
+
+      // If archived, remove from view
+      if (updates.archived) {
+        setJobApplications(prev => prev.filter(item => item.id !== id));
+      }
+
+      toast({
+        title: "Actualizado",
+        description: "Estado actualizado correctamente",
+      });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
     }
   };
 
@@ -237,6 +307,8 @@ const AdminDashboard = () => {
                   <TableHead>Empresa</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Estado</TableHead>
+                  <TableHead>Completado</TableHead>
+                  <TableHead>Archivar</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -249,6 +321,28 @@ const AdminDashboard = () => {
                     <TableCell>{submission.company}</TableCell>
                     <TableCell>{submission.email}</TableCell>
                     <TableCell>{getStatusBadge(submission.status)}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          checked={submission.completed}
+                          onCheckedChange={(checked) => 
+                            updateContactSubmission(submission.id, { completed: !!checked })
+                          }
+                        />
+                        <Check className="h-4 w-4 text-green-600" />
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          checked={submission.archived}
+                          onCheckedChange={(checked) => 
+                            updateContactSubmission(submission.id, { archived: !!checked })
+                          }
+                        />
+                        <Archive className="h-4 w-4 text-gray-600" />
+                      </div>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -274,6 +368,7 @@ const AdminDashboard = () => {
                   <TableHead>Email</TableHead>
                   <TableHead>CV</TableHead>
                   <TableHead>Estado</TableHead>
+                  <TableHead>Archivar</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -289,6 +384,17 @@ const AdminDashboard = () => {
                       {application.cv_filename}
                     </TableCell>
                     <TableCell>{getStatusBadge(application.status)}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          checked={application.archived}
+                          onCheckedChange={(checked) => 
+                            updateJobApplication(application.id, { archived: !!checked })
+                          }
+                        />
+                        <Archive className="h-4 w-4 text-gray-600" />
+                      </div>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

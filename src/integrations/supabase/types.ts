@@ -16,7 +16,9 @@ export type Database = {
     Tables: {
       contact_submissions: {
         Row: {
+          archived: boolean
           company: string
+          completed: boolean
           created_at: string
           email: string
           id: string
@@ -26,7 +28,9 @@ export type Database = {
           status: string
         }
         Insert: {
+          archived?: boolean
           company: string
+          completed?: boolean
           created_at?: string
           email: string
           id?: string
@@ -36,7 +40,9 @@ export type Database = {
           status?: string
         }
         Update: {
+          archived?: boolean
           company?: string
+          completed?: boolean
           created_at?: string
           email?: string
           id?: string
@@ -49,6 +55,7 @@ export type Database = {
       }
       job_applications: {
         Row: {
+          archived: boolean
           created_at: string
           cv_file_path: string | null
           cv_filename: string
@@ -60,6 +67,7 @@ export type Database = {
           status: string
         }
         Insert: {
+          archived?: boolean
           created_at?: string
           cv_file_path?: string | null
           cv_filename: string
@@ -71,6 +79,7 @@ export type Database = {
           status?: string
         }
         Update: {
+          archived?: boolean
           created_at?: string
           cv_file_path?: string | null
           cv_filename?: string
