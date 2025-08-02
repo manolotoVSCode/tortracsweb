@@ -7,9 +7,9 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
-import { LogOut, Mail, Users, FileText, Archive, Check } from 'lucide-react';
-import { Checkbox } from '@/components/ui/checkbox';
+import { LogOut, Mail, Users, FileText, Archive } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
 interface ContactSubmission {
   id: string;
@@ -317,8 +317,7 @@ const AdminDashboard = () => {
                   <TableHead>Empresa</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Estado</TableHead>
-                  <TableHead>Completado</TableHead>
-                  <TableHead>Archivar</TableHead>
+                  <TableHead>Acciones</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -348,26 +347,30 @@ const AdminDashboard = () => {
                       </Select>
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          checked={submission.completed}
-                          onCheckedChange={(checked) => 
-                            updateContactSubmission(submission.id, { completed: !!checked })
-                          }
-                        />
-                        <Check className="h-4 w-4 text-green-600" />
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          checked={submission.archived}
-                          onCheckedChange={(checked) => 
-                            updateContactSubmission(submission.id, { archived: !!checked })
-                          }
-                        />
-                        <Archive className="h-4 w-4 text-gray-600" />
-                      </div>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="outline" size="sm">
+                            <Archive className="h-4 w-4 mr-2" />
+                            Archivar
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>¿Archivar solicitud?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Esta acción archivará la solicitud de cotización y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => updateContactSubmission(submission.id, { archived: true })}
+                            >
+                              Sí, archivar
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -394,7 +397,7 @@ const AdminDashboard = () => {
                   <TableHead>Email</TableHead>
                   <TableHead>CV</TableHead>
                   <TableHead>Estado</TableHead>
-                  <TableHead>Archivar</TableHead>
+                  <TableHead>Acciones</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -427,15 +430,30 @@ const AdminDashboard = () => {
                       </Select>
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          checked={application.archived}
-                          onCheckedChange={(checked) => 
-                            updateJobApplication(application.id, { archived: !!checked })
-                          }
-                        />
-                        <Archive className="h-4 w-4 text-gray-600" />
-                      </div>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="outline" size="sm">
+                            <Archive className="h-4 w-4 mr-2" />
+                            Archivar
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>¿Archivar aplicación?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Esta acción archivará la aplicación de trabajo y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => updateJobApplication(application.id, { archived: true })}
+                            >
+                              Sí, archivar
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </TableCell>
                   </TableRow>
                 ))}
