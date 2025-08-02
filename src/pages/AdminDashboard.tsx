@@ -240,63 +240,17 @@ const AdminDashboard = () => {
   const getStatusBadge = (status: string) => {
     const statusColors = {
       pending: 'bg-yellow-100 text-yellow-800',
-      reviewed: 'bg-blue-100 text-blue-800',
-      completed: 'bg-green-100 text-green-800',
+      reviewed: 'bg-green-100 text-green-800',
+      rechazado: 'bg-red-100 text-red-800',
+      contacted: 'bg-blue-100 text-blue-800',
+      resolved: 'bg-green-100 text-green-800',
     };
     
     return (
       <Badge className={statusColors[status as keyof typeof statusColors] || 'bg-gray-100 text-gray-800'}>
-        {status}
+        {getStatusLabel(status)}
       </Badge>
     );
-  };
-
-  const downloadCV = async (filePath: string, fileName: string) => {
-    try {
-      console.log('Attempting to download CV:', { filePath, fileName });
-      
-      // First, try to get a public URL to see if file exists
-      const { data: urlData } = supabase.storage
-        .from('cv-uploads')
-        .getPublicUrl(filePath);
-      
-      console.log('Public URL generated:', urlData);
-
-      const { data, error } = await supabase.storage
-        .from('cv-uploads')
-        .download(filePath);
-
-      if (error) {
-        console.error('Storage download error:', error);
-        throw error;
-      }
-
-      if (!data) {
-        throw new Error('No se pudo obtener el archivo');
-      }
-
-      // Create download link
-      const url = URL.createObjectURL(data);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-
-      toast({
-        title: "CV descargado",
-        description: "El archivo se ha descargado correctamente",
-      });
-    } catch (error: any) {
-      console.error('Download error:', error);
-      toast({
-        variant: "destructive",
-        title: "Error al descargar CV",
-        description: `No se pudo descargar el archivo: ${error?.message || 'Error desconocido'}. El archivo posiblemente no exista en storage.`,
-      });
-    }
   };
 
   const getStatusLabel = (status: string) => {
@@ -306,8 +260,6 @@ const AdminDashboard = () => {
       reviewed: 'Revisado',
       resolved: 'Resuelto',
       completed: 'Completado',
-      hired: 'Contratado',
-      rejected: 'Rechazado (Inglés)',
       rechazado: 'Rechazado',
     };
     return labels[status as keyof typeof labels] || status;
@@ -487,7 +439,6 @@ const AdminDashboard = () => {
                   <TableHead>Nombre</TableHead>
                   <TableHead>Departamento</TableHead>
                   <TableHead>Email</TableHead>
-                  <TableHead>CV</TableHead>
                   <TableHead>Estado</TableHead>
                   <TableHead>Acciones</TableHead>
                 </TableRow>
@@ -502,15 +453,6 @@ const AdminDashboard = () => {
                     <TableCell>{application.department}</TableCell>
                     <TableCell>{application.email}</TableCell>
                     <TableCell>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => downloadCV(application.cv_file_path, application.cv_filename)}
-                      >
-                        Descargar CV
-                      </Button>
-                    </TableCell>
-                    <TableCell>
                       <Select
                         value={application.status}
                         onValueChange={(value) => 
@@ -523,12 +465,12 @@ const AdminDashboard = () => {
                         <SelectContent className="bg-white z-50">
                           <SelectItem value="pending">Pendiente</SelectItem>
                           <SelectItem value="reviewed">Revisado</SelectItem>
-                          <SelectItem value="contacted">Contactado</SelectItem>
-                          <SelectItem value="hired">Contratado</SelectItem>
-                          <SelectItem value="rejected">Rechazado (Inglés)</SelectItem>
                           <SelectItem value="rechazado">Rechazado</SelectItem>
                         </SelectContent>
                       </Select>
+                    </TableCell>
+                    <TableCell>
+                      {getStatusBadge(application.status)}
                     </TableCell>
                     <TableCell>
                       <AlertDialog>
