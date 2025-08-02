@@ -54,6 +54,14 @@ const AdminDashboard = () => {
         
         if (!session?.user) {
           navigate('/admin');
+        } else if (session.user.email !== 'manuel.delatorre@tortracs.net') {
+          // Redirect unauthorized users
+          navigate('/');
+          toast({
+            variant: "destructive",
+            title: "Acceso denegado",
+            description: "No tienes permisos para acceder a esta sección",
+          });
         }
       }
     );
@@ -65,6 +73,14 @@ const AdminDashboard = () => {
       
       if (!session?.user) {
         navigate('/admin');
+      } else if (session.user.email !== 'manuel.delatorre@tortracs.net') {
+        // Redirect unauthorized users
+        navigate('/');
+        toast({
+          variant: "destructive", 
+          title: "Acceso denegado",
+          description: "No tienes permisos para acceder a esta sección",
+        });
       }
     });
 
@@ -72,7 +88,7 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user && session.user.email === 'manuel.delatorre@tortracs.net') {
       fetchData();
     }
   }, [session]);
