@@ -74,12 +74,12 @@ const Auth = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Administración TORTRACS</CardTitle>
-          <CardDescription>
-            Accede al panel de administración
-          </CardDescription>
-        </CardHeader>
+         <CardHeader>
+           <CardTitle>Administración TORTRACS</CardTitle>
+           <CardDescription>
+             Accede al panel de administración
+           </CardDescription>
+         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignIn} className="space-y-4">
             <div className="space-y-2">
