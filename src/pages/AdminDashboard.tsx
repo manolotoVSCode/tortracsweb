@@ -112,28 +112,32 @@ const AdminDashboard = () => {
         } else {
           setUserProfile(profileData || null);
         }
+
+        // Fetch data based on user role
+        if (roleData?.role === 'gestorCO' || roleData?.role === 'admin' || roleData?.role === 'super_admin') {
+          // Fetch contact submissions for gestorCO, admin, and super_admin
+          const { data: contactData, error: contactError } = await supabase
+            .from('contact_submissions')
+            .select('*')
+            .eq('archived', false)
+            .order('created_at', { ascending: false });
+
+          if (contactError) throw contactError;
+          setContactSubmissions(contactData || []);
+        }
+
+        if (roleData?.role === 'gestorRH' || roleData?.role === 'admin' || roleData?.role === 'super_admin') {
+          // Fetch job applications for gestorRH, admin, and super_admin
+          const { data: jobData, error: jobError } = await supabase
+            .from('job_applications')
+            .select('*')
+            .eq('archived', false)
+            .order('created_at', { ascending: false });
+
+          if (jobError) throw jobError;
+          setJobApplications(jobData || []);
+        }
       }
-      
-      // Fetch contact submissions (excluding archived)
-      const { data: contactData, error: contactError } = await supabase
-        .from('contact_submissions')
-        .select('*')
-        .eq('archived', false)
-        .order('created_at', { ascending: false });
-
-      if (contactError) throw contactError;
-
-      // Fetch job applications (excluding archived)
-      const { data: jobData, error: jobError } = await supabase
-        .from('job_applications')
-        .select('*')
-        .eq('archived', false)
-        .order('created_at', { ascending: false });
-
-      if (jobError) throw jobError;
-
-      setContactSubmissions(contactData || []);
-      setJobApplications(jobData || []);
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -390,164 +394,168 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        {/* Contact Submissions Table */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>Solicitudes de Cotización Recientes</CardTitle>
-            <CardDescription>
-              Últimas {Math.min(contactSubmissions.length, 10)} solicitudes de contacto
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Fecha</TableHead>
-                  <TableHead>Nombre</TableHead>
-                  <TableHead>Empresa</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Estado</TableHead>
-                  <TableHead>Acciones</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {contactSubmissions.slice(0, 10).map((submission) => (
-                  <TableRow key={submission.id}>
-                    <TableCell className="text-sm">
-                      {formatDate(submission.created_at)}
-                    </TableCell>
-                    <TableCell className="font-medium">{submission.name}</TableCell>
-                    <TableCell>{submission.company}</TableCell>
-                    <TableCell>{submission.email}</TableCell>
-                    <TableCell>
-                      <Select
-                        value={submission.status}
-                        onValueChange={(value) => 
-                          updateContactSubmission(submission.id, { status: value })
-                        }
-                      >
-                        <SelectTrigger className={`w-32 ${getStatusButtonColor(submission.status)}`}>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white z-50">
-                          <SelectItem value="pending">Pendiente</SelectItem>
-                          <SelectItem value="contacted">Contactado</SelectItem>
-                          <SelectItem value="reviewed">Revisado</SelectItem>
-                          <SelectItem value="resolved">Resuelto</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </TableCell>
-                    <TableCell>
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button variant="outline" size="sm">
-                            <Archive className="h-4 w-4 mr-2" />
-                            Archivar
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>¿Archivar solicitud?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Esta acción archivará la solicitud de cotización y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                            <AlertDialogAction
-                              onClick={() => updateContactSubmission(submission.id, { archived: true })}
-                            >
-                              Sí, archivar
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                    </TableCell>
+        {/* Contact Submissions Table - Only for gestorCO, admin and super_admin */}
+        {(userRole === 'gestorCO' || userRole === 'admin' || userRole === 'super_admin') && (
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle>Solicitudes de Cotización Recientes</CardTitle>
+              <CardDescription>
+                Últimas {Math.min(contactSubmissions.length, 10)} solicitudes de contacto
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Fecha</TableHead>
+                    <TableHead>Nombre</TableHead>
+                    <TableHead>Empresa</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Estado</TableHead>
+                    <TableHead>Acciones</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+                </TableHeader>
+                <TableBody>
+                  {contactSubmissions.slice(0, 10).map((submission) => (
+                    <TableRow key={submission.id}>
+                      <TableCell className="text-sm">
+                        {formatDate(submission.created_at)}
+                      </TableCell>
+                      <TableCell className="font-medium">{submission.name}</TableCell>
+                      <TableCell>{submission.company}</TableCell>
+                      <TableCell>{submission.email}</TableCell>
+                      <TableCell>
+                        <Select
+                          value={submission.status}
+                          onValueChange={(value) => 
+                            updateContactSubmission(submission.id, { status: value })
+                          }
+                        >
+                          <SelectTrigger className={`w-32 ${getStatusButtonColor(submission.status)}`}>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="pending">Pendiente</SelectItem>
+                            <SelectItem value="contacted">Contactado</SelectItem>
+                            <SelectItem value="reviewed">Revisado</SelectItem>
+                            <SelectItem value="resolved">Resuelto</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                      <TableCell>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button variant="outline" size="sm">
+                              <Archive className="h-4 w-4 mr-2" />
+                              Archivar
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>¿Archivar solicitud?</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Esta acción archivará la solicitud de cotización y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => updateContactSubmission(submission.id, { archived: true })}
+                              >
+                                Sí, archivar
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        )}
 
-        {/* Job Applications Table */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Aplicaciones de Trabajo Recientes</CardTitle>
-            <CardDescription>
-              Últimas {Math.min(jobApplications.length, 10)} aplicaciones para empleos
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Fecha</TableHead>
-                  <TableHead>Nombre</TableHead>
-                  <TableHead>Departamento</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Estado</TableHead>
-                  <TableHead>Acciones</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {jobApplications.slice(0, 10).map((application) => (
-                  <TableRow key={application.id}>
-                    <TableCell className="text-sm">
-                      {formatDate(application.created_at)}
-                    </TableCell>
-                    <TableCell className="font-medium">{application.full_name}</TableCell>
-                    <TableCell>{application.department}</TableCell>
-                    <TableCell>{application.email}</TableCell>
-                    <TableCell>
-                      <Select
-                        value={application.status}
-                        onValueChange={(value) => 
-                          updateJobApplication(application.id, { status: value })
-                        }
-                      >
-                        <SelectTrigger className={`w-32 ${getStatusButtonColor(application.status)}`}>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white z-50">
-                          <SelectItem value="pending">Pendiente</SelectItem>
-                          <SelectItem value="reviewed">Revisado</SelectItem>
-                          <SelectItem value="rechazado">Rechazado</SelectItem>
-                        </SelectContent>
-                      </Select>
-                     </TableCell>
-                     <TableCell>
-                       <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button variant="outline" size="sm">
-                                <Archive className="h-4 w-4 mr-2" />
-                                Archivar
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>¿Archivar aplicación?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Esta acción archivará la aplicación de trabajo y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => updateJobApplication(application.id, { archived: true })}
-                                >
-                                  Sí, archivar
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                     </TableCell>
+        {/* Job Applications Table - Only for gestorRH, admin and super_admin */}
+        {(userRole === 'gestorRH' || userRole === 'admin' || userRole === 'super_admin') && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Aplicaciones de Trabajo Recientes</CardTitle>
+              <CardDescription>
+                Últimas {Math.min(jobApplications.length, 10)} aplicaciones para empleos
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Fecha</TableHead>
+                    <TableHead>Nombre</TableHead>
+                    <TableHead>Departamento</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Estado</TableHead>
+                    <TableHead>Acciones</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+                </TableHeader>
+                <TableBody>
+                  {jobApplications.slice(0, 10).map((application) => (
+                    <TableRow key={application.id}>
+                      <TableCell className="text-sm">
+                        {formatDate(application.created_at)}
+                      </TableCell>
+                      <TableCell className="font-medium">{application.full_name}</TableCell>
+                      <TableCell>{application.department}</TableCell>
+                      <TableCell>{application.email}</TableCell>
+                      <TableCell>
+                        <Select
+                          value={application.status}
+                          onValueChange={(value) => 
+                            updateJobApplication(application.id, { status: value })
+                          }
+                        >
+                          <SelectTrigger className={`w-32 ${getStatusButtonColor(application.status)}`}>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white z-50">
+                            <SelectItem value="pending">Pendiente</SelectItem>
+                            <SelectItem value="reviewed">Revisado</SelectItem>
+                            <SelectItem value="rechazado">Rechazado</SelectItem>
+                          </SelectContent>
+                        </Select>
+                       </TableCell>
+                       <TableCell>
+                         <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="outline" size="sm">
+                                  <Archive className="h-4 w-4 mr-2" />
+                                  Archivar
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>¿Archivar aplicación?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Esta acción archivará la aplicación de trabajo y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => updateJobApplication(application.id, { archived: true })}
+                                  >
+                                    Sí, archivar
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                       </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );

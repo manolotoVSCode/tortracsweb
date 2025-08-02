@@ -29,7 +29,7 @@ interface UserRole {
 }
 
 interface UserWithRole extends UserProfile {
-  role: 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO' | null;
+  role: 'admin' | 'super_admin' | 'gestorRH' | 'gestorCO' | null;
 }
 
 const UserManagement = () => {
@@ -41,12 +41,12 @@ const UserManagement = () => {
     first_name: string;
     last_name: string;
     company_function: string;
-    role: 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO';
+    role: 'admin' | 'super_admin' | 'gestorRH' | 'gestorCO';
   }>({
     first_name: '',
     last_name: '',
     company_function: '',
-    role: 'user'
+    role: 'gestorCO'
   });
   const [newUserForm, setNewUserForm] = useState({
     email: '',
@@ -54,7 +54,7 @@ const UserManagement = () => {
     first_name: '',
     last_name: '',
     company_function: '',
-    role: 'user' as 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO'
+    role: 'gestorCO' as 'admin' | 'super_admin' | 'gestorRH' | 'gestorCO'
   });
   const { toast } = useToast();
 
@@ -81,12 +81,14 @@ const UserManagement = () => {
 
       if (rolesError) throw rolesError;
 
-      // Combine profiles with roles
+      // Combine profiles with roles - filter out old invalid roles
       const usersWithRoles: UserWithRole[] = profilesData.map(profile => {
         const userRole = rolesData.find(role => role.user_id === profile.user_id);
+        const validRoles = ['admin', 'super_admin', 'gestorRH', 'gestorCO'];
+        const role = userRole?.role && validRoles.includes(userRole.role) ? userRole.role as any : null;
         return {
           ...profile,
-          role: userRole?.role || null
+          role
         };
       });
 
@@ -108,7 +110,7 @@ const UserManagement = () => {
       first_name: user.first_name || '',
       last_name: user.last_name || '',
       company_function: user.company_function || '',
-      role: user.role || 'user'
+      role: user.role || 'gestorCO'
     });
   };
 
@@ -211,7 +213,7 @@ const UserManagement = () => {
         first_name: '',
         last_name: '',
         company_function: '',
-        role: 'user'
+        role: 'gestorCO'
       });
 
       // Refresh the users list
@@ -364,7 +366,7 @@ const UserManagement = () => {
                   </Label>
                   <Select 
                     value={newUserForm.role} 
-                    onValueChange={(value: 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO') => 
+                     onValueChange={(value: 'admin' | 'super_admin' | 'gestorRH' | 'gestorCO') => 
                       setNewUserForm(prev => ({ ...prev, role: value }))
                     }
                   >
@@ -372,7 +374,6 @@ const UserManagement = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="user">Usuario</SelectItem>
                       <SelectItem value="gestorRH">Gestor RH</SelectItem>
                       <SelectItem value="gestorCO">Gestor CO</SelectItem>
                       <SelectItem value="admin">Admin</SelectItem>
@@ -486,12 +487,12 @@ const UserManagement = () => {
                           <Label htmlFor="role" className="text-right">
                             Rol
                           </Label>
-                          <Select value={editForm.role} onValueChange={(value: 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO') => setEditForm(prev => ({ ...prev, role: value }))}>
+                          <Select value={editForm.role} onValueChange={(value: 'admin' | 'super_admin' | 'gestorRH' | 'gestorCO') => setEditForm(prev => ({ ...prev, role: value }))}>
                             <SelectTrigger className="col-span-3">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="user">Usuario</SelectItem>
+                              
                               <SelectItem value="gestorRH">Gestor RH</SelectItem>
                               <SelectItem value="gestorCO">Gestor CO</SelectItem>
                               <SelectItem value="admin">Admin</SelectItem>
