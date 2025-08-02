@@ -174,7 +174,7 @@ const FormConfiguration = () => {
                   </div>
                 </TableCell>
                 <TableCell>{config.from_email}</TableCell>
-                <TableCell>{config.to_email || '-'}</TableCell>
+                <TableCell className="font-mono text-sm">{config.to_email || <span className="text-muted-foreground italic">Sin configurar</span>}</TableCell>
                 <TableCell className="max-w-xs truncate">{config.subject}</TableCell>
                 <TableCell>
                   <span className={`px-2 py-1 text-xs rounded-full ${
