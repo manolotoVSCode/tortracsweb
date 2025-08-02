@@ -44,6 +44,22 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY not configured");
     }
     
+    // Get email configuration from database
+    console.log("Getting email configuration...");
+    const { data: config, error: configError } = await supabase
+      .from('form_configurations')
+      .select('*')
+      .eq('form_type', 'job_notification')
+      .eq('is_active', true)
+      .single();
+    
+    if (configError || !config) {
+      console.error("Error getting email configuration:", configError);
+      throw new Error("Email configuration not found");
+    }
+    
+    console.log("Email config:", config);
+    
     // Initialize Resend
     const resend = new Resend(apiKey);
     console.log("Resend initialized successfully");
@@ -90,9 +106,9 @@ const handler = async (req: Request): Promise<Response> => {
     // Send notification email to TORTRACS HR
     console.log("Sending job application notification email...");
     const notificationEmailResponse = await resend.emails.send({
-      from: "TORTRACS Web <noreply@tortracs.net>",
-      to: ["manuel.delatorre@tecings.com"],
-      subject: `Nueva Aplicación de Trabajo - ${department}`,
+      from: config.from_email,
+      to: [config.to_email],
+      subject: config.subject.replace('{department}', department),
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h1>Nueva Aplicación de Trabajo</h1>

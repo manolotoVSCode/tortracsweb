@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.53.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -13,6 +14,11 @@ interface ContactNotificationRequest {
   company: string;
   message?: string;
 }
+
+// Initialize Supabase client
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const handler = async (req: Request): Promise<Response> => {
   console.log("=== FUNCTION STARTED ===");
@@ -37,6 +43,22 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY not configured");
     }
     
+    // Get email configuration from database
+    console.log("Getting email configuration...");
+    const { data: config, error: configError } = await supabase
+      .from('form_configurations')
+      .select('*')
+      .eq('form_type', 'contact_notification')
+      .eq('is_active', true)
+      .single();
+    
+    if (configError || !config) {
+      console.error("Error getting email configuration:", configError);
+      throw new Error("Email configuration not found");
+    }
+    
+    console.log("Email config:", config);
+    
     // Initialize Resend
     const resend = new Resend(apiKey);
     console.log("Resend initialized successfully");
@@ -44,9 +66,9 @@ const handler = async (req: Request): Promise<Response> => {
     // Send notification email to TORTRACS
     console.log("Sending notification email...");
     const notificationEmailResponse = await resend.emails.send({
-      from: "TORTRACS Web <noreply@tortracs.net>",
-      to: ["comercial@tortracs.net"],
-      subject: `Nueva Solicitud de Cotización - ${company}`,
+      from: config.from_email,
+      to: [config.to_email],
+      subject: config.subject.replace('{company}', company),
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h1>Nueva Solicitud de Cotización</h1>
