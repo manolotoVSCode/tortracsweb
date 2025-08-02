@@ -466,49 +466,7 @@ const AdminDashboard = () => {
                       </Select>
                      </TableCell>
                      <TableCell>
-                       <div className="flex gap-2">
-                         <Button
-                           variant="outline"
-                           size="sm"
-                           onClick={async () => {
-                             try {
-                               console.log('Testing send-job-notification function...');
-                               const { data, error } = await supabase.functions.invoke('send-job-notification', {
-                                 body: {
-                                   full_name: application.full_name,
-                                   email: application.email,
-                                   phone: application.phone,
-                                   department: application.department,
-                                   cv_filename: application.cv_filename,
-                                 },
-                               });
-                               if (error) {
-                                 console.error('Function error:', error);
-                                 toast({
-                                   title: "Error",
-                                   description: `Error: ${error.message}`,
-                                   variant: "destructive",
-                                 });
-                               } else {
-                                 console.log('Function success:', data);
-                                 toast({
-                                   title: "Email enviado",
-                                   description: "Notificación de prueba enviada",
-                                 });
-                               }
-                             } catch (err: any) {
-                               console.error('Catch error:', err);
-                               toast({
-                                 title: "Error",
-                                 description: `Error: ${err.message}`,
-                                 variant: "destructive",
-                               });
-                             }
-                           }}
-                         >
-                           Test Email
-                          </Button>
-                          <AlertDialog>
+                       <AlertDialog>
                             <AlertDialogTrigger asChild>
                               <Button variant="outline" size="sm">
                                 <Archive className="h-4 w-4 mr-2" />
@@ -532,8 +490,7 @@ const AdminDashboard = () => {
                               </AlertDialogFooter>
                             </AlertDialogContent>
                           </AlertDialog>
-                        </div>
-                    </TableCell>
+                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

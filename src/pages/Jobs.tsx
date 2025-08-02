@@ -95,6 +95,8 @@ const Jobs = () => {
     }
 
     try {
+      console.log('=== STARTING JOB APPLICATION SUBMISSION ===');
+      console.log('Form data:', formData);
       // Upload CV file to Supabase Storage
       const fileExt = formData.cv.name.split('.').pop();
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
