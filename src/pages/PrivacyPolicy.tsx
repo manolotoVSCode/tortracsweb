@@ -8,7 +8,8 @@ const PrivacyPolicy = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background py-12">
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="flex-1 py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="mb-8">
@@ -77,8 +78,7 @@ const PrivacyPolicy = () => {
           </div>
         </div>
       </div>
-      
-      <div className="pb-12"></div>
+      </div>
       
       <Footer />
     </div>
