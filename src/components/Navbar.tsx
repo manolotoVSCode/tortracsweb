@@ -36,7 +36,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20 md:h-24 py-2">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center">
+            <Link to="/" className="flex items-center cursor-pointer hover:opacity-80 transition-opacity duration-200">
               <h1 className="text-3xl md:text-4xl font-heading font-bold">
                 <span className="text-primary">TORT</span>
                 <span className="text-secondary">RACS</span>
