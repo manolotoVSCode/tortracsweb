@@ -94,24 +94,33 @@ export type Database = {
       }
       profiles: {
         Row: {
+          company_function: string | null
           created_at: string | null
           email: string
+          first_name: string | null
           full_name: string | null
           id: string
+          last_name: string | null
           user_id: string
         }
         Insert: {
+          company_function?: string | null
           created_at?: string | null
           email: string
+          first_name?: string | null
           full_name?: string | null
           id?: string
+          last_name?: string | null
           user_id: string
         }
         Update: {
+          company_function?: string | null
           created_at?: string | null
           email?: string
+          first_name?: string | null
           full_name?: string | null
           id?: string
+          last_name?: string | null
           user_id?: string
         }
         Relationships: []
@@ -151,7 +160,13 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user" | "super_admin"
+      app_role:
+        | "admin"
+        | "moderator"
+        | "user"
+        | "super_admin"
+        | "gestorRH"
+        | "gestorCO"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -279,7 +294,14 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user", "super_admin"],
+      app_role: [
+        "admin",
+        "moderator",
+        "user",
+        "super_admin",
+        "gestorRH",
+        "gestorCO",
+      ],
     },
   },
 } as const

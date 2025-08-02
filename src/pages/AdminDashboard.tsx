@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { LogOut, Mail, Users, FileText, Archive } from 'lucide-react';
+import UserManagement from '@/components/UserManagement';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 
@@ -42,6 +43,7 @@ const AdminDashboard = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [contactSubmissions, setContactSubmissions] = useState<ContactSubmission[]>([]);
   const [jobApplications, setJobApplications] = useState<JobApplication[]>([]);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -81,6 +83,21 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
+      
+      // Fetch user role
+      if (session?.user) {
+        const { data: roleData, error: roleError } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', session.user.id)
+          .single();
+
+        if (roleError && roleError.code !== 'PGRST116') {
+          console.error('Error fetching user role:', roleError);
+        } else {
+          setUserRole(roleData?.role || null);
+        }
+      }
       
       // Fetch contact submissions (excluding archived)
       const { data: contactData, error: contactError } = await supabase
@@ -294,6 +311,13 @@ const AdminDashboard = () => {
       </header>
 
       <div className="container mx-auto px-4 py-8">
+        {/* User Management - Only for Super Admin */}
+        {userRole === 'super_admin' && (
+          <div className="mb-8">
+            <UserManagement />
+          </div>
+        )}
+
         {/* Stats Cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           <Card>

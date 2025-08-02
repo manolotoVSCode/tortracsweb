@@ -1,0 +1,346 @@
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { User, Users, Edit, Save, X } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+
+interface UserProfile {
+  id: string;
+  user_id: string;
+  email: string;
+  full_name: string | null;
+  first_name: string | null;
+  last_name: string | null;
+  company_function: string | null;
+  created_at: string;
+}
+
+interface UserRole {
+  id: string;
+  user_id: string;
+  role: string;
+  created_at: string;
+}
+
+interface UserWithRole extends UserProfile {
+  role: 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO' | null;
+}
+
+const UserManagement = () => {
+  const [users, setUsers] = useState<UserWithRole[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editingUser, setEditingUser] = useState<UserWithRole | null>(null);
+  const [editForm, setEditForm] = useState<{
+    first_name: string;
+    last_name: string;
+    company_function: string;
+    role: 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO';
+  }>({
+    first_name: '',
+    last_name: '',
+    company_function: '',
+    role: 'user'
+  });
+  const { toast } = useToast();
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+
+      // Fetch all profiles
+      const { data: profilesData, error: profilesError } = await supabase
+        .from('profiles')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (profilesError) throw profilesError;
+
+      // Fetch all user roles
+      const { data: rolesData, error: rolesError } = await supabase
+        .from('user_roles')
+        .select('*');
+
+      if (rolesError) throw rolesError;
+
+      // Combine profiles with roles
+      const usersWithRoles: UserWithRole[] = profilesData.map(profile => {
+        const userRole = rolesData.find(role => role.user_id === profile.user_id);
+        return {
+          ...profile,
+          role: userRole?.role || null
+        };
+      });
+
+      setUsers(usersWithRoles);
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al cargar usuarios",
+        description: error.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEditUser = (user: UserWithRole) => {
+    setEditingUser(user);
+    setEditForm({
+      first_name: user.first_name || '',
+      last_name: user.last_name || '',
+      company_function: user.company_function || '',
+      role: user.role || 'user'
+    });
+  };
+
+  const handleUpdateUser = async () => {
+    if (!editingUser) return;
+
+    try {
+      // Update profile
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .update({
+          first_name: editForm.first_name || null,
+          last_name: editForm.last_name || null,
+          company_function: editForm.company_function || null,
+        })
+        .eq('user_id', editingUser.user_id);
+
+      if (profileError) throw profileError;
+
+      // Update or insert role
+      const { data: existingRole, error: roleCheckError } = await supabase
+        .from('user_roles')
+        .select('*')
+        .eq('user_id', editingUser.user_id)
+        .single();
+
+      if (roleCheckError && roleCheckError.code !== 'PGRST116') throw roleCheckError;
+
+      if (existingRole) {
+        // Update existing role
+        const { error: roleUpdateError } = await supabase
+          .from('user_roles')
+          .update({ role: editForm.role })
+          .eq('user_id', editingUser.user_id);
+
+        if (roleUpdateError) throw roleUpdateError;
+      } else {
+        // Insert new role
+        const { error: roleInsertError } = await supabase
+          .from('user_roles')
+          .insert({
+            user_id: editingUser.user_id,
+            role: editForm.role
+          });
+
+        if (roleInsertError) throw roleInsertError;
+      }
+
+      toast({
+        title: "Usuario actualizado",
+        description: "Los datos del usuario se han actualizado correctamente",
+      });
+
+      setEditingUser(null);
+      fetchUsers(); // Refresh the list
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al actualizar usuario",
+        description: error.message,
+      });
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('es-MX', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+
+  const getRoleBadgeColor = (role: string | null) => {
+    const colors = {
+      super_admin: 'bg-purple-100 text-purple-800 border-purple-300',
+      admin: 'bg-red-100 text-red-800 border-red-300',
+      gestorRH: 'bg-blue-100 text-blue-800 border-blue-300',
+      gestorCO: 'bg-green-100 text-green-800 border-green-300',
+      user: 'bg-gray-100 text-gray-800 border-gray-300',
+    };
+    return colors[role as keyof typeof colors] || colors.user;
+  };
+
+  const getRoleLabel = (role: string | null) => {
+    const labels = {
+      super_admin: 'Super Admin',
+      admin: 'Admin',
+      gestorRH: 'Gestor RH',
+      gestorCO: 'Gestor CO',
+      user: 'Usuario',
+    };
+    return labels[role as keyof typeof labels] || 'Usuario';
+  };
+
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <span className="ml-2">Cargando usuarios...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center">
+          <Users className="h-5 w-5 mr-2" />
+          Gestión de Usuarios
+        </CardTitle>
+        <CardDescription>
+          Administrar usuarios registrados y sus roles (Solo Super Admin)
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Email</TableHead>
+              <TableHead>Nombre</TableHead>
+              <TableHead>Apellidos</TableHead>
+              <TableHead>Función</TableHead>
+              <TableHead>Rol</TableHead>
+              <TableHead>Registro</TableHead>
+              <TableHead>Acciones</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell className="font-medium">{user.email}</TableCell>
+                <TableCell>{user.first_name || '-'}</TableCell>
+                <TableCell>{user.last_name || '-'}</TableCell>
+                <TableCell>{user.company_function || '-'}</TableCell>
+                <TableCell>
+                  <span className={`px-2 py-1 text-xs rounded-full border ${getRoleBadgeColor(user.role)}`}>
+                    {getRoleLabel(user.role)}
+                  </span>
+                </TableCell>
+                <TableCell className="text-sm">
+                  {formatDate(user.created_at)}
+                </TableCell>
+                <TableCell>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleEditUser(user)}
+                      >
+                        <Edit className="h-4 w-4 mr-2" />
+                        Editar
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Editar Usuario</DialogTitle>
+                        <DialogDescription>
+                          Modifica los datos y rol del usuario {user.email}
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="first_name" className="text-right">
+                            Nombre
+                          </Label>
+                          <Input
+                            id="first_name"
+                            value={editForm.first_name}
+                            onChange={(e) => setEditForm(prev => ({ ...prev, first_name: e.target.value }))}
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="last_name" className="text-right">
+                            Apellidos
+                          </Label>
+                          <Input
+                            id="last_name"
+                            value={editForm.last_name}
+                            onChange={(e) => setEditForm(prev => ({ ...prev, last_name: e.target.value }))}
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="company_function" className="text-right">
+                            Función
+                          </Label>
+                          <Input
+                            id="company_function"
+                            value={editForm.company_function}
+                            onChange={(e) => setEditForm(prev => ({ ...prev, company_function: e.target.value }))}
+                            className="col-span-3"
+                            placeholder="Función en la empresa"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="role" className="text-right">
+                            Rol
+                          </Label>
+                          <Select value={editForm.role} onValueChange={(value: 'admin' | 'moderator' | 'user' | 'super_admin' | 'gestorRH' | 'gestorCO') => setEditForm(prev => ({ ...prev, role: value }))}>
+                            <SelectTrigger className="col-span-3">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="user">Usuario</SelectItem>
+                              <SelectItem value="gestorRH">Gestor RH</SelectItem>
+                              <SelectItem value="gestorCO">Gestor CO</SelectItem>
+                              <SelectItem value="admin">Admin</SelectItem>
+                              <SelectItem value="super_admin">Super Admin</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button type="submit" onClick={handleUpdateUser}>
+                          <Save className="h-4 w-4 mr-2" />
+                          Guardar Cambios
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        
+        {users.length === 0 && (
+          <div className="text-center py-8 text-muted-foreground">
+            <User className="h-12 w-12 mx-auto mb-4 opacity-50" />
+            <p>No hay usuarios registrados</p>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
+export default UserManagement;
