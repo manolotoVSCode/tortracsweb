@@ -20,10 +20,10 @@ const PrivacyPolicy = () => {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Volver
           </Button>
-          <h1 className="text-4xl font-heading font-bold text-primary mb-2">
+          <h1 className="text-2xl font-heading font-bold text-primary mb-2">
             Aviso de Privacidad
           </h1>
-          <p className="text-secondary font-body">
+          <p className="text-secondary font-body text-sm">
             Fecha de última actualización: 01 agosto 2025
           </p>
         </div>
@@ -31,7 +31,7 @@ const PrivacyPolicy = () => {
         <div className="space-y-6">
           {/* Introduction */}
           <div className="mb-6">
-            <p className="text-secondary font-body leading-relaxed">
+            <p className="text-secondary font-body leading-relaxed text-sm">
               TORTRACS, S.A. de C.V., con domicilio en Alejandro Dumas, 145, 11550, Polanco, Miguel Hidalgo, CDMX, es responsable del tratamiento de sus datos personales conforme a lo establecido por la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
             </p>
           </div>
