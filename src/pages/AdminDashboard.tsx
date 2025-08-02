@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { LogOut, Mail, Users, FileText, Archive, Check } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface ContactSubmission {
   id: string;
@@ -212,6 +213,15 @@ const AdminDashboard = () => {
     );
   };
 
+  const getStatusLabel = (status: string) => {
+    const labels = {
+      pending: 'Pendiente',
+      reviewed: 'Revisado',
+      completed: 'Completado',
+    };
+    return labels[status as keyof typeof labels] || status;
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -320,7 +330,23 @@ const AdminDashboard = () => {
                     <TableCell className="font-medium">{submission.name}</TableCell>
                     <TableCell>{submission.company}</TableCell>
                     <TableCell>{submission.email}</TableCell>
-                    <TableCell>{getStatusBadge(submission.status)}</TableCell>
+                    <TableCell>
+                      <Select
+                        value={submission.status}
+                        onValueChange={(value) => 
+                          updateContactSubmission(submission.id, { status: value })
+                        }
+                      >
+                        <SelectTrigger className="w-32">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white z-50">
+                          <SelectItem value="pending">Pendiente</SelectItem>
+                          <SelectItem value="reviewed">Revisado</SelectItem>
+                          <SelectItem value="completed">Completado</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         <Checkbox
@@ -383,7 +409,23 @@ const AdminDashboard = () => {
                     <TableCell className="text-sm text-muted-foreground">
                       {application.cv_filename}
                     </TableCell>
-                    <TableCell>{getStatusBadge(application.status)}</TableCell>
+                    <TableCell>
+                      <Select
+                        value={application.status}
+                        onValueChange={(value) => 
+                          updateJobApplication(application.id, { status: value })
+                        }
+                      >
+                        <SelectTrigger className="w-32">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white z-50">
+                          <SelectItem value="pending">Pendiente</SelectItem>
+                          <SelectItem value="reviewed">Revisado</SelectItem>
+                          <SelectItem value="completed">Completado</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         <Checkbox
