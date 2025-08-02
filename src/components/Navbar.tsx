@@ -19,8 +19,8 @@ const Navbar = () => {
     { key: 'nav.services', href: '#servicios', isHash: true },
     { key: 'nav.value', href: '#oferta-valor', isHash: true },
     { key: 'nav.clients', href: '#clientes', isHash: true },
-    { key: 'nav.jobs', href: '/bolsa-de-trabajo', isHash: false },
     { key: 'nav.contact', href: '#contacto', isHash: true },
+    { key: 'nav.jobs', href: '/bolsa-de-trabajo', isHash: false, highlighted: true },
   ];
 
   const handleNavClick = (href: string, isHash: boolean) => {
@@ -61,7 +61,11 @@ const Navbar = () => {
                   <Link
                     key={item.key}
                     to={item.href}
-                    className="text-secondary hover:text-primary px-3 py-2 text-sm font-semibold transition-colors duration-200"
+                    className={
+                      item.highlighted
+                        ? "bg-primary text-white hover:bg-primary/90 px-4 py-2 text-sm font-semibold rounded-md border-2 border-primary transition-all duration-200"
+                        : "text-secondary hover:text-primary px-3 py-2 text-sm font-semibold transition-colors duration-200"
+                    }
                   >
                     {t(item.key)}
                   </Link>
@@ -121,7 +125,11 @@ const Navbar = () => {
                     key={item.key}
                     to={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-secondary hover:text-primary block px-3 py-2 text-base font-semibold transition-colors duration-200"
+                    className={
+                      item.highlighted
+                        ? "bg-primary text-white hover:bg-primary/90 block px-4 py-2 text-base font-semibold rounded-md border-2 border-primary transition-all duration-200 mx-3 my-2"
+                        : "text-secondary hover:text-primary block px-3 py-2 text-base font-semibold transition-colors duration-200"
+                    }
                   >
                     {t(item.key)}
                   </Link>
