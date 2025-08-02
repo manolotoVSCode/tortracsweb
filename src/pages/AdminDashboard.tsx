@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
 import { LogOut, Mail, Users, FileText, Archive, Home } from 'lucide-react';
 import UserManagement from '@/components/UserManagement';
+import ChangePassword from '@/components/ChangePassword';
 import FormConfiguration from '@/components/FormConfiguration';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
@@ -318,6 +319,7 @@ const AdminDashboard = () => {
             <p className="text-sm text-muted-foreground">TORTRACS</p>
           </div>
           <div className="flex items-center space-x-4">
+            <ChangePassword />
             <Button
               variant="ghost"
               size="sm"
@@ -349,34 +351,41 @@ const AdminDashboard = () => {
           </div>
         )}
 
-        {/* Stats Cards */}
+        {/* Stats Cards - Show only relevant data per role */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Cotizaciones</CardTitle>
-              <Mail className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{contactSubmissions.length}</div>
-              <p className="text-xs text-muted-foreground">
-                Solicitudes de contacto recibidas
-              </p>
-            </CardContent>
-          </Card>
+          {/* Total Cotizaciones - Only for gestorCO, admin and super_admin */}
+          {(userRole === 'gestorCO' || userRole === 'admin' || userRole === 'super_admin') && (
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Cotizaciones</CardTitle>
+                <Mail className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{contactSubmissions.length}</div>
+                <p className="text-xs text-muted-foreground">
+                  Solicitudes de contacto recibidas
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Aplicaciones de Trabajo</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{jobApplications.length}</div>
-              <p className="text-xs text-muted-foreground">
-                CVs recibidos para vacantes
-              </p>
-            </CardContent>
-          </Card>
+          {/* Aplicaciones de Trabajo - Only for gestorRH, admin and super_admin */}
+          {(userRole === 'gestorRH' || userRole === 'admin' || userRole === 'super_admin') && (
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Aplicaciones de Trabajo</CardTitle>
+                <Users className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{jobApplications.length}</div>
+                <p className="text-xs text-muted-foreground">
+                  CVs recibidos para vacantes
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
+          {/* Pendientes - Show relevant pending items per role */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Pendientes</CardTitle>
@@ -384,11 +393,21 @@ const AdminDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {contactSubmissions.filter(c => c.status === 'pending').length + 
-                 jobApplications.filter(j => j.status === 'pending').length}
+                {(() => {
+                  let pending = 0;
+                  if (userRole === 'gestorCO' || userRole === 'admin' || userRole === 'super_admin') {
+                    pending += contactSubmissions.filter(c => c.status === 'pending').length;
+                  }
+                  if (userRole === 'gestorRH' || userRole === 'admin' || userRole === 'super_admin') {
+                    pending += jobApplications.filter(j => j.status === 'pending').length;
+                  }
+                  return pending;
+                })()}
               </div>
               <p className="text-xs text-muted-foreground">
-                Total de elementos pendientes
+                {userRole === 'gestorCO' ? 'Cotizaciones pendientes' :
+                 userRole === 'gestorRH' ? 'Aplicaciones pendientes' :
+                 'Total de elementos pendientes'}
               </p>
             </CardContent>
           </Card>
