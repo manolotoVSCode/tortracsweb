@@ -142,6 +142,7 @@ const Jobs = () => {
             phone: formData.phone,
             department: formData.department,
             cv_filename: formData.cv.name,
+            cv_file_path: filePath,
           },
         });
 

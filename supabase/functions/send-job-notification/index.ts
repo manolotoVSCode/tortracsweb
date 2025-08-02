@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "npm:resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.53.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,7 +13,13 @@ interface JobNotificationRequest {
   phone?: string;
   department: string;
   cv_filename: string;
+  cv_file_path?: string;
 }
+
+// Initialize Supabase client
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const handler = async (req: Request): Promise<Response> => {
   console.log("=== JOB NOTIFICATION FUNCTION STARTED ===");
@@ -25,9 +32,9 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     console.log("=== PROCESSING JOB APPLICATION REQUEST ===");
-    const { full_name, email, phone, department, cv_filename }: JobNotificationRequest = await req.json();
+    const { full_name, email, phone, department, cv_filename, cv_file_path }: JobNotificationRequest = await req.json();
     
-    console.log("Job application data:", { full_name, email, phone, department, cv_filename });
+    console.log("Job application data:", { full_name, email, phone, department, cv_filename, cv_file_path });
     
     const apiKey = Deno.env.get("RESEND_API_KEY");
     console.log("API Key exists:", !!apiKey);
@@ -40,6 +47,28 @@ const handler = async (req: Request): Promise<Response> => {
     // Initialize Resend
     const resend = new Resend(apiKey);
     console.log("Resend initialized successfully");
+
+    // Get the CV file from storage to attach it
+    console.log("Getting CV file from storage...");
+    const filePath = cv_file_path || cv_filename;
+    console.log("Using file path:", filePath);
+    const { data: cvFile, error: downloadError } = await supabase.storage
+      .from('cv-uploads')
+      .download(filePath);
+    
+    let attachments = [];
+    if (cvFile && !downloadError) {
+      console.log("CV file retrieved successfully");
+      const arrayBuffer = await cvFile.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
+      
+      attachments = [{
+        filename: cv_filename,
+        content: uint8Array,
+      }];
+    } else {
+      console.error("Error downloading CV file:", downloadError);
+    }
 
     // Send notification email to TORTRACS HR
     console.log("Sending job application notification email...");
@@ -55,9 +84,10 @@ const handler = async (req: Request): Promise<Response> => {
           <p><strong>Email:</strong> ${email}</p>
           ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ''}
           <p><strong>CV:</strong> ${cv_filename}</p>
-          <p>El CV se encuentra disponible en el panel de administración.</p>
+          ${attachments.length > 0 ? '<p>El CV se encuentra adjunto a este email.</p>' : '<p>El CV se encuentra disponible en el panel de administración.</p>'}
         </div>
       `,
+      attachments: attachments,
     });
 
     console.log("Job notification email result:", notificationEmailResponse);
