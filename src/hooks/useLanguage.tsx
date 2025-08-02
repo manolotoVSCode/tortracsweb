@@ -76,7 +76,7 @@ const translations = {
     'value.testimonial1.author': '- María González, Directora Logística, Grupo Industrial del Norte',
     'value.testimonial2.content': '"El rastreo en tiempo real nos da la tranquilidad que necesitamos. Servicio 100% confiable."',
     'value.testimonial2.author': '- Carlos Mendoza, Gerente de Operaciones, TechCorp México',
-    'value.associations': 'Asociaciones',
+    'value.associations': 'Asociaciones a las que pertenecemos',
     
     // Clients Section
     'clients.title': 'Nuestros Principales Clientes',
