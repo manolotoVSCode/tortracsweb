@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import AdminDashboard from "./pages/AdminDashboard";
 import DownloadHero from "./pages/DownloadHero";
 import ImageGallery from "./pages/ImageGallery";
+import HeroImageSelector from "./pages/HeroImageSelector";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/download-hero" element={<DownloadHero />} />
             <Route path="/imagenes" element={<ImageGallery />} />
+            <Route path="/hero-selector" element={<HeroImageSelector />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
