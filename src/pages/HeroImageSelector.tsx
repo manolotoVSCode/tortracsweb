@@ -11,9 +11,34 @@ const HeroImageSelector = () => {
       description: 'Camiones modernos en carretera al atardecer con cielo dramático en tonos dorados y púrpuras'
     },
     {
-      name: 'Flota Logística',
+      name: 'Flota Logística Original',
       path: '/hero-truck-fleet-logistics.jpg',
-      description: 'Flota de camiones blancos y azules en formación en un centro logístico moderno, vista aérea'
+      description: 'Flota de camiones en formación en un centro logístico moderno, vista aérea'
+    },
+    {
+      name: 'Flota Volvo Distribución',
+      path: '/hero-fleet-volvo-distribution.jpg',
+      description: 'Flota de camiones Volvo blancos y rojos en centro de distribución moderno'
+    },
+    {
+      name: 'Flota Scania Logística',
+      path: '/hero-fleet-scania-logistics.jpg',
+      description: 'Camiones Scania azules y blancos en almacén logístico con múltiples muelles de carga'
+    },
+    {
+      name: 'Flota DAF al Atardecer',
+      path: '/hero-fleet-daf-sunset.jpg',
+      description: 'Flota de camiones DAF en formación al atardecer, centro logístico profesional'
+    },
+    {
+      name: 'Flota MAN Carga',
+      path: '/hero-fleet-man-cargo.jpg',
+      description: 'Camiones MAN en hub logístico ocupado, operación comercial dinámica'
+    },
+    {
+      name: 'Flota Renault Depósito',
+      path: '/hero-fleet-renault-depot.jpg',
+      description: 'Flota de camiones Renault en depósito moderno con branding verde y blanco'
     },
     {
       name: 'Camión Desierto Movimiento',
@@ -24,16 +49,6 @@ const HeroImageSelector = () => {
       name: 'Puerto Industrial',
       path: '/hero-trucks-port-industrial.jpg',
       description: 'Camiones modernos en puerto ocupado con contenedores y grúas, atmósfera industrial'
-    },
-    {
-      name: 'Camiones Eléctricos Futuristas',
-      path: '/hero-trucks-electric-future.jpg',
-      description: 'Camiones eléctricos futuristas en carretera moderna, tema de energía limpia'
-    },
-    {
-      name: 'Paisaje Montañoso',
-      path: '/hero-trucks-mountain-scenic.jpg',
-      description: 'Camiones rojos y negros atravesando paisaje montañoso con carreteras serpenteantes'
     },
     {
       name: 'Conductores al Amanecer',
