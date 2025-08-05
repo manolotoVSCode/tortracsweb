@@ -7,12 +7,13 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
-import { LogOut, Mail, Users, FileText, Archive, Home } from 'lucide-react';
+import { LogOut, Mail, Users, FileText, Archive, Home, Download, Trash2 } from 'lucide-react';
 import UserManagement from '@/components/UserManagement';
 import ChangePassword from '@/components/ChangePassword';
 import FormConfiguration from '@/components/FormConfiguration';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import * as XLSX from 'xlsx';
 
 interface ContactSubmission {
   id: string;
@@ -265,13 +266,219 @@ const AdminDashboard = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('es-MX', {
+    return new Date(dateString).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit',
+      minute: '2-digit'
     });
+  };
+
+  // Download Excel functions
+  const downloadContactSubmissionsExcel = async () => {
+    try {
+      // Fetch all contact submissions (including archived)
+      const { data: allSubmissions, error } = await supabase
+        .from('contact_submissions')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Prepare data for Excel
+      const excelData = allSubmissions?.map(submission => ({
+        'ID': submission.id,
+        'Fecha': formatDate(submission.created_at),
+        'Nombre': submission.name,
+        'Empresa': submission.company,
+        'Email': submission.email,
+        'Teléfono': submission.phone || 'N/A',
+        'Mensaje': submission.message || 'N/A',
+        'Estado': submission.status,
+        'Archivado': submission.archived ? 'Sí' : 'No',
+        'Completado': submission.completed ? 'Sí' : 'No'
+      })) || [];
+
+      // Create workbook and worksheet
+      const ws = XLSX.utils.json_to_sheet(excelData);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Solicitudes Contacto');
+
+      // Generate filename with current date
+      const date = new Date().toISOString().split('T')[0];
+      const filename = `solicitudes_contacto_${date}.xlsx`;
+
+      // Download file
+      XLSX.writeFile(wb, filename);
+
+      toast({
+        title: "Descarga exitosa",
+        description: `Archivo ${filename} descargado correctamente`,
+      });
+
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al descargar",
+        description: error.message,
+      });
+    }
+  };
+
+  const downloadJobApplicationsExcel = async () => {
+    try {
+      // Fetch all job applications (including archived)
+      const { data: allApplications, error } = await supabase
+        .from('job_applications')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // Prepare data for Excel
+      const excelData = allApplications?.map(application => ({
+        'ID': application.id,
+        'Fecha': formatDate(application.created_at),
+        'Nombre Completo': application.full_name,
+        'Email': application.email,
+        'Teléfono': application.phone || 'N/A',
+        'Departamento': application.department,
+        'Archivo CV': application.cv_filename,
+        'Ruta CV': application.cv_file_path || 'N/A',
+        'Estado': application.status,
+        'Archivado': application.archived ? 'Sí' : 'No'
+      })) || [];
+
+      // Create workbook and worksheet
+      const ws = XLSX.utils.json_to_sheet(excelData);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Aplicaciones Trabajo');
+
+      // Generate filename with current date
+      const date = new Date().toISOString().split('T')[0];
+      const filename = `aplicaciones_trabajo_${date}.xlsx`;
+
+      // Download file
+      XLSX.writeFile(wb, filename);
+
+      toast({
+        title: "Descarga exitosa",
+        description: `Archivo ${filename} descargado correctamente`,
+      });
+
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al descargar",
+        description: error.message,
+      });
+    }
+  };
+
+  // Delete functions (only for super admin)
+  const deleteAllContactSubmissions = async () => {
+    if (userRole !== 'super_admin') return;
+
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .delete()
+        .neq('id', ''); // Delete all records
+
+      if (error) throw error;
+
+      toast({
+        title: "Eliminación exitosa",
+        description: "Todas las solicitudes de contacto han sido eliminadas",
+      });
+
+      fetchData(); // Refresh data
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al eliminar",
+        description: error.message,
+      });
+    }
+  };
+
+  const deleteAllJobApplications = async () => {
+    if (userRole !== 'super_admin') return;
+
+    try {
+      const { error } = await supabase
+        .from('job_applications')
+        .delete()
+        .neq('id', ''); // Delete all records
+
+      if (error) throw error;
+
+      toast({
+        title: "Eliminación exitosa",
+        description: "Todas las aplicaciones de trabajo han sido eliminadas",
+      });
+
+      fetchData(); // Refresh data
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al eliminar",
+        description: error.message,
+      });
+    }
+  };
+
+  const deleteContactSubmission = async (id: string) => {
+    if (userRole !== 'super_admin') return;
+
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Solicitud eliminada",
+        description: "La solicitud de contacto ha sido eliminada",
+      });
+
+      fetchData(); // Refresh data
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al eliminar",
+        description: error.message,
+      });
+    }
+  };
+
+  const deleteJobApplication = async (id: string) => {
+    if (userRole !== 'super_admin') return;
+
+    try {
+      const { error } = await supabase
+        .from('job_applications')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Aplicación eliminada",
+        description: "La aplicación de trabajo ha sido eliminada",
+      });
+
+      fetchData(); // Refresh data
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error al eliminar",
+        description: error.message,
+      });
+    }
   };
 
   const getStatusButtonColor = (status: string) => {
@@ -417,10 +624,51 @@ const AdminDashboard = () => {
         {(userRole === 'gestorCO' || userRole === 'admin' || userRole === 'super_admin') && (
           <Card className="mb-8">
             <CardHeader>
-              <CardTitle>Solicitudes de Cotización Recientes</CardTitle>
-              <CardDescription>
-                Últimas {Math.min(contactSubmissions.length, 10)} solicitudes de contacto
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Solicitudes de Cotización Recientes</CardTitle>
+                  <CardDescription>
+                    Últimas {Math.min(contactSubmissions.length, 10)} solicitudes de contacto
+                  </CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={downloadContactSubmissionsExcel}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Descargar Excel
+                  </Button>
+                  {userRole === 'super_admin' && (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive" size="sm">
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Eliminar Todas
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>¿Eliminar todas las solicitudes?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Esta acción eliminará PERMANENTEMENTE todas las solicitudes de contacto de la base de datos. Esta acción NO se puede deshacer.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={deleteAllContactSubmissions}
+                            className="bg-destructive hover:bg-destructive/90"
+                          >
+                            Sí, eliminar todas
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  )}
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <Table>
@@ -462,30 +710,59 @@ const AdminDashboard = () => {
                         </Select>
                       </TableCell>
                       <TableCell>
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button variant="outline" size="sm">
-                              <Archive className="h-4 w-4 mr-2" />
-                              Archivar
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle>¿Archivar solicitud?</AlertDialogTitle>
-                              <AlertDialogDescription>
-                                Esta acción archivará la solicitud de cotización y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={() => updateContactSubmission(submission.id, { archived: true })}
-                              >
-                                Sí, archivar
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
+                        <div className="flex gap-2">
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button variant="outline" size="sm">
+                                <Archive className="h-4 w-4 mr-2" />
+                                Archivar
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>¿Archivar solicitud?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Esta acción archivará la solicitud de cotización y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => updateContactSubmission(submission.id, { archived: true })}
+                                >
+                                  Sí, archivar
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                          {userRole === 'super_admin' && (
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button variant="destructive" size="sm">
+                                  <Trash2 className="h-4 w-4 mr-2" />
+                                  Eliminar
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>¿Eliminar solicitud?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Esta acción eliminará PERMANENTEMENTE esta solicitud de la base de datos. Esta acción NO se puede deshacer.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => deleteContactSubmission(submission.id)}
+                                    className="bg-destructive hover:bg-destructive/90"
+                                  >
+                                    Sí, eliminar
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          )}
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -499,10 +776,51 @@ const AdminDashboard = () => {
         {(userRole === 'gestorRH' || userRole === 'admin' || userRole === 'super_admin') && (
           <Card>
             <CardHeader>
-              <CardTitle>Aplicaciones de Trabajo Recientes</CardTitle>
-              <CardDescription>
-                Últimas {Math.min(jobApplications.length, 10)} aplicaciones para empleos
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Aplicaciones de Trabajo Recientes</CardTitle>
+                  <CardDescription>
+                    Últimas {Math.min(jobApplications.length, 10)} aplicaciones para empleos
+                  </CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={downloadJobApplicationsExcel}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    Descargar Excel
+                  </Button>
+                  {userRole === 'super_admin' && (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive" size="sm">
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Eliminar Todas
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>¿Eliminar todas las aplicaciones?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Esta acción eliminará PERMANENTEMENTE todas las aplicaciones de trabajo de la base de datos. Esta acción NO se puede deshacer.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={deleteAllJobApplications}
+                            className="bg-destructive hover:bg-destructive/90"
+                          >
+                            Sí, eliminar todas
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  )}
+                </div>
+              </div>
             </CardHeader>
             <CardContent>
               <Table>
@@ -543,30 +861,59 @@ const AdminDashboard = () => {
                         </Select>
                        </TableCell>
                        <TableCell>
-                         <AlertDialog>
-                              <AlertDialogTrigger asChild>
-                                <Button variant="outline" size="sm">
-                                  <Archive className="h-4 w-4 mr-2" />
-                                  Archivar
-                                </Button>
-                              </AlertDialogTrigger>
-                              <AlertDialogContent>
-                                <AlertDialogHeader>
-                                  <AlertDialogTitle>¿Archivar aplicación?</AlertDialogTitle>
-                                  <AlertDialogDescription>
-                                    Esta acción archivará la aplicación de trabajo y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
-                                  </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                                  <AlertDialogAction
-                                    onClick={() => updateJobApplication(application.id, { archived: true })}
-                                  >
-                                    Sí, archivar
-                                  </AlertDialogAction>
-                                </AlertDialogFooter>
-                              </AlertDialogContent>
-                            </AlertDialog>
+                         <div className="flex gap-2">
+                           <AlertDialog>
+                             <AlertDialogTrigger asChild>
+                               <Button variant="outline" size="sm">
+                                 <Archive className="h-4 w-4 mr-2" />
+                                 Archivar
+                               </Button>
+                             </AlertDialogTrigger>
+                             <AlertDialogContent>
+                               <AlertDialogHeader>
+                                 <AlertDialogTitle>¿Archivar aplicación?</AlertDialogTitle>
+                                 <AlertDialogDescription>
+                                   Esta acción archivará la aplicación de trabajo y ya no aparecerá en el listado principal. Podrás revertir esta acción más tarde si es necesario.
+                                 </AlertDialogDescription>
+                               </AlertDialogHeader>
+                               <AlertDialogFooter>
+                                 <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                 <AlertDialogAction
+                                   onClick={() => updateJobApplication(application.id, { archived: true })}
+                                 >
+                                   Sí, archivar
+                                 </AlertDialogAction>
+                               </AlertDialogFooter>
+                             </AlertDialogContent>
+                           </AlertDialog>
+                           {userRole === 'super_admin' && (
+                             <AlertDialog>
+                               <AlertDialogTrigger asChild>
+                                 <Button variant="destructive" size="sm">
+                                   <Trash2 className="h-4 w-4 mr-2" />
+                                   Eliminar
+                                 </Button>
+                               </AlertDialogTrigger>
+                               <AlertDialogContent>
+                                 <AlertDialogHeader>
+                                   <AlertDialogTitle>¿Eliminar aplicación?</AlertDialogTitle>
+                                   <AlertDialogDescription>
+                                     Esta acción eliminará PERMANENTEMENTE esta aplicación de la base de datos. Esta acción NO se puede deshacer.
+                                   </AlertDialogDescription>
+                                 </AlertDialogHeader>
+                                 <AlertDialogFooter>
+                                   <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                                   <AlertDialogAction
+                                     onClick={() => deleteJobApplication(application.id)}
+                                     className="bg-destructive hover:bg-destructive/90"
+                                   >
+                                     Sí, eliminar
+                                   </AlertDialogAction>
+                                 </AlertDialogFooter>
+                               </AlertDialogContent>
+                             </AlertDialog>
+                           )}
+                         </div>
                        </TableCell>
                     </TableRow>
                   ))}
