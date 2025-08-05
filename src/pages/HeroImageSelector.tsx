@@ -51,14 +51,34 @@ const HeroImageSelector = () => {
       description: 'Camiones modernos en puerto ocupado con contenedores y grúas, atmósfera industrial'
     },
     {
-      name: 'Conductores al Amanecer',
-      path: '/hero-trucks-dawn-drivers.jpg',
-      description: 'Siluetas de camiones y conductores contra el cielo del amanecer, elemento humano'
+      name: 'Freightliner Cascadia Flota',
+      path: '/hero-fleet-freightliner-cascadia.jpg',
+      description: 'Flota profesional de camiones Freightliner Cascadia en centro logístico moderno'
     },
     {
-      name: 'Transporte Nocturno',
-      path: '/hero-trucks-night-city.jpg',
-      description: 'Camiones iluminados en carretera nocturna con luces de ciudad de fondo'
+      name: 'International ProStar',
+      path: '/hero-fleet-international-prostar.jpg',
+      description: 'Camiones International ProStar en formación en almacén de distribución'
+    },
+    {
+      name: 'Freightliner Columbia',
+      path: '/hero-fleet-freightliner-columbia.jpg',
+      description: 'Flota Freightliner Columbia al atardecer en instalaciones de carga'
+    },
+    {
+      name: 'International LT Series',
+      path: '/hero-fleet-international-lt.jpg',
+      description: 'Camiones International LT en depósito logístico moderno'
+    },
+    {
+      name: 'Freightliner e International Mix',
+      path: '/hero-fleet-freightliner-international-mix.jpg',
+      description: 'Flota mixta de Freightliner e International en carretera'
+    },
+    {
+      name: 'Freightliner Carretera',
+      path: '/hero-fleet-freightliner-highway.jpg',
+      description: 'Camiones Freightliner en operación de carretera durante hora azul'
     },
     {
       name: 'Actual (Carretera Principal)',
