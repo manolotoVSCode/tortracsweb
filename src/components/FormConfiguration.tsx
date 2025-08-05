@@ -245,16 +245,21 @@ const FormConfiguration = () => {
                         </div>
                         <div className="grid grid-cols-4 items-start gap-4">
                           <Label htmlFor="template_content" className="text-right mt-2">
-                            Contenido
+                            Cuerpo del Email
                           </Label>
-                          <Textarea
-                            id="template_content"
-                            value={editForm.template_content}
-                            onChange={(e) => setEditForm(prev => ({ ...prev, template_content: e.target.value }))}
-                            className="col-span-3"
-                            placeholder="Contenido del email..."
-                            rows={3}
-                          />
+                          <div className="col-span-3">
+                            <Textarea
+                              id="template_content"
+                              value={editForm.template_content}
+                              onChange={(e) => setEditForm(prev => ({ ...prev, template_content: e.target.value }))}
+                              className="min-h-[120px]"
+                              placeholder="Escriba aquí el contenido del email. Puede usar variables como {{name}}, {{email}}, {{company}}, etc."
+                              rows={6}
+                            />
+                            <p className="text-sm text-muted-foreground mt-2">
+                              Tip: Use variables como {"{{"} name {"}"}, {"{{"} email {"}"}, {"{{"} company {"}"} para personalizar el mensaje
+                            </p>
+                          </div>
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                           <Label htmlFor="is_active" className="text-right">
