@@ -7,42 +7,42 @@ const HeroImageSelector = () => {
   const heroOptions = [
     {
       name: 'Camiones Carretera Dorada',
-      path: '/src/assets/hero-trucks-golden-highway.jpg',
+      path: '/hero-trucks-golden-highway.jpg',
       description: 'Camiones modernos en carretera al atardecer con cielo dramático en tonos dorados y púrpuras'
     },
     {
       name: 'Flota Logística',
-      path: '/src/assets/hero-truck-fleet-logistics.jpg',
+      path: '/hero-truck-fleet-logistics.jpg',
       description: 'Flota de camiones blancos y azules en formación en un centro logístico moderno, vista aérea'
     },
     {
       name: 'Camión Desierto Movimiento',
-      path: '/src/assets/hero-truck-desert-motion.jpg',
+      path: '/hero-truck-desert-motion.jpg',
       description: 'Camión poderoso en movimiento en carretera del desierto con efecto de velocidad'
     },
     {
       name: 'Puerto Industrial',
-      path: '/src/assets/hero-trucks-port-industrial.jpg',
+      path: '/hero-trucks-port-industrial.jpg',
       description: 'Camiones modernos en puerto ocupado con contenedores y grúas, atmósfera industrial'
     },
     {
       name: 'Camiones Eléctricos Futuristas',
-      path: '/src/assets/hero-trucks-electric-future.jpg',
+      path: '/hero-trucks-electric-future.jpg',
       description: 'Camiones eléctricos futuristas en carretera moderna, tema de energía limpia'
     },
     {
       name: 'Paisaje Montañoso',
-      path: '/src/assets/hero-trucks-mountain-scenic.jpg',
+      path: '/hero-trucks-mountain-scenic.jpg',
       description: 'Camiones rojos y negros atravesando paisaje montañoso con carreteras serpenteantes'
     },
     {
       name: 'Conductores al Amanecer',
-      path: '/src/assets/hero-trucks-dawn-drivers.jpg',
+      path: '/hero-trucks-dawn-drivers.jpg',
       description: 'Siluetas de camiones y conductores contra el cielo del amanecer, elemento humano'
     },
     {
       name: 'Transporte Nocturno',
-      path: '/src/assets/hero-trucks-night-city.jpg',
+      path: '/hero-trucks-night-city.jpg',
       description: 'Camiones iluminados en carretera nocturna con luces de ciudad de fondo'
     },
     {
