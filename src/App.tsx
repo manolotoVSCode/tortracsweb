@@ -10,6 +10,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Jobs from "./pages/Jobs";
 import Auth from "./pages/Auth";
 import AdminDashboard from "./pages/AdminDashboard";
+import DownloadHero from "./pages/DownloadHero";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/bolsa-de-trabajo" element={<Jobs />} />
             <Route path="/admin" element={<Auth />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/download-hero" element={<DownloadHero />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
