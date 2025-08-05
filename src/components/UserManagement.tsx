@@ -232,26 +232,26 @@ const UserManagement = () => {
 
   const handleDeleteUser = async (user: UserWithRole) => {
     try {
-      // Delete user role first
-      const { error: roleError } = await supabase
-        .from('user_roles')
-        .delete()
-        .eq('user_id', user.user_id);
+      // Get the current session to include auth token
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No authenticated session');
+      }
 
-      if (roleError) throw roleError;
+      // Call the delete-user edge function
+      const { data, error } = await supabase.functions.invoke('delete-user', {
+        body: { user_id: user.user_id },
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
 
-      // Delete profile
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .delete()
-        .eq('user_id', user.user_id);
+      if (error) throw error;
 
-      if (profileError) throw profileError;
-
-      // Delete from auth.users (this is done through the admin API)
-      const { error: authError } = await supabase.auth.admin.deleteUser(user.user_id);
-
-      if (authError) throw authError;
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to delete user');
+      }
 
       toast({
         title: "Usuario eliminado",
