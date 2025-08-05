@@ -202,7 +202,7 @@ const FormConfiguration = () => {
                         Editar
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[600px] min-w-[500px] max-h-[90vh] overflow-auto resize border-2 border-border" style={{ resize: 'both' }}>
+                    <DialogContent className="w-[600px] min-w-[500px] max-w-[95vw] max-h-[90vh] overflow-auto resize border-2 border-border" style={{ resize: 'both' }}>
                       <DialogHeader>
                         <DialogTitle>Configurar {getFormTypeName(config.form_type)}</DialogTitle>
                         <DialogDescription>
