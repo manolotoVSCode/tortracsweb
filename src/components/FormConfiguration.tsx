@@ -234,7 +234,13 @@ const FormConfiguration = () => {
                             onChange={(e) => setEditForm(prev => ({ ...prev, to_email: e.target.value }))}
                             className="col-span-3"
                             placeholder="destinatario@tortracs.net"
+                            disabled={!editingConfig?.to_email || editingConfig.to_email === ''}
                           />
+                          {(!editingConfig?.to_email || editingConfig.to_email === '') && (
+                            <div className="col-span-4 text-sm text-muted-foreground text-center">
+                              El destinatario se define automáticamente según el usuario que envía el formulario
+                            </div>
+                          )}
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                           <Label htmlFor="subject" className="text-right">
