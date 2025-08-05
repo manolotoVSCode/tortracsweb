@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/hooks/useLanguage';
-import heroTrucksHighway from '@/assets/hero-trucks-highway.jpg';
+const heroTrucksHighway = '/hero-trucks-highway.jpg';
 
 const HeroSection = () => {
   const { t } = useLanguage();
