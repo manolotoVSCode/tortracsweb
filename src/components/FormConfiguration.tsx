@@ -112,7 +112,8 @@ const FormConfiguration = () => {
     const names = {
       contact_notification: 'Notificación de Contacto (TORTRACS)',
       contact_confirmation: 'Confirmación de Contacto (Usuario)',
-      job_notification: 'Notificación de Trabajo',
+      job_notification: 'Notificación de Trabajo (TORTRACS)',
+      job_confirmation: 'Confirmación de Trabajo (Usuario)',
       rejection_notification: 'Notificación de Rechazo'
     };
     return names[formType as keyof typeof names] || formType;
@@ -122,7 +123,8 @@ const FormConfiguration = () => {
     const descriptions = {
       contact_notification: 'Email enviado a TORTRACS cuando se recibe una nueva solicitud de cotización',
       contact_confirmation: 'Email de confirmación enviado al usuario que envió la solicitud',
-      job_notification: 'Email enviado cuando se recibe una nueva aplicación de trabajo',
+      job_notification: 'Email enviado a TORTRACS cuando se recibe una nueva aplicación de trabajo',
+      job_confirmation: 'Email de confirmación enviado al usuario que aplicó al trabajo',
       rejection_notification: 'Email enviado a candidatos cuando su aplicación es rechazada'
     };
     return descriptions[formType as keyof typeof descriptions] || '';

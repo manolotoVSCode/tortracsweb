@@ -44,21 +44,36 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY not configured");
     }
     
-    // Get email configuration from database
-    console.log("Getting email configuration...");
-    const { data: config, error: configError } = await supabase
+    // Get notification email configuration
+    console.log("Getting notification email configuration...");
+    const { data: notificationConfig, error: notificationConfigError } = await supabase
       .from('form_configurations')
       .select('*')
       .eq('form_type', 'job_notification')
       .eq('is_active', true)
       .single();
     
-    if (configError || !config) {
-      console.error("Error getting email configuration:", configError);
-      throw new Error("Email configuration not found");
+    if (notificationConfigError || !notificationConfig) {
+      console.error("Error getting notification email configuration:", notificationConfigError);
+      throw new Error("Notification email configuration not found");
     }
     
-    console.log("Email config:", config);
+    // Get confirmation email configuration
+    console.log("Getting confirmation email configuration...");
+    const { data: confirmationConfig, error: confirmationConfigError } = await supabase
+      .from('form_configurations')
+      .select('*')
+      .eq('form_type', 'job_confirmation')
+      .eq('is_active', true)
+      .single();
+    
+    if (confirmationConfigError || !confirmationConfig) {
+      console.error("Error getting confirmation email configuration:", confirmationConfigError);
+      throw new Error("Confirmation email configuration not found");
+    }
+    
+    console.log("Notification config:", notificationConfig);
+    console.log("Confirmation config:", confirmationConfig);
     
     // Initialize Resend
     const resend = new Resend(apiKey);
@@ -105,21 +120,33 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send notification email to TORTRACS HR
     console.log("Sending job application notification email...");
+    
+    // Replace variables in notification content
+    let notificationContent = notificationConfig.template_content || `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h1>Nueva Aplicación de Trabajo</h1>
+        <p><strong>Nombre:</strong> {{full_name}}</p>
+        <p><strong>Departamento:</strong> {{department}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        {{phone}}
+        <p><strong>CV:</strong> {{cv_filename}}</p>
+        {{attachment_note}}
+      </div>
+    `;
+    
+    notificationContent = notificationContent
+      .replace(/\{\{full_name\}\}/g, full_name)
+      .replace(/\{\{department\}\}/g, department)
+      .replace(/\{\{email\}\}/g, email)
+      .replace(/\{\{phone\}\}/g, phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : '')
+      .replace(/\{\{cv_filename\}\}/g, cv_filename)
+      .replace(/\{\{attachment_note\}\}/g, attachments.length > 0 ? '<p>El CV se encuentra adjunto a este email.</p>' : '<p>El CV se encuentra disponible en el panel de administración.</p>');
+
     const notificationEmailResponse = await resend.emails.send({
-      from: config.from_email,
-      to: [config.to_email],
-      subject: config.subject.replace('{department}', department),
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1>Nueva Aplicación de Trabajo</h1>
-          <p><strong>Nombre:</strong> ${full_name}</p>
-          <p><strong>Departamento:</strong> ${department}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ''}
-          <p><strong>CV:</strong> ${cv_filename}</p>
-          ${attachments.length > 0 ? '<p>El CV se encuentra adjunto a este email.</p>' : '<p>El CV se encuentra disponible en el panel de administración.</p>'}
-        </div>
-      `,
+      from: notificationConfig.from_email,
+      to: [notificationConfig.to_email],
+      subject: notificationConfig.subject.replace(/\{\{department\}\}/g, department),
+      html: notificationContent,
       attachments: attachments,
     });
 
@@ -127,21 +154,29 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to applicant
     console.log("Sending confirmation email to applicant...");
+    
+    // Replace variables in confirmation content
+    let confirmationContent = confirmationConfig.template_content || `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h1>¡Gracias por tu interés en TORTRACS!</h1>
+        <p>Estimado/a <strong>{{full_name}}</strong>,</p>
+        <p>Hemos recibido tu aplicación para el departamento de <strong>{{department}}</strong>.</p>
+        <p>Nuestro equipo de Recursos Humanos revisará tu perfil y nos pondremos en contacto contigo pronto.</p>
+        <p>¡Gracias por tu interés en formar parte de TORTRACS!</p>
+        <p>Saludos cordiales,<br>Equipo de Recursos Humanos<br>TORTRACS</p>
+      </div>
+    `;
+    
+    confirmationContent = confirmationContent
+      .replace(/\{\{full_name\}\}/g, full_name)
+      .replace(/\{\{department\}\}/g, department)
+      .replace(/\{\{email\}\}/g, email);
+
     const confirmationEmailResponse = await resend.emails.send({
-      from: "TORTRACS <noreply@tortracs.net>",
+      from: confirmationConfig.from_email,
       to: [email],
-      subject: "Hemos recibido tu aplicación - TORTRACS",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1>¡Gracias por tu interés en TORTRACS!</h1>
-          <p>Estimado/a <strong>${full_name}</strong>,</p>
-          <p>Hemos recibido tu aplicación para el departamento de <strong>${department}</strong>.</p>
-          <p>Nuestro equipo de Recursos Humanos revisará tu perfil y nos pondremos en contacto contigo si tu experiencia coincide con nuestras necesidades actuales.</p>
-          <p>¡Gracias por considerarnos como tu próximo destino profesional!</p>
-          <br>
-          <p>Saludos cordiales,<br>Equipo de Recursos Humanos<br>TORTRACS</p>
-        </div>
-      `,
+      subject: confirmationConfig.subject,
+      html: confirmationContent,
     });
 
     console.log("Confirmation email result:", confirmationEmailResponse);
