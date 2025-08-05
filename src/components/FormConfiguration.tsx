@@ -110,7 +110,8 @@ const FormConfiguration = () => {
 
   const getFormTypeName = (formType: string) => {
     const names = {
-      contact_notification: 'Notificación de Contacto',
+      contact_notification: 'Notificación de Contacto (TORTRACS)',
+      contact_confirmation: 'Confirmación de Contacto (Usuario)',
       job_notification: 'Notificación de Trabajo',
       rejection_notification: 'Notificación de Rechazo'
     };
@@ -119,7 +120,8 @@ const FormConfiguration = () => {
 
   const getFormTypeDescription = (formType: string) => {
     const descriptions = {
-      contact_notification: 'Email enviado cuando se recibe una nueva solicitud de cotización',
+      contact_notification: 'Email enviado a TORTRACS cuando se recibe una nueva solicitud de cotización',
+      contact_confirmation: 'Email de confirmación enviado al usuario que envió la solicitud',
       job_notification: 'Email enviado cuando se recibe una nueva aplicación de trabajo',
       rejection_notification: 'Email enviado a candidatos cuando su aplicación es rechazada'
     };
