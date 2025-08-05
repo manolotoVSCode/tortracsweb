@@ -152,7 +152,7 @@ const FormConfiguration = () => {
           Configuración de Formularios
         </CardTitle>
         <CardDescription>
-          Configurar emails y parámetros de los formularios del sitio web (Solo Super Admin)
+          Configurar emails y parámetros de los formularios del sitio web (Admin y Super Admin)
         </CardDescription>
       </CardHeader>
       <CardContent>
