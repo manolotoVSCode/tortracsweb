@@ -4,12 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Settings, Edit, Save, X } from 'lucide-react';
+import { Settings, Edit, Save } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 interface FormConfig {
   id: string;
@@ -252,13 +253,22 @@ const FormConfiguration = () => {
                             Cuerpo del Email
                           </Label>
                           <div className="col-span-3">
-                            <Textarea
-                              id="template_content"
+                            <ReactQuill
+                              theme="snow"
                               value={editForm.template_content}
-                              onChange={(e) => setEditForm(prev => ({ ...prev, template_content: e.target.value }))}
-                              className="min-h-[120px]"
-                              placeholder="Escriba aquí el contenido del email. Puede usar variables como {{name}}, {{email}}, {{company}}, etc."
-                              rows={6}
+                              onChange={(value) => setEditForm(prev => ({ ...prev, template_content: value }))}
+                              style={{ minHeight: '150px' }}
+                              modules={{
+                                toolbar: [
+                                  [{ 'header': [1, 2, 3, false] }],
+                                  ['bold', 'italic', 'underline'],
+                                  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                  ['link'],
+                                  [{ 'color': [] }, { 'background': [] }],
+                                  ['clean']
+                                ]
+                              }}
+                              placeholder="Escriba aquí el contenido del email..."
                             />
                             <p className="text-sm text-muted-foreground mt-2">
                               Tip: Use variables como {"{{"} name {"}"}, {"{{"} email {"}"}, {"{{"} company {"}"} para personalizar el mensaje
