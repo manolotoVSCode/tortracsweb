@@ -550,8 +550,8 @@ const AdminDashboard = () => {
       </header>
 
       <div className="container mx-auto px-4 py-8">
-        {/* Super Admin Modules */}
-        {userRole === 'super_admin' && (
+        {/* Admin and Super Admin Modules */}
+        {(userRole === 'admin' || userRole === 'super_admin') && (
           <div className="space-y-8 mb-8">
             <UserManagement />
             <FormConfiguration />
