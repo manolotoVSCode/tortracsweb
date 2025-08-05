@@ -331,7 +331,7 @@ const UserManagement = () => {
                 Crear Usuario
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Crear Nuevo Usuario</DialogTitle>
                 <DialogDescription>
@@ -481,7 +481,7 @@ const UserManagement = () => {
                           Editar
                         </Button>
                       </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
+                    <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
                       <DialogHeader>
                         <DialogTitle>Editar Usuario</DialogTitle>
                         <DialogDescription>
