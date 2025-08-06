@@ -134,7 +134,7 @@ const ContactSection = () => {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-primary mb-2">
-                        {t('contact.form.name')}
+                        {t('contact.form.name')} *
                       </label>
                       <Input
                         type="text"
@@ -147,7 +147,7 @@ const ContactSection = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-primary mb-2">
-                        {t('contact.form.email')}
+                        {t('contact.form.email')} *
                       </label>
                       <Input
                         type="email"
@@ -177,7 +177,7 @@ const ContactSection = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-primary mb-2">
-                        {t('contact.form.company')}
+                        {t('contact.form.company')} *
                       </label>
                       <Input
                         type="text"
