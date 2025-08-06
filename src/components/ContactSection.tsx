@@ -40,8 +40,8 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Basic validation
-    if (!formData.name || !formData.company || !formData.email) {
+    // Basic validation - all fields required
+    if (!formData.name || !formData.email || !formData.phone || !formData.company || !formData.message) {
       toast({
         title: "Error",
         description: "Por favor complete todos los campos obligatorios.",
@@ -163,7 +163,7 @@ const ContactSection = () => {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-primary mb-2">
-                        {t('contact.form.phone')}
+                        {t('contact.form.phone')} *
                       </label>
                       <Input
                         type="tel"
@@ -171,6 +171,7 @@ const ContactSection = () => {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="Ejemplo: 5512345678"
+                        required
                         className="w-full"
                       />
                     </div>
@@ -191,13 +192,14 @@ const ContactSection = () => {
 
                   <div>
                     <label className="block text-sm font-semibold text-primary mb-2">
-                      {t('contact.form.message')}
+                      {t('contact.form.message')} *
                     </label>
                     <Textarea
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
                       rows={5}
+                      required
                       className="w-full"
                     />
                   </div>

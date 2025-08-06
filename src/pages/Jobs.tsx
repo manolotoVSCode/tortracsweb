@@ -76,7 +76,7 @@ const Jobs = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.department || !formData.fullName || !formData.email || !formData.cv) {
+    if (!formData.department || !formData.fullName || !formData.phone || !formData.email || !formData.cv) {
       toast({
         title: "Error",
         description: "Por favor complete todos los campos obligatorios y adjunte su CV.",
@@ -291,7 +291,7 @@ const Jobs = () => {
                     
                     <div>
                       <Label htmlFor="phone" className="text-primary font-semibold mb-2 block">
-                        Teléfono
+                        Teléfono *
                       </Label>
                       <Input
                         id="phone"
@@ -300,6 +300,7 @@ const Jobs = () => {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="Ejemplo: 5512345678"
+                        required
                         className="w-full"
                       />
                     </div>
