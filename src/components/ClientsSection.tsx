@@ -16,18 +16,18 @@ const ClientsSection = () => {
   const { t } = useLanguage();
 
   const clients = [
+    { name: 'Walmart', logo: walmartLogo },
+    { name: 'OXXO', logo: oxxoLogo },
+    { name: 'Italika', logo: italikaLogo },
     { name: 'Nestlé', logo: nestleLogo },
     { name: 'Kimberly-Clark', logo: kimberlyClarkLogo },
     { name: 'Purina', logo: purinaLogo },
-    { name: 'Kellogg\'s', logo: kelloggLogo },
-    { name: 'Italika', logo: italikaLogo },
+    { name: "Kellogg's", logo: kelloggLogo },
     { name: 'Neto', logo: netoLogo },
     { name: 'Mabe', logo: mabeLogo },
     { name: 'AKSI', logo: aksiLogo },
     { name: 'Whirlpool', logo: whirlpoolLogo },
-    { name: 'Heinz', logo: heinzLogo },
-    { name: 'OXXO', logo: oxxoLogo },
-    { name: 'Walmart', logo: walmartLogo }
+    { name: 'Heinz', logo: heinzLogo }
   ];
 
   return (
