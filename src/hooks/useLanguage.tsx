@@ -70,7 +70,7 @@ const translations = {
     'value.training.title': 'Formación continua',
     'value.training.description': 'Escuela de operadores propia para garantizar calidad y profesionalismo constante.',
     'value.infrastructure.title': 'Infraestructura propia',
-    'value.infrastructure.description': 'Taller mecánico, área de chapa y pintura, y tanque de diésel para consumo interno que aseguran autonomía y eficiencia.',
+    'value.infrastructure.description': 'Taller mecánico, área de hojalatería y pintura, y tanque de diésel para consumo interno que aseguran autonomía y eficiencia.',
     'value.testimonials.title': 'Lo que dicen nuestros clientes',
     'value.testimonial1.content': '"TORTRACS ha sido nuestro socio estratégico por más de 5 años. Su puntualidad y seguridad son excepcionales."',
     'value.testimonial1.author': '- María González, Directora Logística, Grupo Industrial del Norte',
