@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
-import { Award, Satellite, MonitorSpeaker, GraduationCap, Wrench, Quote } from 'lucide-react';
+import { Award, Satellite, MonitorSpeaker, GraduationCap, Wrench, Quote, Handshake } from 'lucide-react';
 import canacarLogo from '/lovable-uploads/db1e1dcd-725e-4168-a8f7-aac25fa99daf.png';
 import anerpvLogo from '/lovable-uploads/0beca359-2968-4f97-8e63-6add53ecd970.png';
 
@@ -33,6 +33,11 @@ const ValueSection = () => {
       icon: Wrench,
       title: t('value.infrastructure.title'),
       description: t('value.infrastructure.description'),
+    },
+    {
+      icon: Handshake,
+      title: t('value.alliance.title'),
+      description: t('value.alliance.description'),
     },
   ];
 
@@ -76,6 +81,7 @@ const ValueSection = () => {
                     {item.icon === MonitorSpeaker && <MonitorSpeaker className="h-8 w-8 text-white" />}
                     {item.icon === GraduationCap && <GraduationCap className="h-8 w-8 text-white" />}
                     {item.icon === Wrench && <Wrench className="h-8 w-8 text-white" />}
+                    {item.icon === Handshake && <Handshake className="h-8 w-8 text-white" />}
                   </div>
                 </div>
                 <h3 className="text-lg font-heading font-bold text-primary mb-3">
