@@ -381,10 +381,22 @@ const AdminDashboard = () => {
     if (userRole !== 'super_admin') return;
 
     try {
+      // Fetch all IDs first to avoid empty-UUID filters
+      const { data: idsData, error: idsError } = await supabase
+        .from('contact_submissions')
+        .select('id');
+      if (idsError) throw idsError;
+
+      const ids = (idsData || []).map((r: { id: string }) => r.id).filter(Boolean);
+      if (ids.length === 0) {
+        toast({ title: 'Sin registros', description: 'No hay solicitudes para eliminar.' });
+        return;
+      }
+
       const { error } = await supabase
         .from('contact_submissions')
         .delete()
-        .gte('created_at', '1900-01-01'); // Delete all records
+        .in('id', ids);
 
       if (error) throw error;
 
@@ -407,10 +419,21 @@ const AdminDashboard = () => {
     if (userRole !== 'super_admin') return;
 
     try {
+      const { data: idsData, error: idsError } = await supabase
+        .from('job_applications')
+        .select('id');
+      if (idsError) throw idsError;
+
+      const ids = (idsData || []).map((r: { id: string }) => r.id).filter(Boolean);
+      if (ids.length === 0) {
+        toast({ title: 'Sin registros', description: 'No hay aplicaciones para eliminar.' });
+        return;
+      }
+
       const { error } = await supabase
         .from('job_applications')
         .delete()
-        .gte('created_at', '1900-01-01'); // Delete all records
+        .in('id', ids);
 
       if (error) throw error;
 
