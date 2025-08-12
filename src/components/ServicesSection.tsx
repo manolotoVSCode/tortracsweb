@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Truck, Package, Container, Zap, Users, Route } from 'lucide-react';
@@ -70,19 +69,8 @@ const ServicesSection = () => {
           ))}
         </div>
 
-        {/* Deep links to landing pages */}
-        <div className="mt-12 text-center animate-fade-in">
-          <h3 className="text-2xl font-heading font-bold text-primary mb-6">Más información de servicios</h3>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link to="/servicios/ftl" className="story-link text-secondary hover:text-primary font-semibold">FTL - Carga completa</Link>
-            <Link to="/servicios/ltl" className="story-link text-secondary hover:text-primary font-semibold">LTL - Carga consolidada</Link>
-            <Link to="/servicios/refrigerados" className="story-link text-secondary hover:text-primary font-semibold">Refrigerados</Link>
-            <Link to="/servicios/gestion-aduanal" className="story-link text-secondary hover:text-primary font-semibold">Gestión aduanal</Link>
-          </div>
-        </div>
       </div>
     </section>
-
   );
 };
 
