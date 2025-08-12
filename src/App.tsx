@@ -13,6 +13,10 @@ import AdminDashboard from "./pages/AdminDashboard";
 import DownloadHero from "./pages/DownloadHero";
 import ImageGallery from "./pages/ImageGallery";
 import HeroImageSelector from "./pages/HeroImageSelector";
+import ServiceFTL from "./pages/services/FTL";
+import ServiceLTL from "./pages/services/LTL";
+import ServiceRefrigerados from "./pages/services/Refrigerados";
+import ServiceAduanal from "./pages/services/Aduanal";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
