@@ -1,3 +1,5 @@
+import SEO from '@/components/SEO';
+
 const DownloadHero = () => {
   const handleDownload = () => {
     const link = document.createElement('a');
@@ -10,6 +12,7 @@ const DownloadHero = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-background">
+      <SEO title="Descargar imagen hero | TORTRACS" description="Descarga la imagen hero del sitio." canonical="/download-hero" noIndex />
       <div className="max-w-2xl mx-auto text-center space-y-6">
         <h1 className="text-3xl font-bold text-foreground">Descargar Imagen Hero</h1>
         <p className="text-muted-foreground">

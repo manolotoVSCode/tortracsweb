@@ -10,6 +10,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
+import SEO from '@/components/SEO';
 
 const Jobs = () => {
   const { toast } = useToast();
@@ -207,6 +208,7 @@ const Jobs = () => {
 
   return (
     <div className="min-h-screen bg-background">
+        <SEO title="Bolsa de trabajo en transporte | TORTRACS" description="Vacantes para operadores, mecánicos y personal administrativo en logística y transporte." canonical="/bolsa-de-trabajo" image="/hero-trucks-highway.jpg" />
         <Navbar />
         
         <div className="py-20">

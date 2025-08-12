@@ -13,13 +13,15 @@ import AdminDashboard from "./pages/AdminDashboard";
 import DownloadHero from "./pages/DownloadHero";
 import ImageGallery from "./pages/ImageGallery";
 import HeroImageSelector from "./pages/HeroImageSelector";
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <LanguageProvider>
+    <HelmetProvider>
+      <TooltipProvider>
+        <LanguageProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
@@ -37,7 +39,8 @@ const App = () => (
           </Routes>
         </BrowserRouter>
       </LanguageProvider>
-    </TooltipProvider>
+      </TooltipProvider>
+    </HelmetProvider>
   </QueryClientProvider>
 );
 

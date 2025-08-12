@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import SEO from '@/components/SEO';
 
 const HeroImageSelector = () => {
   const [selectedImage, setSelectedImage] = useState<string>('');
@@ -99,6 +100,7 @@ const HeroImageSelector = () => {
 
   return (
     <div className="min-h-screen bg-background py-12">
+      <SEO title="Selector de imagen hero | TORTRACS" description="Elige la imagen hero para el sitio." canonical="/hero-selector" noIndex />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">

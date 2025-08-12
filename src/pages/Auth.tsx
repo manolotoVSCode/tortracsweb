@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { User, Session } from '@supabase/supabase-js';
+import SEO from '@/components/SEO';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
@@ -73,6 +74,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
+      <SEO title="Acceso administración | TORTRACS" description="Inicio de sesión del panel de administración de TORTRACS." canonical="/admin" noIndex />
       <Card className="w-full max-w-md">
          <CardHeader>
            <CardTitle>Administración TORTRACS</CardTitle>

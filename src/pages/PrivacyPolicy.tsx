@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 
 const PrivacyPolicy = () => {
@@ -9,6 +10,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SEO title="Aviso de privacidad | TORTRACS" description="Conoce cómo protegemos y tratamos tus datos personales en TORTRACS." canonical="/privacy-policy" />
       <div className="flex-1 py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}

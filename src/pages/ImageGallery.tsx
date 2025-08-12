@@ -1,3 +1,5 @@
+import SEO from '@/components/SEO';
+
 const ImageGallery = () => {
   // Images from public/lovable-uploads/
   const uploadedImages = [
@@ -112,6 +114,7 @@ const ImageGallery = () => {
 
   return (
     <div className="min-h-screen bg-background py-12">
+      <SEO title="Galería de imágenes | TORTRACS" description="Recursos visuales de la flota y logística de TORTRACS." canonical="/imagenes" noIndex />
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">
