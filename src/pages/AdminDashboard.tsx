@@ -433,10 +433,21 @@ const AdminDashboard = () => {
     if (userRole !== 'super_admin') return;
 
     try {
+      const safeId = (id ?? '').toString().trim();
+      console.log('[deleteContactSubmission] id:', safeId);
+      if (!safeId) {
+        toast({
+          variant: "destructive",
+          title: "Error al eliminar",
+          description: "ID inválido de la solicitud",
+        });
+        return;
+      }
+
       const { error } = await supabase
         .from('contact_submissions')
         .delete()
-        .eq('id', id);
+        .eq('id', safeId);
 
       if (error) throw error;
 
@@ -459,10 +470,21 @@ const AdminDashboard = () => {
     if (userRole !== 'super_admin') return;
 
     try {
+      const safeId = (id ?? '').toString().trim();
+      console.log('[deleteJobApplication] id:', safeId);
+      if (!safeId) {
+        toast({
+          variant: "destructive",
+          title: "Error al eliminar",
+          description: "ID inválido de la aplicación",
+        });
+        return;
+      }
+
       const { error } = await supabase
         .from('job_applications')
         .delete()
-        .eq('id', id);
+        .eq('id', safeId);
 
       if (error) throw error;
 
