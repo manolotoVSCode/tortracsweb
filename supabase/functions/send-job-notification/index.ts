@@ -144,7 +144,10 @@ const handler = async (req: Request): Promise<Response> => {
 
     const notificationEmailResponse = await resend.emails.send({
       from: notificationConfig.from_email,
-      to: [notificationConfig.to_email],
+      to: (notificationConfig.to_email || '')
+        .split(/[;,]/)
+        .map((s: string) => s.trim())
+        .filter((s: string) => s.length > 0),
       subject: notificationConfig.subject.replace(/\{\{department\}\}/g, department),
       html: notificationContent,
       attachments: attachments,

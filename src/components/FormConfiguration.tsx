@@ -227,15 +227,21 @@ const FormConfiguration = () => {
                           <Label htmlFor="to_email" className="text-right">
                             Para (To)
                           </Label>
-                          <Input
-                            id="to_email"
-                            type="email"
-                            value={editForm.to_email}
-                            onChange={(e) => setEditForm(prev => ({ ...prev, to_email: e.target.value }))}
-                            className="col-span-3"
-                            placeholder="destinatario@tortracs.net"
-                            disabled={!editingConfig?.to_email || editingConfig.to_email === ''}
-                          />
+                          <div className="col-span-3">
+                            <Input
+                              id="to_email"
+                              type="text"
+                              value={editForm.to_email}
+                              onChange={(e) => setEditForm(prev => ({ ...prev, to_email: e.target.value }))}
+                              placeholder="destinatario1@tortracs.net, destinatario2@tortracs.net"
+                              disabled={!editingConfig?.to_email || editingConfig.to_email === ''}
+                            />
+                            {editingConfig?.to_email && editingConfig.to_email !== '' && (
+                              <p className="text-sm text-muted-foreground mt-1">
+                                Puedes agregar múltiples destinatarios separados por coma (,) o punto y coma (;).
+                              </p>
+                            )}
+                          </div>
                           {(!editingConfig?.to_email || editingConfig.to_email === '') && (
                             <div className="col-span-4 text-sm text-muted-foreground text-center">
                               El destinatario se define automáticamente según el usuario que envía el formulario

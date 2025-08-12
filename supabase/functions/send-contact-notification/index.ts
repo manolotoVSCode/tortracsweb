@@ -100,9 +100,14 @@ const handler = async (req: Request): Promise<Response> => {
       .replace(/\{\{phone\}\}/g, phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : '')
       .replace(/\{\{message\}\}/g, message ? `<p><strong>Mensaje:</strong> ${message}</p>` : '');
 
+    const notificationRecipients = (notificationConfig.to_email || '')
+      .split(/[;,]/)
+      .map((s: string) => s.trim())
+      .filter((s: string) => s.length > 0);
+
     const notificationEmailResponse = await resend.emails.send({
       from: notificationConfig.from_email,
-      to: [notificationConfig.to_email],
+      to: notificationRecipients,
       subject: notificationConfig.subject.replace(/\{\{company\}\}/g, company),
       html: notificationContent,
     });
