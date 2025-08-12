@@ -1,45 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tortracs.net/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <lastmod>2025-08-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://tortracs.net/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tortracs.net/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tortracs.net/" />
+    <image:image>
+      <image:loc>https://tortracs.net/hero-trucks-highway.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://tortracs.net/bolsa-de-trabajo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <lastmod>2025-08-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://tortracs.net/bolsa-de-trabajo" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tortracs.net/bolsa-de-trabajo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tortracs.net/bolsa-de-trabajo" />
+    <image:image>
+      <image:loc>https://tortracs.net/hero-trucks-highway.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://tortracs.net/privacy-policy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <lastmod>2025-08-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://tortracs.net/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tortracs.net/privacy-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tortracs.net/privacy-policy" />
+    <image:image>
+      <image:loc>https://tortracs.net/hero-trucks-highway.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://tortracs.net/servicios/ftl</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <lastmod>2025-08-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://tortracs.net/servicios/ftl" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tortracs.net/servicios/ftl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tortracs.net/servicios/ftl" />
+    <image:image>
+      <image:loc>https://tortracs.net/hero-trucks-highway.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://tortracs.net/servicios/ltl</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <lastmod>2025-08-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://tortracs.net/servicios/ltl" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tortracs.net/servicios/ltl" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tortracs.net/servicios/ltl" />
+    <image:image>
+      <image:loc>https://tortracs.net/hero-trucks-highway.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://tortracs.net/servicios/refrigerados</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <lastmod>2025-08-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://tortracs.net/servicios/refrigerados" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tortracs.net/servicios/refrigerados" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tortracs.net/servicios/refrigerados" />
+    <image:image>
+      <image:loc>https://tortracs.net/hero-trucks-highway.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://tortracs.net/servicios/gestion-aduanal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <lastmod>2025-08-12</lastmod>
+    <xhtml:link rel="alternate" hreflang="es-MX" href="https://tortracs.net/servicios/gestion-aduanal" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://tortracs.net/servicios/gestion-aduanal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://tortracs.net/servicios/gestion-aduanal" />
+    <image:image>
+      <image:loc>https://tortracs.net/hero-trucks-highway.jpg</image:loc>
+    </image:image>
   </url>
 </urlset>
