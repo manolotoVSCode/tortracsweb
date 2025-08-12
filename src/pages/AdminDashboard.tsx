@@ -384,7 +384,7 @@ const AdminDashboard = () => {
       const { error } = await supabase
         .from('contact_submissions')
         .delete()
-        .neq('id', ''); // Delete all records
+        .not('id', 'is', null); // Delete all records
 
       if (error) throw error;
 
@@ -410,7 +410,7 @@ const AdminDashboard = () => {
       const { error } = await supabase
         .from('job_applications')
         .delete()
-        .neq('id', ''); // Delete all records
+        .not('id', 'is', null); // Delete all records
 
       if (error) throw error;
 
