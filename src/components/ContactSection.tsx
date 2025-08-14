@@ -7,10 +7,12 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { MapPin, Phone, Mail, Clock, Linkedin, Facebook } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import SuccessModal from '@/components/SuccessModal';
 
 const ContactSection = () => {
   const { t } = useLanguage();
   const { toast } = useToast();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -93,10 +95,8 @@ const ContactSection = () => {
         // Don't throw error here - form submission was successful, just email failed
       }
 
-      toast({
-        title: "Cotización enviada correctamente",
-        description: "Nos pondremos en contacto contigo pronto.",
-      });
+      // Show success modal instead of toast
+      setShowSuccessModal(true);
       
       // Reset form
       setFormData({
@@ -266,6 +266,14 @@ const ContactSection = () => {
             </Card>
         </div>
       </div>
+      
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        type="contact"
+        name={formData.name}
+        email={formData.email}
+      />
     </section>
   );
 };

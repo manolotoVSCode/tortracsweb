@@ -11,10 +11,12 @@ import Footer from '@/components/Footer';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import SEO from '@/components/SEO';
+import SuccessModal from '@/components/SuccessModal';
 
 const Jobs = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
     department: '',
     fullName: '',
@@ -167,11 +169,8 @@ const Jobs = () => {
         });
       }
 
-      toast({
-        title: "Aplicación enviada correctamente",
-        description: "Nos pondremos en contacto contigo pronto.",
-        duration: 5000, // 5 segundos
-      });
+      // Show success modal instead of toast
+      setShowSuccessModal(true);
       
       // Reset form completely
       setFormData({
@@ -369,6 +368,14 @@ const Jobs = () => {
         </div>
         
         <Footer />
+        
+        <SuccessModal
+          isOpen={showSuccessModal}
+          onClose={() => setShowSuccessModal(false)}
+          type="job"
+          name={formData.fullName}
+          email={formData.email}
+        />
       </div>
   );
 };
