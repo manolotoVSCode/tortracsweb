@@ -17,6 +17,7 @@ const Jobs = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [submittedData, setSubmittedData] = useState({ name: '', email: '' });
   const [formData, setFormData] = useState({
     department: '',
     fullName: '',
@@ -169,8 +170,8 @@ const Jobs = () => {
         });
       }
 
-      // Show success modal instead of toast
-      setShowSuccessModal(true);
+      // Store submitted data for modal
+      setSubmittedData({ name: formData.fullName, email: formData.email });
       
       // Reset form completely
       setFormData({
@@ -180,6 +181,9 @@ const Jobs = () => {
         email: '',
         cv: null,
       });
+      
+      // Show modal
+      setShowSuccessModal(true);
       
       // Reset file input
       const fileInput = document.getElementById('cv-upload') as HTMLInputElement;
@@ -373,8 +377,8 @@ const Jobs = () => {
           isOpen={showSuccessModal}
           onClose={() => setShowSuccessModal(false)}
           type="job"
-          name={formData.fullName}
-          email={formData.email}
+          name={submittedData.name}
+          email={submittedData.email}
         />
       </div>
   );

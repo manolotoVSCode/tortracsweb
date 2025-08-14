@@ -38,7 +38,7 @@ const SuccessModal = ({ isOpen, onClose, type, name, email }: SuccessModalProps)
           <div className="bg-muted/50 p-4 rounded-lg space-y-3">
             <div className="flex items-center justify-center space-x-2 text-sm text-secondary">
               <Mail className="w-4 h-4" />
-              <span>Se ha enviado una confirmación a: <span className="font-medium">{email}</span></span>
+              <span>Se ha enviado un correo de confirmación a tu email</span>
             </div>
             
             <div className="flex items-center justify-center space-x-2 text-sm text-secondary">

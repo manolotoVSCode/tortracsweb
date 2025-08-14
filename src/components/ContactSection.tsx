@@ -13,6 +13,7 @@ const ContactSection = () => {
   const { t } = useLanguage();
   const { toast } = useToast();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [submittedData, setSubmittedData] = useState({ name: '', email: '' });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -95,8 +96,8 @@ const ContactSection = () => {
         // Don't throw error here - form submission was successful, just email failed
       }
 
-      // Show success modal instead of toast
-      setShowSuccessModal(true);
+      // Store submitted data for modal
+      setSubmittedData({ name: formData.name, email: formData.email });
       
       // Reset form
       setFormData({
@@ -106,6 +107,9 @@ const ContactSection = () => {
         company: '',
         message: '',
       });
+      
+      // Show modal
+      setShowSuccessModal(true);
     } catch (error) {
       console.error('Error submitting contact form:', error);
       toast({
@@ -271,8 +275,8 @@ const ContactSection = () => {
         isOpen={showSuccessModal}
         onClose={() => setShowSuccessModal(false)}
         type="contact"
-        name={formData.name}
-        email={formData.email}
+        name={submittedData.name}
+        email={submittedData.email}
       />
     </section>
   );
