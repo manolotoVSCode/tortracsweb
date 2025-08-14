@@ -16,7 +16,7 @@ const SuccessModal = ({ isOpen, onClose, type, name, email }: SuccessModalProps)
   
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md" aria-describedby="success-description">
         <DialogHeader className="text-center">
           <div className="mx-auto mb-4 w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
             <CheckCircle className="w-8 h-8 text-green-600" />
@@ -26,7 +26,7 @@ const SuccessModal = ({ isOpen, onClose, type, name, email }: SuccessModalProps)
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4 text-center">
+        <div id="success-description" className="space-y-4 text-center">
           <p className="text-lg text-secondary">
             Hola <span className="font-semibold text-primary">{name}</span>, 
             {isContact 

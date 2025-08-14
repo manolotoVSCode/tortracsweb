@@ -189,16 +189,6 @@ const Jobs = () => {
       const fileInput = document.getElementById('cv-upload') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
       
-      // Reset select component by triggering a re-render
-      const selectTrigger = document.querySelector('[data-state]') as HTMLElement;
-      if (selectTrigger) {
-        selectTrigger.click();
-        setTimeout(() => {
-          const escEvent = new KeyboardEvent('keydown', { key: 'Escape' });
-          document.dispatchEvent(escEvent);
-        }, 10);
-      }
-      
     } catch (error) {
       console.error('Error submitting job application:', error);
       toast({
