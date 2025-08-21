@@ -141,3 +141,23 @@ All colors MUST be HSL.
     background: linear-gradient(135deg, hsl(var(--tortracs-light-blue)), hsl(var(--background)));
   }
 }
+
+/* Quill Editor Styles */
+.ql-toolbar {
+  border-top: 1px solid hsl(var(--border)) !important;
+  border-left: 1px solid hsl(var(--border)) !important;
+  border-right: 1px solid hsl(var(--border)) !important;
+  background: hsl(var(--background)) !important;
+}
+
+.ql-container {
+  border-bottom: 1px solid hsl(var(--border)) !important;
+  border-left: 1px solid hsl(var(--border)) !important;
+  border-right: 1px solid hsl(var(--border)) !important;
+  background: hsl(var(--background)) !important;
+}
+
+.ql-editor {
+  color: hsl(var(--foreground)) !important;
+  font-family: inherit !important;
+}

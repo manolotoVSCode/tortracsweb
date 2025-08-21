@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
+import { EditableText } from '@/components/EditableText';
 import { Truck, Package, Container, Zap, Users, Route } from 'lucide-react';
 
 const ServicesSection = () => {
@@ -37,9 +38,12 @@ const ServicesSection = () => {
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
             {t('services.title')}
           </h2>
-          <p className="text-lg text-secondary font-body max-w-4xl mx-auto leading-relaxed">
-            {t('services.subtitle')}
-          </p>
+          <EditableText
+            contentKey="services.subtitle"
+            fallback={t('services.subtitle')}
+            as="p"
+            className="text-lg text-secondary font-body max-w-4xl mx-auto leading-relaxed"
+          />
         </div>
 
         {/* Services Grid */}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
+import { EditableText } from '@/components/EditableText';
 import { Award, Satellite, MonitorSpeaker, GraduationCap, Wrench, Quote, Handshake } from 'lucide-react';
 import canacarLogo from '/lovable-uploads/db1e1dcd-725e-4168-a8f7-aac25fa99daf.png';
 import anerpvLogo from '/lovable-uploads/0beca359-2968-4f97-8e63-6add53ecd970.png';
@@ -61,9 +62,12 @@ const ValueSection = () => {
             <span className="text-tortracs-navy">{t('value.title').split(' ')[0]}</span>{' '}
             <span>{t('value.title').split(' ').slice(1).join(' ')}</span>
           </h2>
-          <p className="text-xl text-secondary font-body">
-            {t('value.subtitle')}
-          </p>
+          <EditableText
+            contentKey="value.subtitle"
+            fallback={t('value.subtitle')}
+            as="p"
+            className="text-xl text-secondary font-body"
+          />
         </div>
 
         {/* Differentiators */}

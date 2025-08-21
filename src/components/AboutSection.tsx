@@ -1,6 +1,7 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
+import { EditableRichText } from '@/components/EditableRichText';
 import { History, Target, Eye, Heart, TrendingUp, Users, MapPin, Truck, Shield, Handshake, Zap, Compass, Route } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -107,9 +108,11 @@ const AboutSection = () => {
                   {t('about.history.title')}
                 </h3>
               </div>
-              <div className="text-secondary text-lg leading-relaxed font-body whitespace-pre-line">
-                {t('about.history.content')}
-              </div>
+              <EditableRichText
+                contentKey="about.history.content"
+                fallback={t('about.history.content')}
+                className="text-secondary text-lg leading-relaxed font-body"
+              />
             </CardContent>
           </Card>
 
@@ -124,9 +127,11 @@ const AboutSection = () => {
                     {t('about.mission.title')}
                   </h3>
                 </div>
-                <p className="text-secondary text-lg leading-relaxed font-body">
-                  {t('about.mission.content')}
-                </p>
+                <EditableRichText
+                  contentKey="about.mission.content"
+                  fallback={t('about.mission.content')}
+                  className="text-secondary text-lg leading-relaxed font-body"
+                />
               </CardContent>
             </Card>
 
@@ -139,9 +144,11 @@ const AboutSection = () => {
                     {t('about.vision.title')}
                   </h3>
                 </div>
-                <p className="text-secondary text-lg leading-relaxed font-body">
-                  {t('about.vision.content')}
-                </p>
+                <EditableRichText
+                  contentKey="about.vision.content"
+                  fallback={t('about.vision.content')}
+                  className="text-secondary text-lg leading-relaxed font-body"
+                />
               </CardContent>
             </Card>
           </div>

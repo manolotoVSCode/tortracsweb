@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/hooks/useLanguage';
+import { EditableText } from '@/components/EditableText';
 const heroTrucksHighway = '/hero-trucks-highway.jpg';
 
 const HeroSection = () => {
@@ -20,12 +21,18 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6 leading-tight">
-            {t('hero.title')}
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 font-body">
-            {t('hero.subtitle')}
-          </p>
+          <EditableText
+            contentKey="hero.title"
+            fallback={t('hero.title')}
+            as="h1"
+            className="text-4xl md:text-6xl font-heading font-bold mb-6 leading-tight"
+          />
+          <EditableText
+            contentKey="hero.subtitle"
+            fallback={t('hero.subtitle')}
+            as="p"
+            className="text-xl md:text-2xl mb-8 text-white/90 font-body"
+          />
           <Button
             size="lg"
             className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"

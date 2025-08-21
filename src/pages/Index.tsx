@@ -7,6 +7,7 @@ import ClientsSection from '@/components/ClientsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+import { EditModeIndicator } from '@/components/EditModeIndicator';
 
 const Index = () => {
   const jsonLd = [
@@ -48,6 +49,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
         <SEO title="Transporte de carga en México | TORTRACS" description="Transporte de carga con servicios dedicados, spot, contenedores y LTL. Flota moderna con rastreo 24/7." canonical="/" image="/hero-trucks-highway.jpg" jsonLd={jsonLd} />
+        <EditModeIndicator />
         <Navbar />
         <HeroSection />
       <AboutSection />
