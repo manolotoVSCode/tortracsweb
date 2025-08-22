@@ -50,7 +50,7 @@ const Auth = () => {
     setLoading(true);
 
     const { error } = await supabase.auth.signInWithPassword({
-      email,
+      email: email.trim(),
       password,
     });
 
@@ -109,7 +109,35 @@ const Auth = () => {
             </Button>
           </form>
           
-          <div className="mt-4 text-center">
+          <div className="mt-2 text-center">
+            <Button
+              type="button"
+              variant="link"
+              onClick={async () => {
+                const trimmed = email.trim();
+                if (!trimmed) {
+                  toast({ variant: 'destructive', title: 'Ingresa tu email', description: 'Escribe tu correo para enviarte el enlace de recuperación.' });
+                  return;
+                }
+                try {
+                  setLoading(true);
+                  const redirectUrl = `${window.location.origin}/auth`;
+                  const { error } = await supabase.auth.resetPasswordForEmail(trimmed, { redirectTo: redirectUrl });
+                  if (error) throw error;
+                  toast({ title: 'Correo enviado', description: 'Revisa tu bandeja para restablecer tu contraseña.' });
+                } catch (err: any) {
+                  toast({ variant: 'destructive', title: 'No se pudo enviar', description: err.message || 'Intenta de nuevo en unos minutos.' });
+                } finally {
+                  setLoading(false);
+                }
+              }}
+              disabled={loading}
+            >
+              ¿Olvidaste tu contraseña?
+            </Button>
+          </div>
+          
+          <div className="mt-2 text-center">
             <Button 
               variant="ghost" 
               onClick={() => navigate('/')}
