@@ -2,6 +2,7 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/hooks/useLanguage';
 import { EditableRichText } from '@/components/EditableRichText';
+import { EditableText } from '@/components/EditableText';
 import { History, Target, Eye, Heart, TrendingUp, Users, MapPin, Truck, Shield, Handshake, Zap, Compass, Route } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -156,21 +157,25 @@ const AboutSection = () => {
           {/* Nuestros Valores - Full Width */}
           <Card className="border-none shadow-lg">
             <CardContent className="p-8">
-              <h3 className="text-3xl font-heading font-bold text-primary mb-8 text-center">
-                {t('about.values.title')}
-              </h3>
+              <EditableText
+                contentKey="about.values.title"
+                fallback={t('about.values.title')}
+                as="h3"
+                className="text-3xl font-heading font-bold text-primary mb-8 text-center"
+              />
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {values.map((value, index) => (
                   <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-background/50">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                       <value.icon className="h-6 w-6 text-primary" />
                     </div>
-                    <p className="text-secondary font-body text-base leading-relaxed">
-                      <span className="text-blue-900 font-bold">
-                        {value.text.split(':')[0]}:
-                      </span>
-                      {value.text.split(':').slice(1).join(':')}
-                    </p>
+                    <EditableText
+                      contentKey={`about.values.${['safety', 'responsibility', 'closeness', 'transparency', 'resilience', 'commitment'][index]}`}
+                      fallback={value.text}
+                      as="p"
+                      type="textarea"
+                      className="text-secondary font-body text-base leading-relaxed"
+                    />
                   </div>
                 ))}
               </div>
@@ -180,9 +185,12 @@ const AboutSection = () => {
           {/* Métricas - Full Width with Circular Graphics */}
           <Card className="border-none shadow-lg" ref={metricsRef}>
             <CardContent className="p-8">
-              <h3 className="text-3xl font-heading font-bold text-primary mb-12 text-center">
-                {t('about.metrics.title')}
-              </h3>
+              <EditableText
+                contentKey="about.metrics.title"
+                fallback={t('about.metrics.title')}
+                as="h3"
+                className="text-3xl font-heading font-bold text-primary mb-12 text-center"
+              />
               <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
                 {metrics.map((metric, index) => (
                   <div key={index} className="text-center group">
