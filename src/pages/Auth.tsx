@@ -23,11 +23,23 @@ const Auth = () => {
 
   useEffect(() => {
     // Check for password recovery hash in URL
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const hash = window.location.hash || '';
+    const hashParams = new URLSearchParams(hash.startsWith('#') ? hash.substring(1) : hash);
     const accessToken = hashParams.get('access_token');
     const type = hashParams.get('type');
-    
-    if (type === 'recovery' && accessToken) {
+    const error = hashParams.get('error');
+    const errorCode = hashParams.get('error_code');
+
+    if (error === 'access_denied' && errorCode === 'otp_expired') {
+      toast({
+        variant: 'destructive',
+        title: 'Enlace expirado',
+        description: 'Tu enlace de recuperación ha expirado. Solicita uno nuevo.'
+      });
+      // Clear hash to avoid repeating the error message
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      setIsRecoveryMode(false);
+    } else if (type === 'recovery' && accessToken) {
       setIsRecoveryMode(true);
     }
 
@@ -59,7 +71,7 @@ const Auth = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate, isRecoveryMode]);
+  }, [navigate, isRecoveryMode, toast]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
