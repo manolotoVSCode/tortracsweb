@@ -58,6 +58,7 @@ const AdminDashboard = () => {
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
+        console.log('[AdminDashboard] onAuthStateChange', { event, hasUser: !!session?.user });
         
         if (!session?.user) {
           setLoading(false); // avoid infinite loading if unauthenticated
@@ -70,6 +71,7 @@ const AdminDashboard = () => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      console.log('[AdminDashboard] getSession', { hasUser: !!session?.user });
       
       if (!session?.user) {
         setLoading(false); // avoid infinite loading if unauthenticated
@@ -89,6 +91,7 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
+      console.log('[AdminDashboard] fetchData start', { userId: session?.user?.id });
       
       // Fetch user role and profile
       if (session?.user) {
@@ -96,12 +99,13 @@ const AdminDashboard = () => {
           .from('user_roles')
           .select('role')
           .eq('user_id', session.user.id)
-          .single();
+          .maybeSingle();
 
         if (roleError && roleError.code !== 'PGRST116') {
           console.error('Error fetching user role:', roleError);
         } else {
           setUserRole(roleData?.role || null);
+          console.log('[AdminDashboard] role', roleData?.role);
         }
 
         // Fetch user profile
@@ -109,7 +113,7 @@ const AdminDashboard = () => {
           .from('profiles')
           .select('first_name, last_name')
           .eq('user_id', session.user.id)
-          .single();
+          .maybeSingle();
 
         if (profileError && profileError.code !== 'PGRST116') {
           console.error('Error fetching user profile:', profileError);
@@ -149,6 +153,7 @@ const AdminDashboard = () => {
         description: error.message,
       });
     } finally {
+      console.log('[AdminDashboard] fetchData done');
       setLoading(false);
     }
   };
