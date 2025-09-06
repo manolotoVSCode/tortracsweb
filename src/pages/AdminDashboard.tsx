@@ -60,6 +60,7 @@ const AdminDashboard = () => {
         setUser(session?.user ?? null);
         
         if (!session?.user) {
+          setLoading(false); // avoid infinite loading if unauthenticated
           navigate('/admin');
         }
       }
@@ -71,6 +72,7 @@ const AdminDashboard = () => {
       setUser(session?.user ?? null);
       
       if (!session?.user) {
+        setLoading(false); // avoid infinite loading if unauthenticated
         navigate('/admin');
       }
     });
