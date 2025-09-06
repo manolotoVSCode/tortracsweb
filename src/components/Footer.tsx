@@ -1,5 +1,6 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { Linkedin, Facebook } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import tortracsLogo from '@/assets/tortracs-logo-text-only.png';
 
 const Footer = () => {
@@ -41,19 +42,19 @@ const Footer = () => {
           {/* Copyright, Privacy and Social Links */}
           <div className="flex flex-col items-end text-right space-y-1">
             <div className="flex items-center space-x-4">
-              <a 
-                href="/admin"
+              <Link 
+                to="/admin"
                 className="text-white/80 hover:text-white font-body text-xs transition-colors duration-200"
               >
                 Admin
-              </a>
+              </Link>
               <span className="text-white/60">·</span>
-              <a 
-                href="/privacy-policy"
+              <Link 
+                to="/privacy-policy"
                 className="text-white/80 hover:text-white font-body text-xs transition-colors duration-200"
               >
                 {t('footer.privacy')}
-              </a>
+              </Link>
               <a 
                 href="https://www.linkedin.com/company/tortracs" 
                 target="_blank" 
