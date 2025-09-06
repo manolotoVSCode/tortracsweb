@@ -18,46 +18,51 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
-    const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+    // Listen for auth changes FIRST (no async work inside to avoid deadlocks)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       if (session?.user) {
-        await fetchUserRole(session.user.id);
+        // Defer fetching role to avoid calling Supabase inside the callback
+        setTimeout(() => {
+          fetchUserRole(session.user!.id);
+        }, 0);
+      } else {
+        setUserRole(null);
       }
       setLoading(false);
-    };
+    });
 
-    getSession();
+    // THEN get the initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        if (session?.user) {
-          await fetchUserRole(session.user.id);
-        } else {
-          setUserRole(null);
-        }
-        setLoading(false);
+      if (session?.user) {
+        setTimeout(() => {
+          fetchUserRole(session.user!.id);
+        }, 0);
+      } else {
+        setUserRole(null);
       }
-    );
+      setLoading(false);
+    });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const fetchUserRole = async (userId: string) => {
     try {
-      const { data: roleData } = await supabase
+      const { data: roleData, error } = await supabase
         .from('user_roles')
         .select('role')
         .eq('user_id', userId)
-        .single();
+        .maybeSingle();
       
+      if (error && (error as any).code !== 'PGRST116') {
+        console.error('Error fetching user role:', error);
+      }
       setUserRole(roleData?.role || null);
     } catch (error) {
       console.error('Error fetching user role:', error);

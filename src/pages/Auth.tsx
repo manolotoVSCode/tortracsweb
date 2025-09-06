@@ -19,20 +19,19 @@ const Auth = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        // Redirect authenticated users to admin dashboard
-        if (session?.user) {
-          navigate('/admin/dashboard');
-        }
-      }
-    );
+    // Listen for auth changes FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
 
-    // Check for existing session
+      // Redirect authenticated users to admin dashboard
+      if (session?.user) {
+        // Defer navigation to avoid potential race with route mounting
+        setTimeout(() => navigate('/admin/dashboard'), 0);
+      }
+    });
+
+    // THEN get the initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
