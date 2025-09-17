@@ -19,7 +19,7 @@ const Footer = () => {
               </h3>
             </div>
             <p className="text-white/80 font-body text-xs leading-tight -mt-1 mb-3">
-              Soluciones de transporte confiables
+              Soluciones de transporte confiables.
             </p>
             
             {/* Addresses */}
