@@ -26,13 +26,11 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row md:space-x-3">
               <div className="text-white/80 font-body" style={{ fontSize: '0.625rem' }}>
                 <p className="font-semibold text-white mb-1">Corporativo</p>
-                <p>Alejandro Dumas, 145</p>
                 <p>11550, Polanco, Miguel Hidalgo</p>
                 <p>CDMX</p>
               </div>
               <div className="text-white/80 font-body" style={{ fontSize: '0.625rem' }}>
                 <p className="font-semibold text-white mb-1">Patio Cuatitlán</p>
-                <p>Calle 5, 14</p>
                 <p>54879, La Palma, Cuatlitlán</p>
                 <p>Estado de México</p>
               </div>
